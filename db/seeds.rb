@@ -7,4 +7,14 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-puts "hello world"
+
+puts "Cleaning DB"
+Event.destroy_all
+
+puts "Start creation of events"
+
+Event.create!(
+  title: "Tennis à 10"
+)
+
+puts "event has been created"

@@ -1,0 +1,15 @@
+<h1>Nouvel événement</h1>
+
+<%= form_with model: @event, local: true do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <%= f.submit "Créer" %>
+<% end %>
