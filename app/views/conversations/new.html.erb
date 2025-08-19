@@ -1,0 +1,9 @@
+<h1>Nouvelle conversation</h1>
+
+<%= simple_form_for @conversation do |f| %>
+    <%= f.input :title, label: "Titre" %>
+
+    <%= f.input :context, label: "Contexte" %>
+
+    <%= f.button :submit, "Créer la conversation" %>
+<% end %>

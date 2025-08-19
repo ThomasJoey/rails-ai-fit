@@ -1,0 +1,12 @@
+<div class="container">
+<h1>List of Conv</h1>
+</div>
+
+<ul>
+  <% @conversations.each do |conversation| %>
+    <li>
+    <%= conversation.title %>
+    <%= conversation.context %>
+    </li>
+    <% end %>
+</ul>

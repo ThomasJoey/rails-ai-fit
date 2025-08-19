@@ -1,0 +1,24 @@
+<h1><%= @conversation.title %></h1>
+<p><%= @conversation.context %></p>
+
+<hr>
+
+<h2>Messages</h2>
+<ul>
+  <% @messages.each do |msg| %>
+    <li>
+      <%= msg.content %>
+      <small>(<%= l msg.created_at, format: :short %>)</small>
+    </li>
+  <% end %>
+</ul>
+
+
+
+
+<h3>Écrire un message</h3>
+
+<%= simple_form_for [@conversation, @message] do |f| %>
+  <%= f.input :content, as: :text, input_html: { rows: 2, placeholder: "Écris ton message..." }, label: false %>
+  <%= f.button :submit, "Envoyer" %>
+<% end %>
