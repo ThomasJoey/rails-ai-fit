@@ -43,12 +43,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_19_102658) do
     t.string "location"
     t.string "visibility"
     t.string "status"
-    t.bigint "user_id", null: false
-    t.bigint "message_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["message_id"], name: "index_events_on_message_id"
-    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -71,7 +67,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_19_102658) do
     t.string "last_name"
     t.string "city"
     t.string "preferences"
-    t.string "role", default: nil
+    t.string "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -79,7 +75,5 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_19_102658) do
   add_foreign_key "conversations", "users"
   add_foreign_key "event_participations", "events"
   add_foreign_key "event_participations", "users"
-  add_foreign_key "events", "messages"
-  add_foreign_key "events", "users"
   add_foreign_key "messages", "conversations"
 end
