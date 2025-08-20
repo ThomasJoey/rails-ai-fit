@@ -38,9 +38,15 @@ Conversation.create!([
 
 puts "Start creation of events"
 
-Event.create!(
-  title: "Tennis à 10"
-)
+Event.create!([
+  {
+    title: "Tennis à 10",
+    description: "Participez à une course conviviale de 5 km pour tous les niveaux, idéale pour rencontrer d'autres passionnés de course à pied.",
+    starts_at: Time.zone.parse("2025-08-22 10:00"),
+    ends_at:   Time.zone.parse("2025-08-22 12:00"),
+    location: "Parc Central, Paris"
+  }
+])
 
 puts "event has been created"
 
