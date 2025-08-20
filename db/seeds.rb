@@ -1,15 +1,40 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
-
-puts "Cleaning DB"
+puts "Nettoyage de la base..."
+Conversation.destroy_all
 Event.destroy_all
+User.destroy_all
+
+puts "Création des utilisateurs..."
+user = User.create!(
+  email: "test@example.com",
+  password: "password123", # Devise va générer l'encrypted_password
+  first_name: "Miki",
+  last_name: "Dev",
+  city: "Paris",
+  preferences: "dark mode",
+  role: "student"
+)
+
+puts "Création des conversations..."
+Conversation.create!([
+  {
+    title: "Apprentissage Rails",
+    context: "On discute des migrations et seeds pour le bootcamp.",
+    status: "active",
+    user: user
+  },
+  {
+    title: "Projet Final",
+    context: "Organisation des tâches du projet collaboratif.",
+    status: "pending",
+    user: user
+  },
+  {
+    title: "Pause café",
+    context: "Discussion informelle entre les étudiants.",
+    status: "archived",
+    user: user
+  }
+])
 
 puts "Start creation of events"
 
@@ -18,3 +43,5 @@ Event.create!(
 )
 
 puts "event has been created"
+
+puts "Seed terminée ✅"

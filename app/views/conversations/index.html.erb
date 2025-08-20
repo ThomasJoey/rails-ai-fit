@@ -1,0 +1,15 @@
+
+<h1>Conversation's list</h1>
+
+<%= link_to "Start a new conversation", new_conversation_path %>
+
+<ul>
+  <% @conversations.each do |conversation| %>
+    <li>
+   <strong> <%= conversation.title %></strong> <br>
+   <em> <%= conversation.context %></em>
+    <%= link_to "open /", conversation_path(conversation.id) %>
+    <%= link_to "delete", conversation_path(conversation.id), data: {turbo_method: :delete, turbo_confirm: "are you sure ?"} %>
+    </li>
+    <% end %>
+</ul>

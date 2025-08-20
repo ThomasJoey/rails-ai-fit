@@ -1,0 +1,27 @@
+<h1><%= @conversation.title.capit %></h1>
+<p><%= @conversation.context %></p>
+
+<hr>
+
+<h2>Messages</h2>
+<% @messages.each do |message| %>
+  <div class="<%= message.role %>">
+    <% if message.role == "user" %>
+      <strong>👤 Toi :</strong> <%= message.content %>
+    <% else %>
+      <strong>🤖 Bot :</strong> <%= message.content %>
+    <% end %>
+  </div>
+<% end %>
+
+
+
+
+<h3>Écrire un message</h3>
+
+<%= simple_form_for [@conversation, @message] do |f| %>
+  <%= f.input :content, as: :text, input_html: { rows: 2, placeholder: "Écris ton message..." }, label: false %>
+  <%= f.button :submit, "Envoyer" %>
+<% end %>
+
+<%= link_to "return to list", conversations_path() %>

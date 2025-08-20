@@ -9,10 +9,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  resources :conversations, only: [:index, :new, :show, :create, :destroy] do
+    resources :messages, only: [:create]
+  end
 
   resources :events, only: [:new, :create] do
     post :confirm, on: :member
     resources :event_participations, only: [:new, :create]
   end
-
 end
