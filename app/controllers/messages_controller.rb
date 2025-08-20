@@ -4,8 +4,14 @@ class MessagesController < ApplicationController
 
   def create
     @message = @conversation.messages.new(message_params)
+    @message.role = "user"
 
     if @message.save
+      bot_response = call_ai_bot(@message.content)
+      @conversation.messages.create!(
+        content: bot_response,
+        role: "bot"
+      )
 
       redirect_to conversation_path(@conversation), notice: "Message envoyé ✅"
     else
@@ -22,5 +28,9 @@ class MessagesController < ApplicationController
 
   def message_params
     params.require(:message).permit(:content)
+  end
+
+  def call_ai_bot(user_message)
+    RubyLLM.chat(prompt: user_message)
   end
 end
