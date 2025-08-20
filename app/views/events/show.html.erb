@@ -1,17 +1,27 @@
-<h1>Propositions d'événements sportifs</h1>
+<div class="container mt-4">
+  <h1 class="mb-4">Événements proposés</h1>
 
-<p>Voici trois idées générées pour toi :</p>
-
-<%= form_with url: confirm_event_path(@event), method: :post, local: true do |f| %>
-  <% @proposals.to_s.split(/\n{2,}/).each_with_index do |proposal, i| %>
-    <div style="margin-bottom: 1rem; padding: 1rem; border: 1px solid #ccc; border-radius: 8px;">
-      <label>
-        <%= f.radio_button :proposal, proposal, id: "proposal_#{i}" %>
-        <strong>Proposition <%= i + 1 %> :</strong><br>
-        <%= simple_format(proposal) %>
-      </label>
-    </div>
-  <% end %>
-
-  <%= f.submit "Valider mon choix", class: "btn btn-primary" %>
-<% end %>
+  <div class="row">
+    <% @events.each do |event| %>
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title"><%= event["title"] %></h5>
+            <p class="card-text"><%= event["description"] %></p>
+            <ul class="list-unstyled mb-0">
+              <li>
+                <strong>📅 Début :</strong>
+                <%= event["starts_at"].to_time.strftime("%d/%m/%Y %H:%M") if event["starts_at"].present? %>
+              </li>
+              <li>
+                <strong>⏰ Fin :</strong>
+                <%= event["ends_at"].to_time.strftime("%d/%m/%Y %H:%M") if event["ends_at"].present? %>
+              </li>
+              <li><strong>📍 Lieu :</strong> <%= event["location"] %></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

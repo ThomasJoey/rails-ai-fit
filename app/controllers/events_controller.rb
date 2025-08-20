@@ -13,32 +13,40 @@ class EventsController < ApplicationController
     end
   end
 
- def show
-  message = Message.first
-  chat = RubyLLM.chat
+  # def show
+  # message = Message.first
+  # chat = RubyLLM.chat
 
-  system_prompt = <<~PROMPT
-    You are a friendly sport events organizer whose goal is to help people meet others through sport events.
-    List three sport event proposals. For each event, provide:
-    - Title
-    - Description
-    - Start date
-    - End date
-    - Location
-    Output exactly three proposals in French, then a JSON array "events" with those five keys.
-  PROMPT
+  # system_prompt = <<~PROMPT
+  #   You are a friendly sport events organizer whose goal is to help people meet others through sport events.
+  #   For each event, provide :
+  #   - Title
+  #   - Description
+  #   - Starts_at
+  #   - Ends_at
+  #   - Location
+  #   Output exactly three proposals in French on the JSON array name "events" with those five keys.
+  # PROMPT
 
-  chat.with_instructions(system_prompt)
+  # chat.with_instructions(system_prompt)
 
-  user_prompt = "J'aimerais faire du sport jeudi. #{message&.content}"
-  response = chat.ask(user_prompt)
+  # user_prompt = "J'aimerais faire du sport jeudi. #{message&.content}"
+  # response = chat.ask(user_prompt)
 
-  # Option A : afficher brut
-  render plain: response.content
+  # # Option A : afficher brut
+  # render plain: response.content
 
-  # Option B : si tu préfères une vue
-  # @llm_text = response.content
-  # render :show
+  # # Option B : si tu préfères une vue
+  # # @llm_text = response.content
+  # # render :show
+  # end
+
+  def show
+    # JSON_response = à récupérer chez micka
+    # @events = JSON.parse(json_response)
+
+    @events = Event.all.as_json(only: [:title, :description, :starts_at, :ends_at, :location])
+
   end
 
 
