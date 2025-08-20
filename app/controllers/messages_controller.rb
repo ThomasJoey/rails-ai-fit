@@ -3,10 +3,10 @@ class MessagesController < ApplicationController
   before_action :set_conversation
 
   def create
-    @message = @conversation.messages.new(content: params[:message][:content], role: :user)
+    @message = @conversation.messages.new(message_params)
 
     if @message.save
-      
+
       redirect_to conversation_path(@conversation), notice: "Message envoyé ✅"
     else
       @messages = @conversation.messages.order(:created_at)
