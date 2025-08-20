@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :messages, only: [:create]
   end
 
-  resources :events, only: [:new, :create] do
+  resources :events, only: [:new, :create, :show] do
     post :confirm, on: :member
     resources :event_participations, only: [:new, :create]
   end
