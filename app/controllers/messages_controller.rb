@@ -7,10 +7,16 @@ class MessagesController < ApplicationController
     @message.role = "user"
 
     if @message.save
-      bot_response = call_ai_bot(@message.content)
-      @conversation.messages.create!(
-        content: bot_response,
-        role: "bot"
+      chat = RubyLLM.chat
+      context = Message::SYSTEM_PROMPT
+      chat.with_instructions(context)
+      response = chat.ask(@message.content)
+      assistant_response = response.content
+
+      Message.create!(
+        content: assistant_response,
+        role: "assistant",
+        conversation: @conversation
       )
 
       redirect_to conversation_path(@conversation), notice: "Message envoyé ✅"
@@ -28,9 +34,5 @@ class MessagesController < ApplicationController
 
   def message_params
     params.require(:message).permit(:content)
-  end
-
-  def call_ai_bot(user_message)
-    RubyLLM.chat(prompt: user_message)
   end
 end
