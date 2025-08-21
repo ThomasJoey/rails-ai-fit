@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_08_21_093537) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_21_125533) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_21_093537) do
   end
 
   create_table "conversations", force: :cascade do |t|
-    t.string "title"
+    t.string "title", default: "untitled"
     t.text "context"
     t.string "status", default: "active"
     t.bigint "user_id", null: false

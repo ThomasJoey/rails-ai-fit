@@ -1,10 +1,9 @@
 class EventsController < ApplicationController
-
   def new
     @event = Event.new
   end
 
-  
+
 
   # def create
 
@@ -56,8 +55,6 @@ class EventsController < ApplicationController
     # @events = Event.all.as_json(only: [:title, :description, :starts_at, :ends_at, :location])
 
   end
-
-
 
   private
 

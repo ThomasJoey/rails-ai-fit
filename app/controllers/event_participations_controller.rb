@@ -1,5 +1,4 @@
 class EventParticipationsController < ApplicationController
-
   def new
     @event_participation = EventParticipations.new
   end
@@ -14,6 +13,7 @@ class EventParticipationsController < ApplicationController
   end
 
   private
+
   def event_participations_params
     params.require(:event_participation).permit(:user_id, :event_id)
   end
