@@ -9,16 +9,16 @@ class ConversationsController < ApplicationController
     @message = @conversation.messages.new
   end
 
-  def new
-    @conversation = Conversation.new
-  end
+  # def new
+  #   @conversation = Conversation.new
+  # end
 
   def create
-    @conversation = Conversation.new(conversation_params)
+    @conversation = Conversation.new
     @conversation.user = current_user
 
     if @conversation.save
-      redirect_to conversations_path
+      redirect_to conversation_path(@conversation.id)
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class ConversationsController < ApplicationController
   def destroy
     @conversation = Conversation.find(params[:id])
     @conversation.destroy
-    redirect_to conversations_path()
+    redirect_to conversations_path
   end
 
   private

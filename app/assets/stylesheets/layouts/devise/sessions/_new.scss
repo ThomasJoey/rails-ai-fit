@@ -1,4 +1,4 @@
-// Styles spécifiques pour la page de connexion
+// LOGIN PAGE STYLES
 body.devise-sessions-new {
   .login-container {
     background: rgba(255, 255, 255, 0.95);
@@ -150,7 +150,7 @@ body.devise-sessions-new {
     }
   }
 
-  // Responsive
+  // Responsive Design
   @media (max-width: 480px) {
     .devise-content {
       padding: 20px 10px;

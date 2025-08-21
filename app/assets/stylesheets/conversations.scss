@@ -1,0 +1,107 @@
+.conversation-container {
+  max-width: 700px;
+  margin: 0 auto;
+
+  .conversation-header {
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+    p {
+      font-size: 0.95rem;
+      color: #6c757d;
+    }
+  }
+
+  .conversation-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .chat-message {
+    display: flex;
+
+    .bubble {
+      padding: 0.75rem 1rem;
+      border-radius: 1.2rem;
+      max-width: 70%;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    }
+
+    &.user {
+      justify-content: flex-end;
+
+      .bubble {
+        background: #0d6efd;
+        color: white;
+        border-bottom-right-radius: 0.3rem; // effet bulle
+      }
+    }
+
+    &.assistant {
+      justify-content: center;
+      width: 100%;
+
+      .bubble {
+        background: #f1f3f5;
+        color: #212529;
+        border-bottom-left-radius: 0.3rem;
+      }
+    }
+  }
+
+  .event-card {
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 0.75rem;
+
+    h5 {
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+
+    strong {
+      color: #0d6efd;
+    }
+  }
+
+  .conversation-form {
+  display: flex;
+  align-items: baseline;
+
+  .form-control {
+    flex: 1;
+    border-radius: 20px;
+    font-size: 0.9rem; // plus petit pour matcher les bulles
+    padding: 0.5rem 1rem;
+    height: auto;
+  }
+
+  .btn {
+    border-radius: 20px;
+    font-size: 0.9rem; // taille réduite
+    font-weight: 600;
+    padding: 0.45rem 1.2rem; // bouton plus compact
+    line-height: 1.2;
+    height: 100%;
+  }
+
+  .message_content{
+    width: 100%;
+    margin-right: 40px;
+  }
+}
+
+}
