@@ -1,27 +1,46 @@
-<h1><%= @conversation.title %></h1>
-<p><%= @conversation.context %></p>
+<div class="conversation-container container py-4">
+  <!-- Header -->
+  <div class="conversation-header text-center mb-4">
+    <h1><%= @conversation.title %></h1>
+    <p class="text-muted"><%= @conversation.context %></p>
+  </div>
 
-<hr>
-
-<h2 class="d-flex justify-content-center">Messages</h2>
-<div class="container">
-<div class="mb-4">
-<% @messages.each do |message| %>
-  <div class="<%= message.role %>">
-    <% if message.role == "user" %>
-      <strong>👤 Toi :</strong> <%= message.content %>
-    <% else %>
-      <strong>🤖 assistant :</strong> <%= message.content %>
+  <!-- Messages -->
+  <div class="conversation-messages">
+    <% @messages.each do |message| %>
+      <div class="chat-message <%= message.role %>">
+        <div class="bubble">
+          <% if message.role == "user" %>
+            <p class="mb-0"><%= message.content %></p>
+          <% else %>
+            <% if message.events.any? %>
+              <% message.events.each do |event| %>
+                <div class="event-card">
+                  <h5><%= event.title %></h5>
+                  <p><%= event.description %></p>
+                  <p><strong>📍</strong> <%= event.location %></p>
+                  <% if event.starts_at.present? %>
+                    <p><strong>🕒</strong> <%= event.starts_at.strftime("%d/%m/%Y %H:%M") %></p>
+                  <% end %>
+                  <% if event.ends_at.present? %>
+                    <p><strong>🏁</strong> <%= event.ends_at.strftime("%d/%m/%Y %H:%M") %></p>
+                  <% end %>
+                </div>
+              <% end %>
+            <% else %>
+              <p class="mb-0"><%= message.content %></p>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
   </div>
-<% end %>
-</div>
 
-
-<%= simple_form_for [@conversation, @message] do |f| %>
-  <%= f.input :content, as: :text, input_html: { rows: 2, placeholder: "Écris ton message..." }, label: false %>
-  <%= f.button :submit, "Envoyer" %>
-<% end %>
-
-<%= link_to "return to list", conversations_path() %>
+  <!-- Formulaire -->
+  <div class="conversation-form mt-3">
+    <%= simple_form_for [@conversation, @message], html: { class: "d-flex" } do |f| %>
+      <%= f.input :content, as: :text, input_html: { rows: 1, placeholder: "Écris ton message...", class: "form-control me-2 message_content" }, label: false %>
+      <%= f.button :submit, "Envoyer", class: "btn btn-primary form-control" %>
+    <% end %>
+  </div>
 </div>
