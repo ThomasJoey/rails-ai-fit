@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <title>RailsAiFit</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,8 +11,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-<%= render 'layouts/navbar' %>
-<%= yield %>
-</body>
+  <body class="<%= body_class_for_page %>">
+    <!-- Afficher la navbar seulement si ce n'est pas une page Devise -->
+    <% unless devise_controller? %>
+      <%= render 'layouts/navbar' %>
+    <% end %>
+
+    <main class="<%= main_content_class %>">
+      <%= yield %>
+    </main>
+  </body>
 </html>

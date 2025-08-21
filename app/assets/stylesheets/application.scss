@@ -14,3 +14,28 @@
 
 @import "conversations";
 @import "home"
+=======
+// Styles pour l'application principale (avec navbar)
+body.main-app {
+  background-color: #f8f9fa;
+
+  .main-content {
+    padding-top: 80px;
+    min-height: calc(100vh - 80px);
+  }
+}
+
+
+// Styles pour les pages Devise (sans navbar)
+body.devise-controller {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+
+  .devise-content {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+}
