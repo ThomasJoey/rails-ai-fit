@@ -1,5 +1,4 @@
 class EventsController < ApplicationController
-
   def new
     @event = Event.new
   end
@@ -28,7 +27,6 @@ class EventsController < ApplicationController
     Output exactly three proposals in French on the JSON array name "events" with those five keys.
   PROMPT
 
-
   chat.with_instructions(system_prompt)
 
   # user_prompt = "J'aimerais faire du sport jeudi. #{message&.content}"
@@ -46,11 +44,8 @@ class EventsController < ApplicationController
     # JSON_response = à récupérer chez micka
     # @events = JSON.parse(json_response)
 
-    @events = Event.all.as_json(only: [:title, :description, :starts_at, :ends_at, :location])
-
+    @events = Event.all.as_json(only: %i[title description starts_at ends_at location])
   end
-
-
 
   private
 

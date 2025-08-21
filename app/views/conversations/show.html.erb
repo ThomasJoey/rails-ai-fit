@@ -6,22 +6,19 @@
 <h2 class="d-flex justify-content-center">Messages</h2>
 <div class="container">
 <div class="mb-4">
-<% @messages.each do |message| %>
-  <div class="<%= message.role %>">
-    <% if message.role == "user" %>
-      <strong>👤 Toi :</strong> <%= message.content %>
-    <% else %>
-      <strong>🤖 assistant :</strong> <%= message.content %>
-    <% end %>
-  </div>
-<% end %>
+
+<div id="messages">
+<%= render "messages/messages", messages: @conversation.messages %>
+</div>
+
 </div>
 
 
-<%= simple_form_for [@conversation, @message] do |f| %>
-  <%= f.input :content, as: :text, input_html: { rows: 2, placeholder: "Écris ton message..." }, label: false %>
-  <%= f.button :submit, "Envoyer" %>
-<% end %>
+<div id="new_message">
+<%= render "messages/form", conversation: @conversation, message: @message %>
+</div>
+
+
 
 <%= link_to "return to list", conversations_path() %>
 </div>

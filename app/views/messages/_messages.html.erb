@@ -1,0 +1,9 @@
+<% messages.each do |message| %>
+  <div class="<%= message.role %>">
+    <% if message.role == "user" %>
+      <strong>👤 Toi :</strong> <%= message.content %>
+    <% else %>
+      <strong>🤖 assistant :</strong> <%= message.content %>
+    <% end %>
+  </div>
+<% end %>

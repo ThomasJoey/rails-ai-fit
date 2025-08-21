@@ -1,0 +1,4 @@
+<%= simple_form_for [conversation, message] do |f| %>
+  <%= f.input :content, as: :text, input_html: { rows: 2, placeholder: "Écris ton message..." }, label: false %>
+  <%= f.button :submit, "Envoyer" %>
+<% end %>
