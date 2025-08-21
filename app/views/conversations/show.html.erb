@@ -12,7 +12,7 @@
   <div class="container">
     <div class="mb-4">
       <div id="messages" class="conversation-messages">
-        <%= render "messages/messages", messages: @conversation.messages %>
+       <%= render "messages/messages", messages: @conversation.messages %>
       </div>
     </div>
 
@@ -20,6 +20,6 @@
       <%= render "messages/form", conversation: @conversation, message: @message %>
     </div>
 
-    <%= link_to "return to list", conversations_path() %>
+    <%= link_to "return to list", conversations_path(), class: "btn btn-primary mt-3"  %>
   </div>
 </div>
