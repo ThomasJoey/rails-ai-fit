@@ -1,9 +1,27 @@
 <% messages.each do |message| %>
-  <div class="<%= message.role %>">
-    <% if message.role == "user" %>
-      <strong>👤 Toi :</strong> <%= message.content %>
-    <% else %>
-      <strong>🤖 assistant :</strong> <%= message.content %>
-    <% end %>
+  <div class="chat-message <%= message.role %>">
+    <div class="bubble">
+      <% if message.role == "user" %>
+        <p class="mb-0"><%= message.content %></p>
+      <% else %>
+        <% if message.events.any? %>
+          <% message.events.each do |event| %>
+            <div class="event-card">
+              <h5><%= event.title %></h5>
+              <p><%= event.description %></p>
+              <p><strong>📍</strong> <%= event.location %></p>
+              <% if event.starts_at.present? %>
+                <p><strong>🕒</strong> <%= event.starts_at.strftime("%d/%m/%Y %H:%M") %></p>
+              <% end %>
+              <% if event.ends_at.present? %>
+                <p><strong>🏁</strong> <%= event.ends_at.strftime("%d/%m/%Y %H:%M") %></p>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <p class="mb-0"><%= message.content %></p>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 <% end %>

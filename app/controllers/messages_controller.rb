@@ -17,16 +17,26 @@ class MessagesController < ApplicationController
       response = @ruby_llm_chat.ask(@message.content)
       assistant_response = response.content
 
-      @conversation.messages.create!(
-        content: assistant_response,
+      json_response = JSON.parse(assistant_response)
+      events_data = json_response["events"]
+      @proposals = json_response["proposals"]
+
+      assistant_message = @conversation.messages.create!(
+        content: @proposals, # TODO
         role: "assistant",
         conversation: @conversation
       )
+
+      events_data.each do |event_attributes|
+        event = Event.new(event_attributes)
+        event.message = assistant_message
+        event.save
+      end
+
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to conversation_path(@conversation), notice: "Message envoyé ✅" }
       end
-
     else
       @messages = @conversation.messages.order(:created_at)
       respond_to do |format|
@@ -43,6 +53,7 @@ class MessagesController < ApplicationController
 
   def set_conversation
     @conversation = Conversation.find(params[:conversation_id])
+    # conversation_message_path	GET	/conversations/:conversation_id/messages/:id(.:format)
   end
 
   def message_params
@@ -53,5 +64,9 @@ class MessagesController < ApplicationController
     @conversation.messages.each do |message|
       @ruby_llm_chat.add_message(RubyLLM::Message.new(message.attributes.symbolize_keys))
     end
+  end
+
+  def event_params
+    params.require(:event).permit(:title)
   end
 end

@@ -51,6 +51,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_21_125533) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "message_id"
+    t.index ["message_id"], name: "index_events_on_message_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -82,5 +84,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_21_125533) do
   add_foreign_key "conversations", "users"
   add_foreign_key "event_participations", "events"
   add_foreign_key "event_participations", "users"
+  add_foreign_key "events", "messages"
   add_foreign_key "messages", "conversations"
 end
