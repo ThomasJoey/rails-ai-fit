@@ -3,34 +3,7 @@ class EventsController < ApplicationController
     @event = Event.new
   end
 
-  def create_events
-    @conversation = Conversation.find(params[:id])
-
-    # Rejouer un prompt spécifique pour demander les events
-    ruby_llm_chat = RubyLLM.chat
-    build_conversation_history
-    ruby_llm_chat.with_instructions("À partir de cette conversation, génère 3 events en JSON { events: [...], proposals: '...' }")
-
-    response = ruby_llm_chat.ask("Propose-moi 3 événements")
-    json_response = JSON.parse(response.content)
-
-    events_data = json_response["events"]
-    proposals   = json_response["proposals"]
-
-    assistant_message = @conversation.messages.create!(
-      content: proposals,
-      role: "assistant",
-      conversation: @conversation
-    )
-
-    events_data.each do |event_attributes|
-      event = Event.new(event_attributes)
-      event.message = assistant_message
-      event.save
-    end
-
-    redirect_to @conversation, notice: "3 événements générés ✅"
-  end
+    
 
 
 

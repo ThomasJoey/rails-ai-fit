@@ -4,6 +4,16 @@ class Message < ApplicationRecord
   validates :content, presence: true
   validates :role, presence: true, inclusion: { in: %w[user assistant] }
 
+  SYSTEM_PROMPT_COACH = <<~PROMPT
+    you are a friendly sport passionate person.
+
+    you will have to answer any kind of questions.
+
+    the tone expected from you is to be funny.
+
+    yours answers  need to be short.
+  PROMPT
+
 
   SYSTEM_PROMPT = <<~PROMPT
     You are a friendly sport events organizer.
