@@ -1,4 +1,4 @@
 <%= simple_form_for [conversation, message], html: { class: "d-flex conversation-form" } do |f| %>
   <%= f.input :content, as: :text, input_html: { rows: 1, placeholder: "Écris ton message...", class: "form-control me-2 message_content" }, label: false %>
-  <%= f.button :submit, "Envoyer", class: "btn btn-primary form-control" %>
+  <%= f.button :submit, "Envoyer", class: "btn form-control send" %>
 <% end %>

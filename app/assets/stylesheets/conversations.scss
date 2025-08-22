@@ -1,4 +1,5 @@
 .conversation-page{
+  padding-top: 20px;
   height: 100vh;
 
   .conversation-container {
@@ -258,5 +259,10 @@
 
   @keyframes spin {
     to { transform: rotate(360deg); }
+  }
+
+  .btn.send{
+    font-weight: normal;
+    background: #dee2e6;
   }
 }
