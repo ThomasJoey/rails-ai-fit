@@ -20,7 +20,7 @@
 //   }
 
 //   &:hover a {
-//     color: #0D6EFD;
+//     color: $blue;
 //     font-weight: bold;
 //     text-decoration: none;
 //   }
@@ -42,7 +42,7 @@
   }
 
   &:hover a {
-    color: #0D6EFD;
+    color: $blue;
     font-weight: bold;
     text-decoration: none;
   }
@@ -56,11 +56,24 @@
 .list-group-item.custom.active {
   background-color: transparent;
   border: solid 0;
-  // box-shadow: inset 0px 0px 1px 1px #0D6EFD;
+  // box-shadow: inset 0px 0px 1px 1px $blue;
   a{
-    color: #0D6EFD;
+    color: $blue;
     font-weight: bold;
   }
+}
+
+.events{
+  color: $blue;
+  background-color: transparent;
+  border: solid 0;
+
+  &:hover {
+    background-color: transparent;
+    color: $blue;
+    font-weight: bold;
+  }
+
 }
 
 
