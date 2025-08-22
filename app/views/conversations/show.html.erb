@@ -19,7 +19,7 @@
 
       <div class="mb-4">
         <div id="messages" class="conversation-messages">
-          <%= render "messages/messages", messages: @conversation.messages %>
+          <%= render "messages/messages", messages: @conversation.messages.order(:created_at) %>
         </div>
       </div>
 
@@ -37,4 +37,3 @@
     </div>
   </div>
 </div>
-
