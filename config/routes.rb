@@ -10,11 +10,12 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   resources :conversations, only: [:index, :show, :create, :destroy] do
-    resources :messages, only: [:create]
+  post :create_events, on: :member   # ✅ ton bouton "✨ Générer 3 événements" utilisera ça
+  resources :messages, only: [:create]
   end
 
   resources :events, only: [:new, :create, :show] do
-    post :confirm, on: :member
-    resources :event_participations, only: [:new, :create]
+  post :confirm, on: :member
+  resources :event_participations, only: [:new, :create]
   end
 end

@@ -1,8 +1,9 @@
 class Message < ApplicationRecord
   belongs_to :conversation
-  has_many :events
+  has_many :events, dependent: :nullify
   validates :content, presence: true
   validates :role, presence: true, inclusion: { in: %w[user assistant] }
+
 
   SYSTEM_PROMPT = <<~PROMPT
     You are a friendly sport events organizer.

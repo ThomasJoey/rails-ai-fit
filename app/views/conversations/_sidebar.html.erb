@@ -1,0 +1,21 @@
+<div class="sidebar p-3">
+  <h5 class="mb-3">💬 Tes Conversations</h5>
+
+  <%= link_to "➕ Nouvelle conversation", conversations_path,
+              data: { turbo_method: :post },
+              class: "btn btn-sm btn-success w-100 mb-3" %>
+
+  <ul class="list-group">
+    <% conversations.each do |conv| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center <%= 'active' if conv == conversation %>">
+        <%= link_to conv.title, conversation_path(conv),
+                    class: "flex-grow-1 text-decoration-none me-2" %>
+
+        <%= link_to "🗑️", conversation_path(conv),
+                    data: { turbo_method: :delete, turbo_confirm: "Es-tu sûr de vouloir supprimer cette conversation ?" },
+                    class: "delete-link" %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+

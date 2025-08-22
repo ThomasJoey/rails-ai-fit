@@ -151,7 +151,7 @@
     margin: 0;
 
     li {
-      background: #f8f9fa;
+      background: #f8f9fa; // probleme nqv bqr conversations
       border: 1px solid #dee2e6;
       border-radius: 8px;
       padding: 1rem;
@@ -196,4 +196,14 @@
       }
     }
   }
+}
+
+.delete-link {
+  color: #6c757d; /* gris neutre */
+  text-decoration: none;
+  font-size: 1.2rem; /* un peu plus gros */
+}
+
+.delete-link:hover {
+  color: #343a40; /* gris foncé au hover */
 }

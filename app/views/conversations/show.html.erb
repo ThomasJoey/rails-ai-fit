@@ -1,25 +1,40 @@
-<div class="conversation-container container py-4">
-  <!-- Header -->
-  <div class="conversation-header text-center mb-4">
-    <h1><%= @conversation.title %></h1>
-    <p class="text-muted"><%= @conversation.context %></p>
-  </div>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-3 border-end">
+      <%= render "conversations/sidebar", conversations: @conversations, conversation: @conversation %>
+    </div>
 
-  <hr>
+    <!-- Chat content -->
+    <div class="col-9 conversation-container py-4">
+      <!-- Header -->
+      <div class="conversation-header text-center mb-4">
+        <h1><%= @conversation.title %></h1>
+        <p class="text-muted"><%= @conversation.context %></p>
+      </div>
 
-  <h2 class="d-flex justify-content-center">Messages</h2>
+      <hr>
 
-  <div class="container">
-    <div class="mb-4">
-      <div id="messages" class="conversation-messages">
-       <%= render "messages/messages", messages: @conversation.messages %>
+      <h2 class="d-flex justify-content-center">Messages</h2>
+
+      <div class="mb-4">
+        <div id="messages" class="conversation-messages">
+          <%= render "messages/messages", messages: @conversation.messages %>
+        </div>
+      </div>
+
+      <div id="new_message" class="conversation-form mt-3">
+        <%= render "messages/form", conversation: @conversation, message: @message %>
+      </div>
+
+      <!-- 🚀 Bouton pour générer 3 événements -->
+      <div class="mt-4 text-center">
+        <%= button_to "✨ Générer 3 événements",
+                      create_events_conversation_path(@conversation),
+                      method: :post,
+                      class: "btn btn-warning px-4" %>
       </div>
     </div>
-
-    <div id="new_message" class="conversation-form mt-3">
-      <%= render "messages/form", conversation: @conversation, message: @message %>
-    </div>
-
-    <%= link_to "return to list", conversations_path(), class: "btn btn-primary mt-3"  %>
   </div>
 </div>
+
