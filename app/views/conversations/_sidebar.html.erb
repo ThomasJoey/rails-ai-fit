@@ -5,9 +5,9 @@
               data: { turbo_method: :post },
               class: "btn btn-sm btn-success w-100 mb-3" %>
 
-  <ul class="list-group">
+  <ul class="list-group custom">
     <% conversations.each do |conv| %>
-      <li class="list-group-item d-flex justify-content-between align-items-center <%= 'active' if conv == conversation %>">
+      <li class="list-group-item d-flex justify-content-between align-items-center custom <%= 'active' if conv == conversation %>">
         <%= link_to conv.title, conversation_path(conv),
                     class: "flex-grow-1 text-decoration-none me-2" %>
 
@@ -18,4 +18,3 @@
     <% end %>
   </ul>
 </div>
-
