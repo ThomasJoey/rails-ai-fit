@@ -39,7 +39,7 @@ class ConversationsController < ApplicationController
     build_conversation_history
     @ruby_llm_chat.with_instructions(Message::SYSTEM_PROMPT)
 
-    response = @ruby_llm_chat.ask("Propose-moi 3 événements")
+    response = @ruby_llm_chat.ask("Propose-moi 1 événement")
 
     begin
       json_response = JSON.parse(response.content)
@@ -59,7 +59,7 @@ class ConversationsController < ApplicationController
         assistant_message.events.create(event_attributes)
       end
 
-      redirect_to @conversation, notice: "3 événements générés ✅"
+      redirect_to @conversation, notice: "1 événement générés ✅"
 
     rescue JSON::ParserError
       # Si le LLM ne renvoie pas de JSON valide

@@ -21,9 +21,9 @@ class EventsController < ApplicationController
     # Rejouer un prompt spécifique pour demander les events
     ruby_llm_chat = RubyLLM.chat
     build_conversation_history
-    ruby_llm_chat.with_instructions("À partir de cette conversation, génère 3 events en JSON { events: [...], proposals: '...' }")
+    ruby_llm_chat.with_instructions("À partir de cette conversation, génère 1 event en JSON { events: [...], proposals: '...' }")
 
-    response = ruby_llm_chat.ask("Propose-moi 3 événements")
+    response = ruby_llm_chat.ask("Propose-moi 1 événement")
     json_response = JSON.parse(response.content)
 
     events_data = json_response["events"]
