@@ -218,7 +218,7 @@
 
 
   .generate-events-btn {
-    background: lighten(#00BCEF, 10%);   /* couleur de fond par défaut */
+    background: darken($blue, 10%);   /* couleur de fond par défaut */
     border: none;
     border-radius: 999px;
     padding: 0.75rem 1.5rem;
