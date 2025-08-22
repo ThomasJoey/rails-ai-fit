@@ -1,4 +1,5 @@
 .conversation-page{
+  padding-top: 20px;
   height: 100vh;
 
   .conversation-container {
@@ -242,7 +243,6 @@
     }
   }
 
-  /* Spinner */
   .generate-events-btn[disabled]::after {
     content: "";
     width: 1em;
@@ -258,5 +258,10 @@
 
   @keyframes spin {
     to { transform: rotate(360deg); }
+  }
+
+  .btn.send{
+    font-weight: normal;
+    background: #dee2e6;
   }
 }
