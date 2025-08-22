@@ -7,47 +7,69 @@ class MessagesController < ApplicationController
     @message.role = "user"
 
     if @message.save
+      # Génère un titre si c’est le premier message
       if @conversation.messages.where(role: "user").count == 1
         @conversation.generate_title_from_first_message
       end
+
+      # Prépare le chat avec l’IA
       @ruby_llm_chat = RubyLLM.chat
       build_conversation_history
       context = Message::SYSTEM_PROMPT
       @ruby_llm_chat.with_instructions(context)
+
+      # Envoie le message de l’utilisateur
       response = @ruby_llm_chat.ask(@message.content)
       assistant_response = response.content
 
-      json_response = JSON.parse(assistant_response)
-      events_data = json_response["events"]
-      @proposals = json_response["proposals"]
+      # 🔹 On essaye de parser en JSON (si l’IA a renvoyé du JSON)
+      begin
+        json_response = JSON.parse(assistant_response)
+        proposals = json_response["proposals"]
 
-      assistant_message = @conversation.messages.create!(
-        content: @proposals, # TODO
-        role: "assistant",
-        conversation: @conversation
-      )
+        # On stocke seulement le texte des propositions
+        readable_text =
+          if proposals.is_a?(Array)
+            proposals.map { |p| p["text"] }.join("\n\n")
+          else
+            proposals.to_s
+          end
 
-      events_data.each do |event_attributes|
-        event = Event.new(event_attributes)
-        event.message = assistant_message
-        event.save
+        @conversation.messages.create!(
+          content: readable_text,
+          role: "assistant",
+          conversation: @conversation
+        )
+
+      rescue JSON::ParserError
+        # 🔹 Sinon, on garde tel quel (texte libre)
+        @conversation.messages.create!(
+          content: assistant_response,
+          role: "assistant",
+          conversation: @conversation
+        )
       end
 
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to conversation_path(@conversation), notice: "Message envoyé ✅" }
       end
+
     else
       @messages = @conversation.messages.order(:created_at)
       respond_to do |format|
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace("new_message", partial: "messages/form",
-                                                                   locals: { conversation: @conversation, message: @message })
+          render turbo_stream: turbo_stream.replace(
+            "new_message",
+            partial: "messages/form",
+            locals: { conversation: @conversation, message: @message }
+          )
         end
         format.html { render "conversations/show", status: :unprocessable_entity }
       end
     end
   end
+
 
   private
 
