@@ -17,6 +17,12 @@
               <i class="fas fa-home me-1"></i>Accueil
             <% end %>
           </li>
+          <li class="nav-item">
+            <%= link_to events_path, class: "nav-link" do %>
+              <i class="fas me-1"></i>Events
+            <% end %>
+          </li>
+
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle d-flex align-items-center"
@@ -29,7 +35,10 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <%= link_to "Mon Profil", "#", class: "dropdown-item" %>
+                <li>
+                  <%= link_to "Mon Profil", profile_path, class: "dropdown-item" %>
+                </li>
+
               </li>
               <li>
                 <%= link_to "Paramètres", edit_user_registration_path, class: "dropdown-item" %>

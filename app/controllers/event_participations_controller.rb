@@ -1,20 +1,24 @@
 class EventParticipationsController < ApplicationController
-  def new
-    @event_participation = EventParticipations.new
-  end
+  before_action :set_event
 
   def create
-    @event_participation = EventParticipations.new(event_participations)
-    if @event_participation.save
-      redirect_to @event_participation, notice: "Event has been created"
+    participation = @event.event_participations.new(user: current_user)
+    if participation.save
+      redirect_to events_path, notice: "🎉 Tu es inscrit à '#{@event.title}'"
     else
-      render :new, status: :unprocessable_entity
+      redirect_to events_path, alert: "⚠️ Impossible de t'inscrire."
     end
+  end
+
+  def destroy
+    participation = @event.event_participations.find(params[:id])
+    participation.destroy
+    redirect_to events_path, notice: "🚫 Tu es désinscrit de '#{@event.title}'"
   end
 
   private
 
-  def event_participations_params
-    params.require(:event_participation).permit(:user_id, :event_id)
+  def set_event
+    @event = Event.find(params[:event_id])
   end
 end
