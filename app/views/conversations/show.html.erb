@@ -19,7 +19,7 @@
 
       <div class="mb-4">
         <div id="messages" class="conversation-messages">
-          <%= render "messages/messages", messages: @conversation.messages %>
+          <%= render "messages/messages", messages: @conversation.messages.order(:created_at) %>
         </div>
       </div>
 
@@ -29,7 +29,7 @@
 
       <!-- 🚀 Bouton pour générer 3 événements -->
       <div class="mt-4 text-center">
-        <%= button_to "✨ Générer 3 événements",
+        <%= button_to "✨ Générer l'événement",
                       create_events_conversation_path(@conversation),
                       method: :post,
                       class: "btn btn-warning px-4" %>
@@ -37,4 +37,3 @@
     </div>
   </div>
 </div>
-

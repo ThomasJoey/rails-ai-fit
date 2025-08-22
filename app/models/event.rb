@@ -1,7 +1,8 @@
 class Event < ApplicationRecord
-  has_many :event_participations
+  has_many :event_participations, dependent: :destroy
   has_many :users, through: :event_participations
   belongs_to :message
+  validates :message, presence: true
 
   def starts_at
     value = super
