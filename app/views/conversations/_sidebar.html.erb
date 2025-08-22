@@ -1,22 +1,25 @@
 <div class="sidebar p-3">
-  <h5 class="mb-3">💬 Tes Conversations</h5>
+  <%# <h5 class="mb-3">💬 Tes Conversations</h5> %>
 
-  <%= button_to "+ Nouvelle conversation",
-      conversations_path,
-      method: :post,
-      form: { data: { turbo: "false" } },
-      class: "btn btn-success w-100 mb-3" %>
-
+    <%= button_to conversations_path,
+        method: :post,
+        form: { data: { turbo: "false" } },
+        class: "btn custom w-100 mb-3" do %>
+      <i class="fa-regular fa-pen-to-square me-2"></i>
+      <span>Nouvelle conversation</span>
+    <% end %>
 
   <ul class="list-group custom">
     <% conversations.each do |conv| %>
       <li class="list-group-item d-flex justify-content-between align-items-center custom <%= 'active' if conv == conversation %>">
         <%= link_to conv.title, conversation_path(conv),
                     class: "flex-grow-1 text-decoration-none me-2" %>
+       <%= link_to conversation_path(conv),
+            data: { turbo_method: :delete, turbo_confirm: "Es-tu sûr de vouloir supprimer cette conversation ?" },
+            class: "delete-link" do %>
+        <i class="fa-solid fa-trash-can"></i>
+      <% end %>
 
-        <%= link_to "🗑️", conversation_path(conv),
-                    data: { turbo_method: :delete, turbo_confirm: "Es-tu sûr de vouloir supprimer cette conversation ?" },
-                    class: "delete-link" %>
       </li>
     <% end %>
   </ul>
