@@ -1,10 +1,20 @@
-<div class="container py-5">
-  <h1 class="mb-4">👤 Mon Profil</h1>
+<div class="container py-5 profile-page">
+  <h1>Mon Profil</h1>
 
-  <p><strong>Email :</strong> <%= @user.email %></p>
+  <div class="profile-card">
+    <img src="https://images.unsplash.com/photo-1632765854612-9b02b6ec2b15?q=80&w=2586&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Avatar" class="avatar">
+    <div class="name"><%= current_user.first_name %> <%= current_user.last_name %></div>
+    <div class="location">📍 Paris, France</div>
 
-  <h2 class="mt-5">📅 Mes événements</h2>
+    <div class="sports">
+      <span class="badge">🏃 Running</span>
+      <span class="badge">🚴 Vélo</span>
+      <span class="badge">🧘 Yoga</span>
+    </div>
+  </div>
 
+  <h2>📅 Mes événements</h2>
+  <!-- ta liste des events ici -->
   <% if @events.any? %>
     <ul class="list-group">
       <% @events.each do |event| %>
