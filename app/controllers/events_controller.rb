@@ -1,6 +1,18 @@
 class EventsController < ApplicationController
+  before_action :set_event, only: [:destroy]
+
   def new
     @event = Event.new
+  end
+
+  def create
+    @participation = @event.event_participations.new(user: current_user)
+
+    if @participation.save
+      redirect_to events_path, notice: "🎉 Tu es inscrit à l'événement '#{@event.title}'"
+    else
+      redirect_to events_path, alert: "⚠️ Impossible de t'inscrire à cet événement."
+    end
   end
 
   def create_events
@@ -32,52 +44,6 @@ class EventsController < ApplicationController
     redirect_to @conversation, notice: "3 événements générés ✅"
   end
 
-
-
-
-
-  # def create
-
-  #   json_response = @assistant_response
-
-  #   @events = JSON.parse(json_response)
-  #   @event = Event.new(event_params)
-  #   if @event.save
-  #     redirect_to conversations_path
-  #   else
-  #     render :new, status: :unprocessable_entity
-  #   end
-  # end
-
-  # def show
-  # message = Message.first
-  # chat = RubyLLM.chat
-
-  # system_prompt = <<~PROMPT
-  #   You are a friendly sport events organizer whose goal is to help people meet others through sport events.
-  #   For each event, provide :
-  #   - Title
-  #   - Description
-  #   - Starts_at
-  #   - Ends_at
-  #   - Location
-  #   Output exactly three proposals in French on the JSON array name "events" with those five keys.
-  # PROMPT
-
-
-  # chat.with_instructions(system_prompt)
-
-  # user_prompt = "J'aimerais faire du sport jeudi. #{message&.content}"
-  # response = chat.ask(user_prompt)
-
-  # # Option A : afficher brut
-  # render plain: response.content
-
-  # # Option B : si tu préfères une vue
-  # # @llm_text = response.content
-  # # render :show
-  # end
-
   def show
     # conversation_message_path	GET	/conversations/:conversation_id/messages/:id(.:format)
     json_response = @assistant_response
@@ -87,9 +53,37 @@ class EventsController < ApplicationController
 
   end
 
+  def index
+    @events = Event.all.order(starts_at: :asc)
+
+    if params[:query].present?
+      @events = @events.where("title ILIKE :q OR description ILIKE :q OR location ILIKE :q", q: "%#{params[:query]}%")
+    end
+
+    if params[:date].present?
+      date = Date.parse(params[:date]) rescue nil
+      if date
+        @events = @events.where("DATE(starts_at) = ?", date)
+      end
+    end
+  end
+
+  def destroy
+    if @event.present?
+      @event.destroy
+      redirect_to events_path, notice: "Événement supprimé ✅"
+    else
+      redirect_to events_path, alert: "⚠️ Impossible de trouver cet événement."
+    end
+  end
+
   private
 
   def event_params
     params.require(:event).permit(:title)
+  end
+
+  def set_event
+    @event = Event.find(params[:id])
   end
 end
