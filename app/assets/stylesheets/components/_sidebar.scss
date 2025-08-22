@@ -1,0 +1,79 @@
+.list-group.custom {
+  padding-top: 40px;
+  border-radius: 0.5rem;
+  border: solid 0;
+  gap: 15px;
+
+  a {
+    color: rgb(97, 97, 97);
+  }
+}
+
+// .list-group-item.custom {
+//   color: rgba(255, 255, 255, 0.9);
+//   font-size: 13px;
+//   border-radius: 0.5rem;
+//   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+//   &:hover {
+//     text-decoration: none;
+//   }
+
+//   &:hover a {
+//     color: #0D6EFD;
+//     font-weight: bold;
+//     text-decoration: none;
+//   }
+// }
+
+.list-group-item.custom {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  border-radius: 12px;
+
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  transition: all 0.3s ease; // pour un effet fluide
+
+  &:hover {
+    text-decoration: none;
+     // fond légèrement plus clair/foncé
+    transform: translateY(-1px); // petit "lift"
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 10px;
+  }
+
+  &:hover a {
+    color: #0D6EFD;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  &:active {
+    transform: translateY(0); // revient à plat quand on clique
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px;
+  }
+}
+
+.list-group-item.custom.active {
+  background-color: transparent;
+  border: solid 0;
+  // box-shadow: inset 0px 0px 1px 1px #0D6EFD;
+  a{
+    color: #0D6EFD;
+    font-weight: bold;
+  }
+}
+
+
+.delete-link {
+  i::before {
+      /* trash */
+      content: "\f2ed";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+  }
+
+  &:hover i::before {
+      /* trash-can */
+      content: "\f829";
+  }
+}

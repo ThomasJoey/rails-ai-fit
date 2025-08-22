@@ -1,209 +1,262 @@
-.conversation-container {
-  max-width: 700px;
-  margin: 0 auto;
+.conversation-page{
+  height: 100vh;
 
-  .conversation-header {
-    h1 {
-      font-size: 1.6rem;
-      font-weight: 600;
-    }
-    p {
-      font-size: 0.95rem;
-      color: #6c757d;
-    }
-  }
+  .conversation-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 94px;
 
-  .conversation-messages {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .chat-message {
-    display: flex;
-
-    .bubble {
-      padding: 0.75rem 1rem;
-      border-radius: 1.2rem;
-      max-width: 70%;
-      font-size: 0.95rem;
-      line-height: 1.4;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    .conversation-header {
+      h1 {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0 0 8px 0; // espace sous le titre
+        font-weight: 600;
+        color: #2c2f36;
+      }
+      p {
+        font-size: 12px;
+        color: #6c757d;
+      }
     }
 
-    &.user {
-      justify-content: flex-end;
+    .conversation-messages {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .chat-message {
+      display: flex;
 
       .bubble {
-        background: #0d6efd;
-        color: white;
-        border-bottom-right-radius: 0.3rem; // effet bulle
+        padding: 0.75rem 1rem;
+        border-radius: 18px;
+        max-width: 70%;
+        font-size: 13px;
+        line-height: 1.4;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+      }
+
+      &.user {
+        justify-content: flex-end;
+
+        .bubble {
+          background: $blue;
+          color: white;
+          border-bottom-right-radius: 0.3rem; // effet bulle
+        }
+      }
+
+      &.assistant {
+        justify-content: flex-start;
+        width: 100%;
+
+        .bubble {
+          background: #f1f3f5;
+          color: #212529;
+          border-bottom-left-radius: 0.3rem;
+        }
       }
     }
 
-    &.assistant {
-      justify-content: flex-start;
-      width: 100%;
-
-      .bubble {
-        background: #f1f3f5;
-        color: #212529;
-        border-bottom-left-radius: 0.3rem;
-      }
-    }
-  }
-
-  .event-card {
-    margin-top: 0.5rem;
-    padding: 0.75rem;
-    background: white;
-    border: 1px solid #dee2e6;
-    border-radius: 0.75rem;
-
-    h5 {
-      font-size: 1.05rem;
-      margin-bottom: 0.4rem;
-      font-weight: 600;
-    }
-
-    p {
-      margin-bottom: 0.3rem;
-      font-size: 0.9rem;
-    }
-
-    strong {
-      color: #0d6efd;
-    }
-  }
-
-  .conversation-form {
-  display: contents;
-  align-items: baseline;
-
-  .form-control {
-    flex: 1;
-    border-radius: 20px;
-    font-size: 0.9rem; // plus petit pour matcher les bulles
-    padding: 0.5rem 1rem;
-    height: auto;
-  }
-
-  .btn {
-    border-radius: 20px;
-    font-size: 0.9rem; // taille réduite
-    font-weight: 600;
-    padding: 0.45rem 1.2rem; // bouton plus compact
-    line-height: 1.5;
-    height: 100%;
-  }
-
-  .message_content{
-    width: 100%;
-    margin-right: 40px;
-  }
-}
-
-}
-
-// Styles pour l'index des conversations
-
-.conversations-index {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  color: #212529;
-
-  h1 {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #0d6efd;
-  }
-
-  // Lien "Start new conversation"
-  .new-conversation {
-    display: block;
-    text-align: center;
-    margin-bottom: 2rem;
-
-    a {
-      background-color: #0d6efd;
-      color: #fff;
-      font-weight: 600;
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background 0.2s ease-in-out;
-
-      &:hover {
-        background-color: darken(#0d6efd, 8%);
-      }
-    }
-  }
-
-  // Liste des conversations
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      background: #f8f9fa; // probleme nqv bqr conversations
+    .event-card {
+      margin-top: 0.5rem;
+      padding: 0.75rem;
+      background: white;
       border: 1px solid #dee2e6;
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-      transition: transform 0.1s ease-in-out;
+      border-radius: 0.75rem;
 
-      &:hover {
-        transform: translateY(-2px);
+      h5 {
+        font-size: 1.05rem;
+        margin-bottom: 0.4rem;
+        font-weight: 600;
+      }
+
+      p {
+        margin-bottom: 0.3rem;
+        font-size: 0.9rem;
       }
 
       strong {
-        font-size: 1.1rem;
-        color: #0d6efd;
+        color: $blue;
       }
+    }
 
-      em {
-        display: block;
-        color: #6c757d;
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
-      }
+    .conversation-form {
+    display: contents;
+    align-items: baseline;
+
+    .form-control {
+      flex: 1;
+      border-radius: 20px;
+      font-size: 0.9rem; // plus petit pour matcher les bulles
+      padding: 0.5rem 1rem;
+      height: auto;
+    }
+
+    .btn {
+      border-radius: 20px;
+      font-size: 0.9rem; // taille réduite
+      font-weight: 600;
+      padding: 0.45rem 1.2rem; // bouton plus compact
+      line-height: 1.5;
+      height: 100%;
+    }
+
+    .message_content{
+      width: 100%;
+      margin-right: 40px;
+    }
+  }
+
+  }
+
+  // Styles pour l'index des conversations
+
+  .conversations-index {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #212529;
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      font-weight: 700;
+      color: $blue;
+    }
+
+    // Lien "Start new conversation"
+    .new-conversation {
+      display: block;
+      text-align: center;
+      margin-bottom: 2rem;
 
       a {
-        font-size: 0.9rem;
-        margin-right: 1rem;
+        background-color: $blue;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
         text-decoration: none;
-
-        &:first-of-type {
-          color: #0d6efd;
-          font-weight: 600;
-        }
-
-        &:last-of-type {
-          color: #dc3545;
-          font-weight: 500;
-        }
+        transition: background 0.2s ease-in-out;
 
         &:hover {
-          text-decoration: underline;
+          background-color: darken($blue, 8%);
+        }
+      }
+    }
+
+    // Liste des conversations
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        background: #f8f9fa; // probleme nqv bqr conversations
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+        transition: transform 0.1s ease-in-out;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+
+        strong {
+          font-size: 1.1rem;
+          color: $blue;
+        }
+
+        em {
+          display: block;
+          color: #6c757d;
+          font-size: 0.9rem;
+          margin-bottom: 0.5rem;
+        }
+
+        a {
+          font-size: 0.9rem;
+          margin-right: 1rem;
+          text-decoration: none;
+
+          &:first-of-type {
+            color: $blue;
+            font-weight: 600;
+          }
+
+          &:last-of-type {
+            color: #dc3545;
+            font-weight: 500;
+          }
+
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
     }
   }
-}
 
-.delete-link {
-  color: #6c757d; /* gris neutre */
-  text-decoration: none;
-  font-size: 1.2rem; /* un peu plus gros */
-}
+  .delete-link {
+    color: #6c757d; /* gris neutre */
+    text-decoration: none;
+    font-size: 1.2rem; /* un peu plus gros */
+  }
 
-.delete-link:hover {
-  color: #343a40; /* gris foncé au hover */
+  .delete-link:hover {
+    color: #343a40; /* gris foncé au hover */
+  }
+
+
+  .generate-events-btn {
+    background: lighten(#00BCEF, 10%);   /* couleur de fond par défaut */
+    border: none;
+    border-radius: 999px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: 0.2s, transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+      background: darken($blue, 10%); /* couleur au survol */
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+
+    &:active {
+      background: darken($blue, 30%); /* couleur quand on clique */
+      transform: translateY(0);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    &[disabled] {
+      background: darken($blue, 30%); /* couleur du bouton désactivé */
+      color: #fff;
+    }
+  }
+
+  /* Spinner */
+  .generate-events-btn[disabled]::after {
+    content: "";
+    width: 1em;
+    height: 1em;
+    border: 0.2em solid #fff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 8px;
+    animation: spin .8s linear infinite;
+    vertical-align: -2px;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
 }

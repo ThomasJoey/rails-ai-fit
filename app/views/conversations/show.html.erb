@@ -1,21 +1,21 @@
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid conversation-page">
+  <div class="row h-100">
     <!-- Sidebar -->
-    <div class="col-3 border-end">
+    <div class="col-3 border-end sidebar-col">
       <%= render "conversations/sidebar", conversations: @conversations, conversation: @conversation %>
     </div>
 
     <!-- Chat content -->
     <div class="col-9 conversation-container py-4">
       <!-- Header -->
-      <div class="conversation-header text-center mb-4">
+      <div class="conversation-header mb-4">
         <h1><%= @conversation.title %></h1>
         <p class="text-muted"><%= @conversation.context %></p>
       </div>
 
       <hr>
 
-      <h2 class="d-flex justify-content-center">Messages</h2>
+      <%# <h2 class="d-flex justify-content-center">Messages</h2> %>
 
       <div class="mb-4">
         <div id="messages" class="conversation-messages">
@@ -29,10 +29,11 @@
 
       <!-- 🚀 Bouton pour générer 3 événements -->
       <div class="mt-4 text-center">
-        <%= button_to "✨ Générer l'événement",
+
+        <%= button_to "Générer l'événement",
                       create_events_conversation_path(@conversation),
                       method: :post,
-                      class: "btn btn-warning px-4" %>
+                      class: "btn custom px-4 generate-events-btn" %>
       </div>
     </div>
   </div>
