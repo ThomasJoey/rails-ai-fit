@@ -15,18 +15,18 @@
       <%= f.input :password,
           required: false,
           input_html: {
-            autocomplete: "current-password",
+            autocomplete: "Mot de passe confirmation",
             placeholder: "••••••••"
           },
-          label: "Password" %>
+          label: "Mot de passe" %>
 
       <%= f.input :remember_me,
           as: :boolean,
-          label: "Remember me" if devise_mapping.rememberable? %>
+          label: "Se souvenir de moi" if devise_mapping.rememberable? %>
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit, "Login" %>
+      <%= f.button :submit, "Connexion" %>
     </div>
   <% end %>
 
