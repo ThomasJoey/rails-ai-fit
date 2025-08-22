@@ -5,9 +5,10 @@
       <h1 class="display-3 fw-bold">Ton coach sportif virtuel 🤖</h1>
       <p class="lead mb-4">Organise, découvre et rejoins des événements sportifs près de chez toi.
       Une nouvelle façon de bouger, rencontrer et partager !</p>
-      <%= link_to "🚀 Démarrer",
+      <%= button_to "🚀 Démarrer",
       conversations_path,
-      data: { turbo_method: :post, turbo: "false" },
+      method: :post,
+      form: { data: { turbo: "false" } },
       class: "btn btn-light btn-lg px-5 shadow" %>
       </div>
   </section>
@@ -74,10 +75,12 @@
     <div class="container">
       <h2 class="fw-bold mb-3">Prêt à rejoindre la communauté sportive ?</h2>
       <p class="lead mb-4">Lance ta première conversation et découvre des événements faits pour toi.</p>
-      <%= link_to "Commencer maintenant",
-            conversations_path,
-            data: { turbo_method: :post },
-            class: "btn btn-light btn-lg px-5 shadow" %>
+      <%= button_to "Commencer maintenant",
+      conversations_path,
+      method: :post,
+      form: { data: { turbo: "false" } },
+      class: "btn btn-light btn-lg px-5 shadow" %>
+
     </div>
   </section>
 

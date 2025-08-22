@@ -5,10 +5,12 @@
       <div>
         <h1 class="display-4 fw-bold">💬 Tes Conversations</h1>
         <p class="lead">Discute avec ton assistant sportif et découvre des idées d’événements adaptés à tes envies.</p>
-        <%= link_to "➕ Nouvelle conversation",
-              conversations_path,
-              data: { turbo_method: :post, turbo: "false" },
-              class: "btn btn-success btn-sm w-100 mb-3" %>
+        <%= button_to "+ Nouvelle conversation",
+      conversations_path,
+      method: :post,
+      form: { data: { turbo: "false" } },
+      class: "btn btn-success w-100 mb-3" %>
+
       </div>
     </div>
   </section>

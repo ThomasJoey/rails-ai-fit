@@ -11,13 +11,12 @@ class ConversationsController < ApplicationController
   end
 
   def create
-    # 👉 Création d'une nouvelle conversation avec titre auto-daté
     @conversation = Conversation.create!(
-      title: "Conversation du #{I18n.l(Date.today, format: :long)}",
-      context: ""
+      title: "Nouvelle conversation",
+      context: "",
+      user: current_user
     )
-
-    redirect_to @conversation
+    redirect_to conversation_path(@conversation)
   end
 
   def destroy
@@ -86,4 +85,3 @@ class ConversationsController < ApplicationController
     end
   end
 end
-
