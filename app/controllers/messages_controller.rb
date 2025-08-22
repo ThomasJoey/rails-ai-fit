@@ -15,8 +15,7 @@ class MessagesController < ApplicationController
       # Prépare le chat avec l’IA
       @ruby_llm_chat = RubyLLM.chat
       build_conversation_history
-      context = Message::SYSTEM_PROMPT
-      @ruby_llm_chat.with_instructions(context)
+      @ruby_llm_chat.with_instructions(Message::SYSTEM_PROMPT_COACH)
 
       # Envoie le message de l’utilisateur
       response = @ruby_llm_chat.ask(@message.content)
@@ -72,6 +71,7 @@ class MessagesController < ApplicationController
 
 
   private
+
 
   def set_conversation
     @conversation = Conversation.find(params[:conversation_id])

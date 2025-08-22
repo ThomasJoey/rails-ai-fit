@@ -1,6 +1,7 @@
 <div class="sidebar p-3">
   <%# <h5 class="mb-3">💬 Tes Conversations</h5> %>
 
+
     <%= button_to conversations_path,
         method: :post,
         form: { data: { turbo: "false" } },
@@ -8,6 +9,9 @@
       <i class="fa-regular fa-pen-to-square me-2"></i>
       <span>Nouvelle conversation</span>
     <% end %>
+=======
+  <%= link_to "📅 Tous les événements", events_path, class: "btn btn-secondary w-100 mb-3" %>
+
 
   <ul class="list-group custom">
     <% conversations.each do |conv| %>
