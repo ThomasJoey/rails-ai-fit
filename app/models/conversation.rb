@@ -1,5 +1,6 @@
 class Conversation < ApplicationRecord
   belongs_to :user
+  belongs_to :second_user, class_name: 'User', optional: true
   has_many :messages, dependent: :destroy
 
   validates :title, presence: true

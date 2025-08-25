@@ -10,13 +10,19 @@ class ConversationsController < ApplicationController
     @message = Message.new
   end
 
+  def new
+    @users = User.all
+    @conversation = Conversation.new
+  end
+
   def create
-    @conversation = Conversation.create!(
+    @conversation = Conversation.new(
       title: "Nouvelle conversation",
       context: "",
       user: current_user
     )
-    redirect_to conversation_path(@conversation)
+    @conversation.second_user = User.find(params[:second_user_id]) if params[:second_user_id]
+    redirect_to conversation_path(@conversation) if @conversation.save
   end
 
   def destroy
