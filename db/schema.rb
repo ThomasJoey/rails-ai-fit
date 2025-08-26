@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_08_25_131055) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_26_122457) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -91,8 +91,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_25_131055) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "message_id"
-    t.index ["message_id"], name: "index_events_on_message_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -130,7 +130,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_25_131055) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "role"
+    t.bigint "user_id"
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -155,10 +157,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_25_131055) do
     t.string "preferences"
     t.string "role"
     t.integer "age"
-    t.string "sport"
     t.string "sexe"
+    t.text "bio"
+    t.string "sports", default: [], array: true
+    t.string "location"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["sports"], name: "index_users_on_sports", using: :gin
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -169,12 +176,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_25_131055) do
   add_foreign_key "conversations", "users", column: "second_user_id"
   add_foreign_key "event_participations", "events"
   add_foreign_key "event_participations", "users"
-  add_foreign_key "events", "messages"
+  add_foreign_key "events", "users"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "matches", "users", column: "matched_id"
   add_foreign_key "matches", "users", column: "matcher_id"
   add_foreign_key "message_users", "users", column: "sender_id"
   add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
   add_foreign_key "posts", "users"
 end

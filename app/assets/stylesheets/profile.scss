@@ -21,18 +21,6 @@
     position: relative;
     overflow: hidden;
 
-    // Effet décoratif subtil
-    &::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at center, rgba(13, 110, 253, 0.1), transparent 70%);
-      z-index: 0;
-    }
-
     .avatar {
       width: 120px;
       height: 120px;

@@ -4,8 +4,8 @@
       <% if message.role == "user" %>
         <p class="mb-0"><%= message.content %></p>
       <% else %>
-        <% if message.events.any? %>
-          <% message.events.each do |event| %>
+        <% if message.user.events.any? %>
+          <% message.user.events.each do |event| %>
             <div class="event-card">
               <h5><%= event.title %></h5>
               <p><%= event.description %></p>
