@@ -1,0 +1,97 @@
+
+    <div class="container mt-4">
+      <div class="d-flex justify-content-center mb-4">
+        <%= link_to "Nouvelle publication", new_post_path, class: "btn" %>
+      </div>
+
+      <% @posts.each do |post| %>
+        <div class="card mb-5 shadow-sm post-card mx-auto">
+          <!-- ici tes cards posts -->
+
+          <!-- En-tête -->
+          <div class="card-header d-flex align-items-center bg-white">
+            <strong><%= post.user.present? ? post.user.first_name : "Utilisateur inconnu" %></strong>
+          </div>
+
+      <div class="card-header d-flex justify-content-between align-items-center bg-white">
+        <strong><%= post.user.present? ? post.user.first_name : "Utilisateur inconnu" %></strong>
+
+        <% if post.user == current_user %>
+          <div class="dropdown">
+            <button class="btn btn-link text-dark p-0" type="button" id="dropdownMenu<%= post.id %>" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-ellipsis"></i> <!-- 3 petits points -->
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu<%= post.id %>">
+              <li>
+                <%= button_to post_path(post),
+                              method: :delete,
+                              data: { confirm: "Supprimer ce post ?" },
+                              class: "dropdown-item text-danger" do %>
+                  <i class="fa-solid fa-trash me-2"></i> Supprimer
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+
+
+      <!-- Image -->
+      <% if post.image.attached? %>
+        <%= image_tag post.image, class: "post-image", alt: "Image du post" %>
+      <% end %>
+
+
+      <!-- Corps -->
+      <span class="like-section d-flex align-items-center">
+      <div class="card-body">
+
+        <!-- Actions -->
+        <div class="d-flex align-items-center gap-4 mb-2">
+        <!-- Like -->
+        <div class="d-flex align-items-center gap-3 mb-2">
+          <%= turbo_frame_tag "like_button_post_#{post.id}" do %>
+            <%= render "likes/like_button", post: post %>
+          <% end %>
+        </div>
+
+
+        <!-- Comment -->
+        <div class="d-flex align-items-center comment-toggle" data-post-id="<%= post.id %>">
+          <i class="fa-regular fa-comment fa-lg"></i>
+          <span class="ms-1"><%= post.comments.count %></span>
+        </div>
+      </div>
+
+        <!-- Zone commentaires -->
+        <div id="comments-<%= post.id %>" class="d-none mt-3">
+          <% post.comments.each do |comment| %>
+            <p class="mb-1 d-flex align-items-center">
+              <strong><%= comment.user.first_name %>:</strong>
+              <span class="ms-1"><%= comment.content_text %></span>
+
+              <% if comment.user == current_user %>
+                <%= button_to post_comment_path(post, comment),
+                              method: :delete,
+                              class: "btn btn-link p-0 ms-2 text-danger" do %>
+                  <i class="fa-solid fa-trash"></i>
+                <% end %>
+              <% end %>
+            </p>
+          <% end %>
+
+
+          <!-- Formulaire commentaire -->
+          <%= form_with model: [post, Comment.new], local: true, class: "d-flex mt-2" do |form| %>
+            <%= form.text_field :content_text, placeholder: "Ajouter un commentaire...",
+                                class: "form-control me-2" %>
+            <%= form.submit "Publier", class: "btn btn-primary" %>
+          <% end %>
+        </div>
+
+
+      <p class="card-text"><%= post.content_text %></p>
+      </div>
+    </div>
+  <% end %>
+</div>

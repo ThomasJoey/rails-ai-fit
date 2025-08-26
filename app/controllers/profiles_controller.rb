@@ -5,4 +5,8 @@ class ProfilesController < ApplicationController
     @user = current_user
     @events = @user.events.order(starts_at: :asc)
   end
+
+  def create
+    
+  end
 end

@@ -16,6 +16,9 @@
 @import "event_index_page";
 @import "profile";
 
+@import "pages/socialfeedcomments";
+@import "pages/socialfeedpost";
+
 // Styles pour l'application principale (avec navbar)
 body.main-app {
   background-color: #f8f9fa;
