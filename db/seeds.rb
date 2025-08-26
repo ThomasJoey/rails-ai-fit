@@ -58,6 +58,7 @@ Event.create!([
  }
 ])
 
+
 puts "event has been created"
 
 puts "Seed terminée ✅"
