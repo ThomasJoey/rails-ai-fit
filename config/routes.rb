@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   resources :posts do
     resources :likes, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy]
+  end
+
   # Profile avec gestion de l'avatar
   resource :profile, only: [:show, :edit, :update] do
     member do
