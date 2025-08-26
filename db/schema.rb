@@ -48,6 +48,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_25_154805) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
+    t.string "content_text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "conversations", force: :cascade do |t|
     t.string "title", default: "untitled"
     t.text "context"
@@ -55,6 +65,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_25_154805) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "second_user_id"
+    t.index ["second_user_id"], name: "index_conversations_on_second_user_id"
     t.index ["user_id"], name: "index_conversations_on_user_id"
   end
 
@@ -83,6 +95,35 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_25_154805) do
     t.index ["message_id"], name: "index_events_on_message_id"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_likes_on_post_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.bigint "matcher_id", null: false
+    t.bigint "matched_id", null: false
+    t.string "status", default: "pending"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matched_id"], name: "index_matches_on_matched_id"
+    t.index ["matcher_id"], name: "index_matches_on_matcher_id"
+  end
+
+  create_table "message_users", force: :cascade do |t|
+    t.bigint "conversation_id"
+    t.text "content"
+    t.bigint "sender_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_message_users_on_conversation_id"
+    t.index ["sender_id"], name: "index_message_users_on_sender_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.text "content"
     t.bigint "conversation_id", null: false
@@ -90,6 +131,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_25_154805) do
     t.datetime "updated_at", null: false
     t.string "role"
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "content_text"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -107,6 +156,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_25_154805) do
     t.string "role"
     t.text "bio"
     t.string "sports", default: [], array: true
+    t.integer "age"
+    t.string "sexe"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["sports"], name: "index_users_on_sports", using: :gin
@@ -114,9 +165,18 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_25_154805) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
   add_foreign_key "conversations", "users"
+  add_foreign_key "conversations", "users", column: "second_user_id"
   add_foreign_key "event_participations", "events"
   add_foreign_key "event_participations", "users"
   add_foreign_key "events", "messages"
+  add_foreign_key "likes", "posts"
+  add_foreign_key "likes", "users"
+  add_foreign_key "matches", "users", column: "matched_id"
+  add_foreign_key "matches", "users", column: "matcher_id"
+  add_foreign_key "message_users", "users", column: "sender_id"
   add_foreign_key "messages", "conversations"
+  add_foreign_key "posts", "users"
 end
