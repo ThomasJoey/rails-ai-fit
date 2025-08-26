@@ -17,4 +17,4 @@ Event.create!(
   title: "Tennis à 10"
 )
 
-puts "event has been created"
+puts "event has been the created"
