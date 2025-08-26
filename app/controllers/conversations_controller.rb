@@ -7,16 +7,27 @@ class ConversationsController < ApplicationController
 
   def show
     @conversations = Conversation.all.order(created_at: :desc)
-    @message = Message.new
+
+    if @conversation.ai_chat?
+      @message = Message.new
+    else
+      @message_user = MessageUser.new
+    end
+  end
+
+  def new
+    @users = User.all
+    @conversation = Conversation.new
   end
 
   def create
-    @conversation = Conversation.create!(
+    @conversation = Conversation.new(
       title: "Nouvelle conversation",
       context: "",
       user: current_user
     )
-    redirect_to conversation_path(@conversation)
+    @conversation.second_user = User.find(params[:second_user_id]) if params[:second_user_id]
+    redirect_to conversation_path(@conversation) if @conversation.save
   end
 
   def destroy
@@ -27,7 +38,8 @@ class ConversationsController < ApplicationController
       # 👉 On recrée une conversation vide si tout est supprimé
       new_conv = Conversation.create!(
         title: "Nouvelle conversation",
-        context: ""
+        context: "",
+        user: current_user
       )
       redirect_to new_conv, notice: "Conversation supprimée. Nouvelle conversation créée ✅"
     end

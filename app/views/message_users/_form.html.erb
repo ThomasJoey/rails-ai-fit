@@ -1,0 +1,9 @@
+<%= form_with model: [conversation, (defined?(message_user) ? message_user : MessageUser.new)], local: true do |f| %>
+  <div class="input-group">
+    <%= f.text_area :content, rows: 2, class: "form-control", placeholder: "Écris ton message…" %>
+    <button class="btn btn-primary">Envoyer</button>
+  </div>
+  <% if (defined?(message_user) && message_user.errors.any?) %>
+    <div class="text-danger small mt-1"><%= message_user.errors.full_messages.to_sentence %></div>
+  <% end %>
+<% end %>

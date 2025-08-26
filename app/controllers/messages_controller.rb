@@ -5,6 +5,7 @@ class MessagesController < ApplicationController
   def create
     @message = @conversation.messages.new(message_params)
     @message.role = "user"
+    @message.user = current_user
 
     if @message.save
       # Génère un titre si c’est le premier message
@@ -45,7 +46,8 @@ class MessagesController < ApplicationController
         @conversation.messages.create!(
           content: assistant_response,
           role: "assistant",
-          conversation: @conversation
+          conversation: @conversation,
+          user: current_user
         )
       end
 

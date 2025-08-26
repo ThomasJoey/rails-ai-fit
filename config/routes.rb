@@ -5,10 +5,13 @@ Rails.application.routes.draw do
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Conversations et messages
-  resources :conversations, only: [:index, :show, :create, :destroy] do
-    post :create_events, on: :member
+
+  # Defines the root path route ("/")
+  # root "posts#index"
+  resources :conversations, only: [:index, :show, :create, :destroy, :new] do
+    post :create_events, on: :member   # ✅ ton bouton "✨ Générer 3 événements" utilisera ça
     resources :messages, only: [:create]
+    resources :message_users, only: [:create]
   end
 
   # Events avec participations
