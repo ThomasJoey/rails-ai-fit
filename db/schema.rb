@@ -154,10 +154,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_25_154805) do
     t.string "city"
     t.string "preferences"
     t.string "role"
-    t.text "bio"
-    t.string "sports", default: [], array: true
     t.integer "age"
     t.string "sexe"
+    t.text "bio"
+    t.string "sports", default: [], array: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["sports"], name: "index_users_on_sports", using: :gin
