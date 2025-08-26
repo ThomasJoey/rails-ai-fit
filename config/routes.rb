@@ -25,6 +25,9 @@ Rails.application.routes.draw do
     resources :event_participations, only: [:new, :create, :destroy]
   end
 
+  resources :posts do
+    resources :likes, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy]
   # Profile avec gestion de l'avatar
   resource :profile, only: [:show, :edit, :update] do
     member do

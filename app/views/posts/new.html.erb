@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <div class="card shadow-sm border-0 post-form-card mx-auto">
+    <div class="card-body">
+      <h2 class="text-center mb-4">Nouveau Post</h2>
+
+      <%= form_with model: @post, local: true, html: { multipart: true, class: "post-form" } do |form| %>
+        <!-- Champ texte -->
+        <div class="mb-3">
+          <%= form.text_area :content_text,
+                             placeholder: "Exprime-toi...",
+                             class: "form-control form-control-lg rounded-3",
+                             rows: 4 %>
+        </div>
+
+        <!-- Champ image -->
+        <div class="mb-3">
+          <label class="form-label">📷 Ajoute une photo</label>
+          <%= form.file_field :image,
+                              accept: "image/*",
+                              capture: "environment",
+                              class: "form-control form-control-lg" %>
+        </div>
+
+        <!-- Bouton -->
+        <div class="d-grid">
+          <%= form.submit "Publier",
+                          class: "btn btn-primary btn-lg rounded-pill shadow-sm" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

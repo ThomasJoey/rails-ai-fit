@@ -55,4 +55,8 @@ class ProfilesController < ApplicationController
   def user_params
     params.require(:user).permit(:first_name, :last_name, :bio, :avatar, :location, sports: [])
   end
+
+  def create
+    
+  end
 end
