@@ -1,7 +1,6 @@
 <!-- app/views/profiles/show.html.erb -->
 <div class="container py-5 profile-page">
   <h1>Mon Profil</h1>
-
   <div class="profile-card">
     <!-- Section Avatar avec upload -->
     <div class="position-relative d-inline-block">
@@ -9,7 +8,6 @@
           alt: "Avatar",
           class: "avatar",
           style: "width: 150px; height: 150px; object-fit: cover; border-radius: 50%;" %>
-
       <!-- Badge pour changer l'avatar -->
       <%= link_to edit_profile_path,
           class: "position-absolute bottom-0 end-0 btn btn-sm btn-primary rounded-circle p-2",
@@ -26,11 +24,25 @@
       <% end %>
     </div>
 
-    <div class="location">📍 Paris, France</div>
+    <div class="location">📍 <%= current_user.location %></div>
 
     <% if current_user.bio.present? %>
       <div class="bio mt-3">
-        <p class="text-muted">Mes sports favoris: <%= current_user.sports.join(", ") %></p>
+        <p><%= current_user.bio %></p>
+      </div>
+    <% end %>
+
+    <!-- Section sports favoris avec nouveau design -->
+    <% if current_user.sports.present? %>
+      <div class="sports-section mt-4">
+        <div class="section-title">Mes sports favoris :</div>
+        <div class="sports-badges">
+          <% current_user.sports.each do |sport| %>
+            <span class="sport-badge">
+              <i class="fas fa-star"></i> <%= sport.humanize %>
+            </span>
+          <% end %>
+        </div>
       </div>
     <% end %>
 
@@ -92,28 +104,75 @@
   }
 
   .location {
-    color: #666;
-    margin: 10px 0;
+    color: #110f0fff;
+    margin: 15px 0;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
   }
 
   .bio {
     max-width: 500px;
     margin: 15px auto;
     font-style: italic;
+    color: #666;
+    font-family: 'Arial';
+    font-weight: bolder
   }
 
-  .sports {
-    margin-top: 20px;
+  /* Section sports avec design badges colorés */
+  .sports-section {
+    margin-top: 25px;
+    padding: 20px 0;
   }
 
-  .sports .badge {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  .section-title {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+
+  .sports-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .sport-badge {
+    background: linear-gradient(135deg, #846bffff, #2b24eeff);
     color: white;
-    padding: 8px 15px;
-    border-radius: 20px;
-    margin: 0 5px;
-    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 0.9em;
     font-weight: 500;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .sport-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+  }
+
+  .sport-badge i {
+    font-size: 0.8em;
+    opacity: 0.9;
+  }
+
+  /* Responsive */
+  @media (max-width: 576px) {
+    .sports-badges {
+      gap: 8px;
+    }
+
+    .sport-badge {
+      padding: 6px 12px;
+      font-size: 0.8em;
+    }
   }
 
   .list-group-item {
@@ -126,5 +185,20 @@
   .list-group-item:hover {
     transform: translateX(5px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+  }
+
+  .btn-outline-primary {
+    border-color: #667eea;
+    color: #667eea;
+  }
+
+  .btn-outline-primary:hover {
+    background-color: #667eea;
+    border-color: #667eea;
   }
 </style>

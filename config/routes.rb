@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # API routes
+  namespace :api do
+    get 'reverse_geocode', to: 'geocoding#reverse'
+  end
+
   # Conversations et messages
   resources :conversations, only: [:index, :show, :create, :destroy] do
     post :create_events, on: :member
