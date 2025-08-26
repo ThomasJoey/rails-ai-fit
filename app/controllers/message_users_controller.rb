@@ -14,9 +14,6 @@ class MessageUsersController < ApplicationController
     if @message_user.save
       redirect_to conversation_path(@conversation), notice: "Message envoyé."
     else
-      # on ré-affiche la show avec les erreurs + le formulaire IA existant
-      @conversations = Conversation.order(created_at: :desc)
-      @message = Message.new
       render "conversations/show", status: :unprocessable_entity
     end
   end
