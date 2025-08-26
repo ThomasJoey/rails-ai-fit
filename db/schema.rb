@@ -91,8 +91,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_26_122457) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "message_id"
-    t.index ["message_id"], name: "index_events_on_message_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -130,7 +130,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_26_122457) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "role"
+    t.bigint "user_id"
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -174,12 +176,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_26_122457) do
   add_foreign_key "conversations", "users", column: "second_user_id"
   add_foreign_key "event_participations", "events"
   add_foreign_key "event_participations", "users"
-  add_foreign_key "events", "messages"
+  add_foreign_key "events", "users"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "matches", "users", column: "matched_id"
   add_foreign_key "matches", "users", column: "matcher_id"
   add_foreign_key "message_users", "users", column: "sender_id"
   add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
   add_foreign_key "posts", "users"
 end

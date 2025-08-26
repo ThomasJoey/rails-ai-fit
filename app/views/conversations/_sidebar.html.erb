@@ -9,6 +9,7 @@
       <i class="fa-regular fa-pen-to-square me-2"></i>
       <span>Nouvelle conversation</span>
     <% end %>
+    <%= link_to "<-", conversations_path %>
 
   <%= link_to "📅 Tous les événements", events_path, class: "btn btn-secondary events w-100 mb-3" %>
 
@@ -16,7 +17,7 @@
   <ul class="list-group custom">
     <% conversations.each do |conv| %>
       <li class="list-group-item d-flex justify-content-between align-items-center custom <%= 'active' if conv == conversation %>">
-        <%= link_to conv.title, conversation_path(conv),
+        <%= link_to conv.display_name_for(current_user), conversation_path(conv),
                     class: "flex-grow-1 text-decoration-none me-2" %>
        <%= link_to conversation_path(conv),
             data: { turbo_method: :delete, turbo_confirm: "Es-tu sûr de vouloir supprimer cette conversation ?" },

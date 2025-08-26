@@ -29,11 +29,6 @@
               <li>🕒 <%= l(event.starts_at, format: :long) %> - <%= l(event.ends_at, format: :long) %></li>
             </ul>
 
-            <% if event.message&.conversation %>
-              <%= link_to "👉 Voir la conversation", conversation_path(event.message.conversation), class: "btn btn-outline-primary btn-sm" %>
-            <% else %>
-              <span class="text-muted">❌ Pas de conversation liée</span>
-            <% end %>
 
             <div class="event-actions">
               <% if current_user && event.users.include?(current_user) %>

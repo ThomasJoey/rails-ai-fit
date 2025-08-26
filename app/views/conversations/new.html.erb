@@ -1,0 +1,19 @@
+<h1>ICI C'EST LA NEW</h1>
+<ul>
+<% @users.each do |user| %>
+<% conversation = user.find_existing_conversation(current_user) %>
+  <% if conversation %>
+    <%= link_to user.first_name, conversation_path(conversation) %>
+  <% else %>
+    <li>
+    <%= user.first_name %>
+    <%= button_to "start chat",
+      conversations_path(second_user_id: user.id),
+      method: :post,
+      form: { data: { turbo: "false" } },
+      class: "btn btn-success w-100 mb-3" %>
+    </li>
+  <% end %>
+
+  <% end %>
+</ul>

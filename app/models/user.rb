@@ -7,6 +7,12 @@ class User < ApplicationRecord
   # Associations
   has_many :event_participations, dependent: :destroy
   has_many :events, through: :event_participations
+  has_many :messages
+  has_many :conversations
+  has_many :second_conversations, class_name: "Conversation", foreign_key: :second_user_id
+
+  has_many :message_users, foreign_key: :sender_id
+
   has_one_attached :avatar
 
   # Geocoding
@@ -30,6 +36,12 @@ class User < ApplicationRecord
       # Image par défaut - vous pouvez utiliser une image locale ou un service comme Gravatar
       "https://ui-avatars.com/api/?name=#{email}&background=random"
     end
+  end
+
+  def find_existing_conversation(user)
+    Conversation.where(user: self, second_user: user)
+                .or(Conversation.where(user: user, second_user: self))
+                .first
   end
 
   private
