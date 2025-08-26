@@ -3,7 +3,7 @@
   <section class="hero text-center text-white mb-5">
     <div class="overlay d-flex align-items-center justify-content-center">
       <div>
-        <h1 class="display-4 fw-bold">💬 Tes Conversations</h1>
+        <h1 class="display-4 fw-bold text-dark">💬 messages</h1>
         <p class="lead">Discute avec ton assistant sportif et découvre des idées d’événements adaptés à tes envies.</p>
         <%= button_to "+ Nouvelle conversation",
       conversations_path,
@@ -30,7 +30,7 @@
               class: "card-img-top", alt: "Sport event" %>
 
           <div class="card-body d-flex flex-column">
-            <h5 class="card-title text-primary"><%= conversation.title %></h5>
+            <h5 class="card-title text-primary"><%= conversation.display_name_for(current_user) %></h5>
             <p class="card-text text-muted flex-grow-1"><%= conversation.context %></p>
 
             <div class="d-flex justify-content-between">

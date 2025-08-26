@@ -16,7 +16,7 @@
   <ul class="list-group custom">
     <% conversations.each do |conv| %>
       <li class="list-group-item d-flex justify-content-between align-items-center custom <%= 'active' if conv == conversation %>">
-        <%= link_to conv.title, conversation_path(conv),
+        <%= link_to conv.display_name_for(current_user), conversation_path(conv),
                     class: "flex-grow-1 text-decoration-none me-2" %>
        <%= link_to conversation_path(conv),
             data: { turbo_method: :delete, turbo_confirm: "Es-tu sûr de vouloir supprimer cette conversation ?" },

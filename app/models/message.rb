@@ -1,6 +1,7 @@
 class Message < ApplicationRecord
   belongs_to :conversation
-  has_many :events, dependent: :nullify
+  belongs_to :user, optional: true
+  
   validates :content, presence: true
   validates :role, presence: true, inclusion: { in: %w[user assistant] }
 

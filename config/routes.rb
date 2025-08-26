@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :conversations, only: [:index, :show, :create, :destroy, :new] do
     post :create_events, on: :member   # ✅ ton bouton "✨ Générer 3 événements" utilisera ça
     resources :messages, only: [:create]
+    resources :message_users, only: [:create]
   end
 
   resources :events, only: [:index, :new, :create, :show, :destroy] do
