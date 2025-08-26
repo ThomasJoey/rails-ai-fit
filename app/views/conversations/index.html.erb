@@ -1,0 +1,47 @@
+<div class="conversations-index container py-5">
+  <!-- Hero -->
+  <section class="hero text-center text-white mb-5">
+    <div class="overlay d-flex align-items-center justify-content-center">
+      <div>
+        <h1 class="display-4 fw-bold text-dark">💬 messages</h1>
+        <p class="lead">Discute avec ton assistant sportif et découvre des idées d’événements adaptés à tes envies.</p>
+        <%= button_to "+ Nouvelle conversation",
+      conversations_path,
+      method: :post,
+      form: { data: { turbo: "false" } },
+      class: "btn btn-success w-100 mb-3" %>
+
+
+      <%= link_to "+ Discute avec des gens",
+      new_conversation_path,
+      class: "btn btn-success w-100 mb-3" %>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Conversations -->
+  <div class="row g-4">
+    <% @conversations.each do |conversation| %>
+      <div class="col-md-6 col-lg-4">
+        <div class="card conversation-card shadow-sm h-100">
+          <!-- Image sportive -->
+          <%= image_tag "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+              class: "card-img-top", alt: "Sport event" %>
+
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-primary"><%= conversation.display_name_for(current_user) %></h5>
+            <p class="card-text text-muted flex-grow-1"><%= conversation.context %></p>
+
+            <div class="d-flex justify-content-between">
+              <%= link_to "👉 Ouvrir", conversation_path(conversation.id), class: "btn btn-primary btn-sm" %>
+              <%= link_to "🗑️ Supprimer", conversation_path(conversation.id),
+                    data: { turbo_method: :delete, turbo_confirm: "Es-tu sûr ?" },
+                    class: "btn btn-outline-danger btn-sm" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+.post-card {
+  max-width: 600px; // un peu plus large pour desktop, reste centré
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 0 auto 2rem auto; // centré + espace entre posts
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  .card-header {
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: #fff;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .card-body {
+    font-size: 0.95rem;
+    padding: 1rem;
+  }
+}
+
+.post-image {
+  max-height: 350px;
+  object-fit: cover;
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Zone actions */
+.like-btn i,
+.comment-toggle i,
+.btn-link i {
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.like-btn i {
+  color: #555; // icône par défaut
+}
+
+.like-btn:hover i {
+  color: #e63946; // rouge au hover
+  transform: scale(1.2);
+}
+
+/* Supprimer les lignes bleues sous le cœur et compteur */
+.like-btn,
+.like-btn span,
+.like-btn input {
+  text-decoration: none !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.like-btn:hover {
+  text-decoration: none !important;
+}
+
+/* Commentaires */
+.comment-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px; // petit espace entre icône et chiffre
+
+  i {
+    font-size: 1.2rem;
+    line-height: 1;
+    color: #555;
+  }
+
+  &:hover i {
+    color: #007bff; // bleu Bootstrap
+    transform: scale(1.2);
+  }
+
+  span {
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+}
+
+.d-flex.align-items-center.gap-4 {
+  gap: 20px; // espace horizontal entre le bloc like et le bloc comment
+}
+
+/* Dropdown (3 petits points menu) */
+.card-header .btn-link i {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.card-header .btn-link:hover i {
+  transform: scale(1.2);
+  color: #000;
+}

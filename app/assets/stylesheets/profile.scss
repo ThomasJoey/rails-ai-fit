@@ -1,0 +1,120 @@
+// 🌟 Page Profil
+.profile-page {
+  background: #f8fafc;
+  min-height: 100vh;
+
+  h1 {
+    font-weight: 700;
+    color: #0d6efd;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  // 🖼️ Section infos utilisateur
+  .profile-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      border: 4px solid #0d6efd;
+      box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+      z-index: 1;
+      position: relative;
+    }
+
+    .name {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #2c3e50;
+      z-index: 1;
+      position: relative;
+    }
+
+    .location {
+      font-size: 0.95rem;
+      color: #6c757d;
+      margin-top: 0.3rem;
+      z-index: 1;
+      position: relative;
+    }
+
+    .sports {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      .badge {
+        background: linear-gradient(135deg, #0d6efd, #20c997);
+        color: #fff;
+        padding: 0.5rem 0.9rem;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
+
+  // 📅 Mes événements
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+  }
+
+  .list-group {
+    border: none;
+
+    .list-group-item {
+      border: none;
+      border-radius: 12px;
+      margin-bottom: 0.8rem;
+      background: #fff;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      strong {
+        color: #0d6efd;
+      }
+
+      small {
+        display: block;
+        font-size: 0.85rem;
+        color: #6c757d;
+      }
+
+      .btn {
+        border-radius: 10px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+
+  .text-muted {
+    text-align: center;
+    font-size: 0.95rem;
+    margin-top: 1.5rem;
+  }
+}

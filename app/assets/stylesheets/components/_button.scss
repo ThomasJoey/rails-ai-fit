@@ -1,0 +1,19 @@
+.btn.custom {
+  background-color: $blue;
+  border-radius: 24px;
+  padding: 10px 10px;
+  color: #fff;
+  box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 8px 0px;
+  transition: all 0.3s ease; // animation fluide
+
+  &:hover {
+    background-color: darken($blue, 10%); // assombrir
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 12px; // ombre plus forte
+    transform: translateY(-2px); // petit "lift"
+  }
+
+  &:active {
+    transform: translateY(0); // revient à plat au clic
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px;
+  }
+}
