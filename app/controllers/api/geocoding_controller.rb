@@ -30,7 +30,7 @@ module Api
           address: result.address,
           lat: result.latitude,
           lng: result.longitude,
-          distance: result.distance.round(2) if result.respond_to?(:distance)
+          distance: result.distance.round(2)
         }
       end
 
