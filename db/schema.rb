@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema[7.1].define(version: 2025_08_26_090510) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -157,10 +159,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_26_090510) do
     t.string "preferences"
     t.string "role"
     t.integer "age"
-    t.string "sport"
     t.string "sexe"
+    t.text "bio"
+    t.string "sports", default: [], array: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["sports"], name: "index_users_on_sports", using: :gin
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
