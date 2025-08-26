@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  # Associations
   has_many :event_participations, dependent: :destroy
   has_many :events, through: :event_participations
   has_many :messages
@@ -11,17 +13,20 @@ class User < ApplicationRecord
 
   has_many :message_users, foreign_key: :sender_id
 
-  def find_existing_conversation(user)
-    Conversation.where(user: self, second_user: user)
-                .or(Conversation.where(user: user, second_user: self))
-                .first
-  end
-end
-
-class User < ApplicationRecord
-  # Devise modules...
-
   has_one_attached :avatar
+
+  # Geocoding
+  geocoded_by :location
+  after_validation :geocode, if: :will_save_change_to_location?
+
+  # Scopes
+  scope :near_location, ->(location, distance = 10) {
+    near(location, distance, units: :km)
+  }
+
+  # Validations
+  validates :location, presence: true, if: :location_required?
+  validate :acceptable_avatar
 
   # Méthode pour obtenir l'URL de l'avatar ou une image par défaut
   def avatar_url
@@ -33,10 +38,17 @@ class User < ApplicationRecord
     end
   end
 
-  # Validation optionnelle pour le type et la taille du fichier
-  validate :acceptable_avatar
+  def find_existing_conversation(user)
+    Conversation.where(user: self, second_user: user)
+                .or(Conversation.where(user: user, second_user: self))
+                .first
+  end
 
   private
+
+  def location_required?
+    false # Mettez true si vous voulez rendre la localisation obligatoire
+  end
 
   def acceptable_avatar
     return unless avatar.attached?
