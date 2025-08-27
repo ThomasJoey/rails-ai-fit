@@ -1,13 +1,35 @@
-<header class="home-header">
-  <button class="home-header__icon" aria-label="Menu">
+<header class="home-header d-flex justify-content-between align-items-center px-3 py-2">
+  <!-- Bouton Burger -->
+  <button class="home-header__icon btn btn-link text-dark p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     ☰
   </button>
 
-  <h1 class="home-header__title">FIT BUDDY</h1>
+  <!-- Titre -->
+  <h1 class="home-header__title m-0">FIT BUDDY</h1>
 
-  <%= link_to new_post_path, class: "home-header__icon", aria: { label: "Nouvelle publication" } do %>
-    <button class="plus-button" aria-label="Créer">
-      <i class="fa-solid fa-plus"></i>
-    </button>
-  <% end %>
+  <!-- Avatar User -->
+  <div class="dropdown">
+    <a href="#" class="d-flex align-items-center" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      <% if current_user && current_user.avatar.attached? %>
+        <%= image_tag current_user.avatar, class: "avatar rounded-circle me-2", alt: current_user.first_name %>
+      <% else %>
+        <div class="avatar-placeholder me-2"></div>
+      <% end %>
+      <span><%= current_user&.first_name || "Invité" %></span>
+    </a>
+
+    <!-- Menu déroulant -->
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+      <li>
+        <%= link_to "Mon compte", profile_path(current_user), class: "dropdown-item" %>
+      </li>
+      <li>
+        <%= link_to "Paramètres", "#", class: "dropdown-item" %>
+      </li>
+      <li><hr class="dropdown-divider"></li>
+      <li>
+        <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class: "dropdown-item text-danger" %>
+      </li>
+    </ul>
+  </div>
 </header>

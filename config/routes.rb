@@ -38,4 +38,7 @@ Rails.application.routes.draw do
       delete :delete_avatar
     end
   end
+
+  resources :users, only: [:show]
+
 end
