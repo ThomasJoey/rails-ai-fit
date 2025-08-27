@@ -1,0 +1,73 @@
+.chatbot-home {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: #212529;
+
+  // Hero Section
+  .hero {
+    min-height: 80vh;
+    background: linear-gradient(rgba(13, 110, 253, 0.85), rgba(13, 110, 253, 0.85)),
+                url("https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=1600&q=80")
+                center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    .btn {
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: darken(#ffffff, 10%);
+        color: #0d6efd;
+      }
+    }
+  }
+
+  // Features Section
+  .features {
+    .feature-icon {
+      font-size: 2rem;
+    }
+    .card {
+      border-radius: 12px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+
+  // Testimonials
+  .testimonials {
+    .card {
+      border-radius: 12px;
+    }
+  }
+
+  // CTA Section
+  .cta {
+    background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+    h2, p {
+      color: white;
+    }
+    .btn {
+      border-radius: 30px;
+      font-weight: 600;
+    }
+  }
+
+  // Footer
+  .footer {
+    background-color: #fff;
+    border-top: 1px solid #e9ecef;
+    font-size: 0.9rem;
+  }
+}

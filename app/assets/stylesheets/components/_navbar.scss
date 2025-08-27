@@ -1,12 +1,107 @@
-.navbar-lewagon {
-  justify-content: space-between;
-  background: white;
-}
+// NAVBAR STYLES
+.navbar {
+  background: linear-gradient(45deg,#4D00FF, #00BCEF);
+  box-shadow: 0 2px 20px rgba(47, 0, 255, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
 
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
-}
+  .navbar-brand {
+    color: white;
+    font-size: 1.8em;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: 1px;
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+    &:hover {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+    }
+  }
+
+  .navbar-nav {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 13px;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-weight: 300;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        text-decoration: none;
+      }
+
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+
+      &.btn-outline-light {
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        color: white;
+        background: transparent;
+
+        &:hover {
+          background: white;
+          color: rgb(47, 0, 255);
+          border-color: white;
+        }
+      }
+
+      &.btn-light {
+        background: white;
+        color: rgb(47, 0, 255);
+        border: 2px solid white;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.9);
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+      }
+    }
+  }
+
+  // Mobile responsive
+  @media (max-width: 768px) {
+    padding: 0 15px;
+    height: 70px;
+
+    .navbar-brand {
+      font-size: 1.5em;
+    }
+
+    .navbar-nav {
+      gap: 10px;
+
+      .nav-link {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+
+      .btn {
+        padding: 8px 15px;
+        font-size: 14px;
+      }
+    }
+  }
 }

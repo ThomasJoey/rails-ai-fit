@@ -1,0 +1,93 @@
+// Conteneur principal du chat
+.chat-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+// Header
+.chat-header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+
+  p {
+    color: #6c757d; // gris Bootstrap
+    font-size: 0.95rem;
+  }
+}
+
+// Zone messages
+.chat-messages {
+  margin-bottom: 2rem;
+}
+
+// Message générique
+.chat-message {
+  display: flex;
+  margin-bottom: 1rem;
+
+  .bubble {
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+    max-width: 70%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  &.user {
+    justify-content: flex-end;
+
+    .bubble {
+      background: $blue; // Bootstrap primary
+      color: white;
+    }
+  }
+
+  &.assistant {
+    justify-content: flex-start;
+
+    .bubble {
+      background: #f8f9fa; // gris clair Bootstrap
+      color: #212529;
+    }
+  }
+}
+
+// Carte event (dans les réponses de l’assistant)
+.event-card {
+  margin-top: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background: white;
+
+  h5 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin-bottom: 0.3rem;
+  }
+
+  strong {
+    color: $blue;
+  }
+}
+
+// Formulaire bas de page
+.chat-form {
+  .form-control {
+    border-radius: 0.5rem;
+    resize: none;
+  }
+
+  .btn {
+    border-radius: 0.5rem;
+    font-weight: bold;
+  }
+}

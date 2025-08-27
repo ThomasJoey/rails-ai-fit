@@ -1,0 +1,65 @@
+<div class="container py-5 events-index">
+  <h1 class="mb-4 text-center">📅 Tous les événements générés</h1>
+
+  <!-- 🔍 Barre de recherche + filtre date -->
+  <div class="mb-4">
+    <%= form_with url: events_path, method: :get, local: true, class: "row g-2 justify-content-center" do %>
+      <div class="col-md-4">
+        <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Rechercher un événement..." %>
+      </div>
+      <div class="col-md-3">
+        <%= date_field_tag :date, params[:date], class: "form-control" %>
+      </div>
+      <div class="col-md-2">
+        <%= submit_tag "Filtrer", class: "btn btn-primary w-100" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row g-4">
+    <% @events.each do |event| %>
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-primary"><%= event.title %></h5>
+            <p class="card-text text-muted flex-grow-1"><%= event.description %></p>
+
+            <ul class="list-unstyled mb-3">
+              <li>📍 <%= event.location %></li>
+              <li>🕒 <%= l(event.starts_at, format: :long) %> - <%= l(event.ends_at, format: :long) %></li>
+            </ul>
+
+
+            <div class="event-actions">
+              <% if current_user && event.users.include?(current_user) %>
+                <%= button_to "🚫 je me désinscris",
+                  event_event_participation_path(event, event.event_participations.find_by(user: current_user)),
+                  method: :delete,
+                  data: { confirm: "Es-tu sûr de vouloir te désinscrire de cet événement ?" },
+                  class: "btn-action" %>
+              <% else %>
+                <%= button_to "✅ Je m'inscris",
+                  event_event_participations_path(event),
+                  method: :post,
+                  class: "btn-action" %>
+              <% end %>
+
+              <%= button_to event_path(event),
+                    method: :delete,
+                    data: { confirm: "Es-tu sûr de vouloir supprimer cet événement ?" },
+                    form: { style: "display:inline" },
+                    class: "btn-action btn-delete" do %>
+                  <i class="fa-solid fa-trash-can"></i>
+                <% end %>
+            </div>
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

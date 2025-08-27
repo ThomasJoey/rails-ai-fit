@@ -1,0 +1,8 @@
+<h2><%= @post.user.first_name %></h2>
+<p><%= @post.content_text %></p>
+
+<%# <% if @post.image.present? %>
+  <%# <%= image_tag @post.image, width: 300 %>
+<%# <% end %>
+
+<%= link_to "Retour au feed", posts_path %>

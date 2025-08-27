@@ -1,0 +1,60 @@
+<div class="container-fluid conversation-page">
+  <div class="row h-100">
+    <!-- Sidebar -->
+    <div class="col-3 border-end sidebar-col">
+      <%= render "conversations/sidebar", conversations: @conversations, conversation: @conversation %>
+    </div>
+
+    <!-- Chat content -->
+    <div class="col-9 conversation-container py-4">
+      <!-- Header -->
+      <div class="conversation-header mb-4">
+        <h1><%= @conversation.title %></h1>
+        <p class="text-muted"><%= @conversation.context %></p>
+      </div>
+
+      <hr>
+
+      <% if @conversation.human_chat? %>
+        <!-- ===== Chat ENTRE UTILISATEURS ===== -->
+        <h2 class="h5">Discussion avec <%= @conversation.second_user&.first_name || "l'utilisateur" %></h2>
+
+        <div class="mb-4">
+          <%= render "message_users/messages",
+                     message_users: @conversation.message_users.includes(:sender).chronological %>
+        </div>
+
+        <div id="new_user_message" class="conversation-form mt-3">
+          <%= render "message_users/form",
+                     conversation: @conversation,
+                     message_user: @message_user %>
+        </div>
+
+      <% else %>
+        <!-- ===== Chat IA ===== -->
+        <h2 class="h5">Assistant IA</h2>
+
+        <div class="mb-4">
+          <div id="messages" class="conversation-messages">
+            <%= render "messages/messages",
+                       messages: @conversation.messages.order(:created_at) %>
+          </div>
+        </div>
+
+        <div id="new_message" class="conversation-form mt-3">
+          <%= render "messages/form",
+                     conversation: @conversation,
+                     message: @message %>
+        </div>
+
+        <!-- 🚀 Bouton pour générer 3 événements (IA seulement) -->
+        <div class="mt-4 text-center">
+          <%= button_to "Générer l'événement",
+                        create_events_conversation_path(@conversation),
+                        method: :post,
+                        class: "btn custom px-4 generate-events-btn" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

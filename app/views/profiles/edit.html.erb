@@ -1,0 +1,708 @@
+<!-- app/views/profiles/edit.html.erb -->
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card profile-edit-card">
+        <div class="card-body">
+          <h3 class="text-center mb-4">Modifier mon profil</h3>
+
+          <%= form_with model: @user, url: profile_path, local: true do |f| %>
+            <% if @user.errors.any? %>
+              <div class="alert alert-danger">
+                <ul class="mb-0">
+                  <% @user.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <!-- Section Avatar -->
+            <div class="mb-4 text-center">
+              <label class="form-label d-block fw-bold">Photo de profil</label>
+
+              <!-- Aperçu de l'avatar actuel avec overlay -->
+              <div class="avatar-upload-container mb-3">
+                <%= image_tag @user.avatar_url,
+                    id: "avatar-preview",
+                    class: "avatar-preview",
+                    style: "width: 150px; height: 150px; object-fit: cover; border-radius: 50%;" %>
+
+                <!-- Input file caché et label stylisé -->
+                <%= f.file_field :avatar,
+                    id: "avatar-input",
+                    class: "d-none",
+                    accept: "image/png,image/jpeg,image/gif,image/webp",
+                    onchange: "previewAvatar(this);" %>
+
+                <label for="avatar-input" class="avatar-upload-overlay">
+                  <i class="fas fa-camera fa-2x"></i>
+                </label>
+              </div>
+
+              <small class="text-muted">
+                Formats acceptés : JPG, PNG, GIF, WebP (max 5MB)
+              </small>
+
+              <% if @user.avatar.attached? %>
+                <div class="mt-2">
+                  <%= link_to delete_avatar_profile_path,
+                      data: {
+                        turbo_method: :delete,
+                        turbo_confirm: "Êtes-vous sûr de vouloir supprimer votre avatar ?"
+                      },
+                      class: "btn btn-sm btn-outline-danger" do %>
+                    <i class="fas fa-trash"></i> Supprimer l'avatar
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+
+            <!-- Informations personnelles -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%= f.label :first_name, "Prénom", class: "form-label" %>
+                <%= f.text_field :first_name,
+                    class: "form-control",
+                    placeholder: "Jean" %>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <%= f.label :last_name, "Nom", class: "form-label" %>
+                <%= f.text_field :last_name,
+                    class: "form-control",
+                    placeholder: "Dupont" %>
+              </div>
+            </div>
+
+            <!-- Bio -->
+            <div class="mb-3">
+              <%= f.label :bio, "Bio", class: "form-label" %>
+              <%= f.text_area :bio,
+                  class: "form-control",
+                  rows: 4,
+                  placeholder: "Parlez-nous de vous et de vos passions sportives..." %>
+              <small class="text-muted">
+                Décrivez vos sports préférés, vos objectifs, etc.
+              </small>
+            </div>
+
+            <!-- Localisation avec géolocalisation -->
+            <div class="mb-3">
+              <label for="location" class="form-label">
+                <i class="fas fa-map-marker-alt text-danger"></i> Localisation
+              </label>
+              <div class="input-group">
+                <%= f.text_field :location,
+                    id: "location-input",
+                    class: "form-control",
+                    placeholder: "Entrez votre adresse ou ville...",
+                    value: @user.location,
+                    autocomplete: "off" %>
+                <button type="button"
+                    id="detect-location"
+                    class="btn btn-outline-secondary"
+                    data-bs-toggle="tooltip"
+                    title="Utiliser ma position actuelle">
+                  <i class="fas fa-crosshairs"></i>
+                </button>
+              </div>
+              <small class="form-text text-muted">
+                Ex: "Paris, France" ou "75001" ou une adresse complète
+              </small>
+              <!-- Affichage de la carte (optionnel) -->
+              <div id="location-map" class="mt-3 rounded" style="height: 200px; display: none;"></div>
+            </div>
+
+            <!-- Sports favoris avec checkboxes cachées -->
+            <div class="mb-4" data-controller="sport-filter">
+              <label class="form-label">Sports favoris</label>
+
+              <!-- Filtres par catégorie avec radio buttons -->
+              <div class="category-filters mb-3">
+                <input type="radio" id="filter-all" name="sport_filter" class="filter-selector" value="all" data-sport-filter-target="filterInput" data-action="change->sport-filter#filter" checked>
+                <label for="filter-all" class="filter-label">Tous</label>
+
+                <input type="radio" id="filter-endurance" name="sport_filter" class="filter-selector" value="endurance" data-sport-filter-target="filterInput" data-action="change->sport-filter#filter">
+                <label for="filter-endurance" class="filter-label">Endurance</label>
+
+                <input type="radio" id="filter-force" name="sport_filter" class="filter-selector" value="force" data-sport-filter-target="filterInput" data-action="change->sport-filter#filter">
+                <label for="filter-force" class="filter-label">Force</label>
+
+                <input type="radio" id="filter-equipe" name="sport_filter" class="filter-selector" value="equipe" data-sport-filter-target="filterInput" data-action="change->sport-filter#filter">
+                <label for="filter-equipe" class="filter-label">Équipe</label>
+
+                <input type="radio" id="filter-combat" name="sport_filter" class="filter-selector" value="combat" data-sport-filter-target="filterInput" data-action="change->sport-filter#filter">
+                <label for="filter-combat" class="filter-label">Combat</label>
+
+                <input type="radio" id="filter-eau" name="sport_filter" class="filter-selector" value="eau" data-sport-filter-target="filterInput" data-action="change->sport-filter#filter">
+                <label for="filter-eau" class="filter-label">Eau</label>
+
+                <input type="radio" id="filter-hiver" name="sport_filter" class="filter-selector" value="hiver" data-sport-filter-target="filterInput" data-action="change->sport-filter#filter">
+                <label for="filter-hiver" class="filter-label">Hiver</label>
+
+                <input type="radio" id="filter-raquette" name="sport_filter" class="filter-selector" value="raquette" data-sport-filter-target="filterInput" data-action="change->sport-filter#filter">
+                <label for="filter-raquette" class="filter-label">Raquette</label>
+
+                <input type="radio" id="filter-autres" name="sport_filter" class="filter-selector" value="autres" data-sport-filter-target="filterInput" data-action="change->sport-filter#filter">
+                <label for="filter-autres" class="filter-label">Autres</label>
+              </div>
+
+              <!-- Liste des sports avec checkboxes stylisées -->
+              <div class="sports-grid" data-sport-filter-target="sportGrid">
+                <!-- Sports d'endurance -->
+                <% %w[running marathon trail marche randonnee velo triathlon].each do |sport| %>
+                  <% sport_labels = {
+                    'running' => '🏃 Running',
+                    'marathon' => '🏃‍♂️ Marathon',
+                    'trail' => '⛰️ Trail',
+                    'marche' => '🚶 Marche',
+                    'randonnee' => '🥾 Randonnée',
+                    'velo' => '🚴 Vélo',
+                    'triathlon' => '🏊‍♂️🚴‍♂️🏃‍♂️ Triathlon'
+                  } %>
+                  <div class="sport-item" data-category="endurance" data-sport-filter-target="sportItem">
+                    <%= check_box_tag "user[sports][]", sport,
+                        @user.sports&.include?(sport),
+                        id: "sport_#{sport}",
+                        class: "sport-selector" %>
+                    <label for="sport_<%= sport %>" class="sport-label">
+                      <%= sport_labels[sport] %>
+                    </label>
+                  </div>
+                <% end %>
+
+                <!-- Sports de force -->
+                <% %w[musculation crossfit halterophilie pilates gymnastique].each do |sport| %>
+                  <% sport_labels = {
+                    'musculation' => '🏋️ Musculation',
+                    'crossfit' => '💪 CrossFit-Hyrox',
+                    'halterophilie' => '🏋️‍♂️ Haltérophilie',
+                    'pilates' => '⚡ Pilates',
+                    'gymnastique' => '🤸 Gymnastique'
+                  } %>
+                  <div class="sport-item" data-category="force" data-sport-filter-target="sportItem">
+                    <%= check_box_tag "user[sports][]", sport,
+                        @user.sports&.include?(sport),
+                        id: "sport_#{sport}",
+                        class: "sport-selector" %>
+                    <label for="sport_<%= sport %>" class="sport-label">
+                      <%= sport_labels[sport] %>
+                    </label>
+                  </div>
+                <% end %>
+
+                <!-- Sports d'équipe -->
+                <% %w[football basketball volleyball handball rugby].each do |sport| %>
+                  <% sport_labels = {
+                    'football' => '⚽ Football',
+                    'basketball' => '🏀 Basketball',
+                    'volleyball' => '🏐 Volleyball',
+                    'handball' => '🤾 Handball',
+                    'rugby' => '🏉 Rugby'
+                  } %>
+                  <div class="sport-item" data-category="equipe" data-sport-filter-target="sportItem">
+                    <%= check_box_tag "user[sports][]", sport,
+                        @user.sports&.include?(sport),
+                        id: "sport_#{sport}",
+                        class: "sport-selector" %>
+                    <label for="sport_<%= sport %>" class="sport-label">
+                      <%= sport_labels[sport] %>
+                    </label>
+                  </div>
+                <% end %>
+
+                <!-- Sports de combat -->
+                <% %w[boxe mma judo lutte jiujitsu karate escrime].each do |sport| %>
+                  <% sport_labels = {
+                    'boxe' => '🥊 Boxe',
+                    'mma' => '🏟️ MMA',
+                    'judo' => '🥋 Judo',
+                    'lutte' => '🤼 Lutte',
+                    'jiujitsu' => '☯️ Jiu-Jitsu',
+                    'karate' => '🐉 Karaté',
+                    'escrime' => '🤺 Escrime'
+                  } %>
+                  <div class="sport-item" data-category="combat" data-sport-filter-target="sportItem">
+                    <%= check_box_tag "user[sports][]", sport,
+                        @user.sports&.include?(sport),
+                        id: "sport_#{sport}",
+                        class: "sport-selector" %>
+                    <label for="sport_<%= sport %>" class="sport-label">
+                      <%= sport_labels[sport] %>
+                    </label>
+                  </div>
+                <% end %>
+
+                <!-- Sports aquatiques -->
+                <% %w[natation waterpolo plongee surf voile kayak aviron].each do |sport| %>
+                  <% sport_labels = {
+                    'natation' => '🏊 Natation',
+                    'waterpolo' => '🤽 Water-polo',
+                    'plongee' => '🤿 Plongée',
+                    'surf' => '🏄 Surf',
+                    'voile' => '⛵ Voile',
+                    'kayak' => '🛶 Kayak',
+                    'aviron' => '🚣 Aviron'
+                  } %>
+                  <div class="sport-item" data-category="eau" data-sport-filter-target="sportItem">
+                    <%= check_box_tag "user[sports][]", sport,
+                        @user.sports&.include?(sport),
+                        id: "sport_#{sport}",
+                        class: "sport-selector" %>
+                    <label for="sport_<%= sport %>" class="sport-label">
+                      <%= sport_labels[sport] %>
+                    </label>
+                  </div>
+                <% end %>
+
+                <!-- Sports d'hiver -->
+                <% %w[ski snowboard patinage hockey biathlon].each do |sport| %>
+                  <% sport_labels = {
+                    'ski' => '⛷️ Ski',
+                    'snowboard' => '🏂 Snowboard',
+                    'patinage' => '⛸️ Patinoire',
+                    'hockey' => '🏒 Hockey sur glace',
+                    'biathlon' => '🎿 Biathlon'
+                  } %>
+                  <div class="sport-item" data-category="hiver" data-sport-filter-target="sportItem">
+                    <%= check_box_tag "user[sports][]", sport,
+                        @user.sports&.include?(sport),
+                        id: "sport_#{sport}",
+                        class: "sport-selector" %>
+                    <label for="sport_<%= sport %>" class="sport-label">
+                      <%= sport_labels[sport] %>
+                    </label>
+                  </div>
+                <% end %>
+
+                <!-- Sports de raquette -->
+                <% %w[tennis badminton squash pingpong padel].each do |sport| %>
+                  <% sport_labels = {
+                    'tennis' => '🎾 Tennis',
+                    'badminton' => '🏸 Badminton',
+                    'squash' => '🎾 Squash',
+                    'pingpong' => '🏓 Ping-pong',
+                    'padel' => '🎾 Padel'
+                  } %>
+                  <div class="sport-item" data-category="raquette" data-sport-filter-target="sportItem">
+                    <%= check_box_tag "user[sports][]", sport,
+                        @user.sports&.include?(sport),
+                        id: "sport_#{sport}",
+                        class: "sport-selector" %>
+                    <label for="sport_<%= sport %>" class="sport-label">
+                      <%= sport_labels[sport] %>
+                    </label>
+                  </div>
+                <% end %>
+
+                <!-- Autres sports -->
+                <% %w[yoga danse athletisme golf equitation escalade skateboard roller bowling billard flechettes petanque tir_arc chasse peche fitness zumba spinning aerobic stretching].each do |sport| %>
+                  <% sport_labels = {
+                    'yoga' => '🧘 Yoga',
+                    'danse' => '💃 Danse',
+                    'athletisme' => '🏃‍♀️ Athlétisme',
+                    'golf' => '⛳ Golf',
+                    'equitation' => '🐎 Équitation',
+                    'escalade' => '🧗 Escalade',
+                    'skateboard' => '🛹 Skateboard',
+                    'roller' => '🛼 Roller',
+                    'bowling' => '🎳 Bowling',
+                    'billard' => '🎱 Billard',
+                    'flechettes' => '🎯 Fléchettes',
+                    'petanque' => '🔵 Pétanque',
+                    'tir_arc' => '🏹 Tir à l\'arc',
+                    'chasse' => '🦌 Chasse',
+                    'peche' => '🎣 Pêche',
+                    'fitness' => '💪 Fitness',
+                    'zumba' => '🕺 Zumba',
+                    'spinning' => '🚴‍♀️ Spinning',
+                    'aerobic' => '🤸‍♀️ Aérobic',
+                    'stretching' => '🧘‍♀️ Stretching'
+                  } %>
+                  <div class="sport-item" data-category="autres" data-sport-filter-target="sportItem">
+                    <%= check_box_tag "user[sports][]", sport,
+                        @user.sports&.include?(sport),
+                        id: "sport_#{sport}",
+                        class: "sport-selector" %>
+                    <label for="sport_<%= sport %>" class="sport-label">
+                      <%= sport_labels[sport] %>
+                    </label>
+                  </div>
+                <% end %>
+              </div>
+
+              <!-- Compteur CSS uniquement -->
+              <div class="mt-3">
+                <small class="text-muted">
+                  Sélectionnez vos sports favoris
+                </small>
+              </div>
+            </div>
+
+            <!-- Boutons d'action -->
+            <div class="d-grid gap-2">
+              <%= f.submit "Enregistrer les modifications",
+                  class: "btn btn-primary btn-lg" %>
+              <%= link_to "Annuler", profile_path,
+                  class: "btn btn-outline-secondary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Card principale */
+  .profile-edit-card {
+    border-radius: 15px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    border: none;
+  }
+
+  /* Avatar upload avec CSS uniquement */
+  .avatar-upload-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .avatar-preview {
+    border: 4px solid #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+  }
+
+  .avatar-upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: white;
+    cursor: pointer;
+  }
+
+  .avatar-upload-container:hover .avatar-upload-overlay {
+    opacity: 1;
+  }
+
+  .avatar-upload-container:hover .avatar-preview {
+    transform: scale(1.05);
+  }
+
+  /* Styles de localisation */
+  .input-group .btn-outline-secondary {
+    border-color: #e0e0e0;
+    color: #666;
+  }
+
+  .input-group .btn-outline-secondary:hover {
+    background-color: #667eea;
+    border-color: #667eea;
+    color: white;
+  }
+
+  #location-map {
+    border: 1px solid #e0e0e0;
+    background-color: #f8f9fa;
+  }
+
+  /* Filtres par catégorie avec radio buttons cachés */
+  .category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  /* Cache les radio buttons */
+  .filter-selector {
+    position: absolute;
+    transform: scale(0);
+  }
+
+  /* Style des labels de filtre */
+  .filter-label {
+    display: inline-block;
+    padding: 8px 16px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.875rem;
+    font-weight: 500;
+    user-select: none;
+  }
+
+  .filter-label:hover {
+    border-color: #667eea;
+    background: #f8f9ff;
+  }
+
+  /* État checked pour les filtres */
+  .filter-selector:checked + .filter-label {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: #667eea;
+    color: white;
+  }
+
+  /* Grille de sports */
+  .sports-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background: #fafafa;
+  }
+
+  /* Scrollbar personnalisée */
+  .sports-grid::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .sports-grid::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  .sports-grid::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+
+  .sports-grid::-webkit-scrollbar-thumb:hover {
+    background: #667eea;
+  }
+
+  /* Container pour chaque sport */
+  .sport-item {
+    display: inline-block;
+  }
+
+  /* Cache les checkboxes */
+  .sport-selector {
+    position: absolute;
+    transform: scale(0);
+  }
+
+  /* Style des labels de sport */
+  .sport-label {
+    display: inline-block;
+    background: white;
+    color: #666;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid #e0e0e0;
+    user-select: none;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .sport-label:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-color: #667eea;
+  }
+
+  /* État checked pour les sports */
+  .sport-selector:checked + .sport-label {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #667eea;
+    animation: selectPulse 0.3s ease;
+  }
+
+  /* Animation de sélection */
+  @keyframes selectPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  /* Filtrage par catégorie avec CSS pur */
+  /* Quand "Tous" est sélectionné */
+  #filter-all:checked ~ .sports-grid .sport-item {
+    display: inline-block;
+  }
+
+  /* Cache tous les sports par défaut quand un filtre spécifique est actif */
+  #filter-endurance:checked ~ .sports-grid .sport-item,
+  #filter-force:checked ~ .sports-grid .sport-item,
+  #filter-equipe:checked ~ .sports-grid .sport-item,
+  #filter-combat:checked ~ .sports-grid .sport-item,
+  #filter-eau:checked ~ .sports-grid .sport-item,
+  #filter-hiver:checked ~ .sports-grid .sport-item,
+  #filter-raquette:checked ~ .sports-grid .sport-item,
+  #filter-autres:checked ~ .sports-grid .sport-item {
+    display: none;
+  }
+
+  /* Affiche uniquement la catégorie sélectionnée */
+  #filter-endurance:checked ~ .sports-grid .sport-item[data-category="endurance"],
+  #filter-force:checked ~ .sports-grid .sport-item[data-category="force"],
+  #filter-equipe:checked ~ .sports-grid .sport-item[data-category="equipe"],
+  #filter-combat:checked ~ .sports-grid .sport-item[data-category="combat"],
+  #filter-eau:checked ~ .sports-grid .sport-item[data-category="eau"],
+  #filter-hiver:checked ~ .sports-grid .sport-item[data-category="hiver"],
+  #filter-raquette:checked ~ .sports-grid .sport-item[data-category="raquette"],
+  #filter-autres:checked ~ .sports-grid .sport-item[data-category="autres"] {
+    display: inline-block;
+  }
+
+  /* Styles des champs de formulaire */
+  .form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+  }
+
+  .form-label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  /* Boutons */
+  .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  }
+
+  .btn-outline-secondary {
+    border: 2px solid #e0e0e0;
+    color: #666;
+    font-weight: 500;
+  }
+
+  .btn-outline-secondary:hover {
+    background: #f8f8f8;
+    border-color: #ccc;
+  }
+
+  .btn-outline-danger {
+    border-color: #dc3545;
+    color: #dc3545;
+  }
+
+  .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+  }
+
+  /* Animation pour les messages d'alerte */
+  .alert {
+    animation: slideDown 0.3s ease;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("turbo:load", initProfileScripts); // ⚡ Pour Turbo/Rails
+  document.addEventListener("DOMContentLoaded", initProfileScripts); // ⚡ Pour page classique sans Turbo
+
+  function initProfileScripts() {
+    // --- Prévisualisation de l'avatar ---
+    const avatarInput = document.getElementById("avatar-input");
+    if (avatarInput) {
+      avatarInput.addEventListener("change", function () {
+        if (this.files && this.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            document.getElementById("avatar-preview").src = e.target.result;
+          };
+          reader.readAsDataURL(this.files[0]);
+        }
+      });
+    }
+
+    // --- Géolocalisation ---
+    const detectLocationBtn = document.getElementById("detect-location");
+    const locationInput = document.getElementById("location-input");
+    if (detectLocationBtn && locationInput) {
+      detectLocationBtn.addEventListener("click", function () {
+        if (navigator.geolocation) {
+          detectLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+          detectLocationBtn.disabled = true;
+
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              const lat = position.coords.latitude;
+              const lng = position.coords.longitude;
+
+              fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+                .then((response) => response.json())
+                .then((data) => {
+                  locationInput.value = data.display_name || `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                })
+                .catch(() => {
+                  locationInput.value = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                })
+                .finally(() => {
+                  detectLocationBtn.innerHTML = '<i class="fas fa-crosshairs"></i>';
+                  detectLocationBtn.disabled = false;
+                });
+            },
+            function () {
+              alert("Impossible de détecter votre position.");
+              detectLocationBtn.innerHTML = '<i class="fas fa-crosshairs"></i>';
+              detectLocationBtn.disabled = false;
+            }
+          );
+        } else {
+          alert("La géolocalisation n'est pas supportée par votre navigateur.");
+        }
+      });
+    }
+
+    // --- Limite de sélection des sports ---
+    const checkboxes = document.querySelectorAll(".sport-selector");
+    const MAX_SELECTION = 3;
+
+    if (checkboxes.length > 0) {
+      checkboxes.forEach((cb) => {
+        cb.addEventListener("change", function () {
+          const checked = document.querySelectorAll(".sport-selector:checked");
+          if (checked.length > MAX_SELECTION) {
+            this.checked = false; // annule le dernier clic
+            alert(`Vous ne pouvez sélectionner que ${MAX_SELECTION} sports maximum.`);
+          }
+        });
+      });
+    }
+  }
+</script>

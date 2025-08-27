@@ -1,0 +1,14 @@
+.comment-toggle {
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.like-btn i,
+.comment-toggle i {
+  transition: transform 0.2s ease;
+}
+
+.like-btn:hover i,
+.comment-toggle:hover i {
+  transform: scale(1.2);
+}
