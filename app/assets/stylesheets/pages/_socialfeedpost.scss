@@ -1,48 +1,93 @@
 .post-card {
-  max-width: 600px; // un peu plus large pour desktop, reste centré
-  border-radius: 16px;
-  overflow: hidden;
-  margin: 0 auto 2rem auto; // centré + espace entre posts
+  max-width: 420px;         /* beaucoup plus étroit */
+  margin: 0.5rem auto;      /* moins d’espace entre les posts */
+  padding: 0.6rem;          /* réduit le padding interne */
+  border-radius: 10px;
   background: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-
-  .card-header {
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 0.75rem 1rem;
-    background-color: #fff;
-    border-bottom: 1px solid #f0f0f0;
-  }
-
-  .card-body {
-    font-size: 0.95rem;
-    padding: 1rem;
-  }
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  font-size: 0.85rem;       /* tout légèrement réduit */
 }
 
-.post-image {
-  max-height: 350px;
-  object-fit: cover;
-  width: 100%;
-  display: block;
+.card-header {
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #fff;
   border-bottom: 1px solid #f0f0f0;
 }
 
-/* Zone actions */
-.like-btn i,
-.comment-toggle i,
-.btn-link i {
-  cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease;
+.card-body {
+  font-size: 0.95rem;
+  padding: 1rem;
 }
 
-.like-btn i {
-  color: #555; // icône par défaut
+/* Réduction image */
+.post-image {
+  max-height: 220px;   /* hauteur plus compacte */
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
 }
 
-.like-btn:hover i {
-  color: #e63946; // rouge au hover
-  transform: scale(1.2);
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #166EFD, #A74FFF);
+}
+
+.username {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111;
+  line-height: 1.2;
+}
+
+.location {
+  font-size: 0.82rem;
+  color: #777;
+}
+
+/* Actions */
+.card-footer {
+  padding: 0.25rem 0 0.5rem 0;
+  background: transparent;
+  border: none;
+}
+
+.action-bubble {
+  background: #f5f5f5;
+  padding: 5px 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;  // plus petit
+  color: #444;
+  min-width: 65px;   /* largeur minimum identique */
+  height: 42px;      /* hauteur fixe identique */
+  text-align: center;
+
+  i {
+    font-size: 0.9rem; // icône plus petite
+    color: #555;
+  }
+
+  span {
+    margin-left: 5px;
+  }
+
+  &:hover {
+    background: #ececec;
+  }
 }
 
 /* Supprimer les lignes bleues sous le cœur et compteur */
@@ -95,4 +140,51 @@
 .card-header .btn-link:hover i {
   transform: scale(1.2);
   color: #000;
+}
+
+/* Aligner avatar, texte, photo et boutons sur la gauche */
+.post-card {
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.post-card .card-header,
+.post-card .card-body,
+.post-card .post-image,
+.post-card .card-footer {
+  padding-left: 0;   /* supprime le décalage à gauche */
+  padding-right: 0;  /* même traitement à droite */
+}
+
+/* Avatar toujours aligné */
+.avatar,
+.avatar-placeholder {
+  margin-left: 0;
+}
+
+/* Boutons like/comment deux fois plus petits */
+.action-bubble {
+  background: #f5f5f5;
+  padding: 3px 8px;    /* réduit le padding */
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;   /* texte plus petit */
+  color: #444;
+  min-width: 45px;     /* largeur réduite */
+  height: 28px;        /* hauteur réduite */
+
+  i {
+    font-size: 0.7rem; /* icône plus petite */
+    color: #555;
+  }
+
+  span {
+    margin-left: 4px;
+    font-size: 0.7rem;
+  }
 }
