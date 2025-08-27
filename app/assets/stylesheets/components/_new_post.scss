@@ -1,0 +1,56 @@
+.post-form-card {
+  background-color: #fff;
+  padding: 0;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+
+  .post-input-textarea {
+    width: 100%;
+    border: none;
+    padding: 1rem;
+    border-radius: 15px;
+    background-color: #f8f9fa;
+    font-size: 1rem;
+    resize: none;
+    margin-bottom: 1rem;
+  }
+}
+
+
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-icon {
+  background-color: #f1f1f1;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4a4a4a;
+  cursor: pointer;
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+.form-submit-button {
+  background-color: black;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 15px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: auto;
+}

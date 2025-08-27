@@ -32,5 +32,15 @@
     font-size: 20px; // taille du +
     cursor: pointer;
 
-}
+  &:link,
+  &:visited,
+  &:hover,
+  &:focus,
+  &:active,
+  &:-webkit-any-link {
+    color: #fff;
+    text-decoration: none;
+  }
 
+ 
+}
