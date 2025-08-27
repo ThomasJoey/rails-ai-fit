@@ -1,25 +1,35 @@
+<div class="container mt-4">
+  <% content_for :header do %>
+        <%= render 'layouts/home_header' %>
+      <% end %>
 
-    <div class="container mt-4">
-      <div class="d-flex justify-content-center mb-4">
-        <%= link_to "Nouvelle publication", new_post_path, class: "btn" %>
-      </div>
+      <% content_for :page_button do %>
+        <%= link_to new_post_path, class: "", aria: { label: "Créer une publication" } do %>
+        <i class="fa-regular fa-pen-to-square"></i>
+        <% end %>
+     <% end %>
+  
+  <% @posts.each do |post| %>
+    <div class="post-card card mb-3">
 
-      <% @posts.each do |post| %>
-        <div class="card mb-5 shadow-sm post-card mx-auto">
-          <!-- ici tes cards posts -->
-
-          <!-- En-tête -->
-          <div class="card-header d-flex align-items-center bg-white">
-            <strong><%= post.user.present? ? post.user.first_name : "Utilisateur inconnu" %></strong>
+      <div class="card-header d-flex justify-content-between align-items-center bg-white border-0">
+        <div class="d-flex align-items-center gap-3">
+          <% if post.user.avatar.attached? %>
+            <%= image_tag post.user.avatar, class: "avatar" %>
+          <% else %>
+            <div class="avatar-placeholder"></div>
+          <% end %>
+          
+          <div>
+            <div class="username"><%= post.user.first_name %></div>
+            <div class="location">localisation</div>
           </div>
-
-      <div class="card-header d-flex justify-content-between align-items-center bg-white">
-        <strong><%= post.user.present? ? post.user.first_name : "Utilisateur inconnu" %></strong>
+        </div>
 
         <% if post.user == current_user %>
           <div class="dropdown">
             <button class="btn btn-link text-dark p-0" type="button" id="dropdownMenu<%= post.id %>" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa-solid fa-ellipsis"></i> <!-- 3 petits points -->
+              <i class="fa-solid fa-ellipsis"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu<%= post.id %>">
               <li>
@@ -36,6 +46,13 @@
       </div>
 
 
+
+      <!-- Texte -->
+      <div class="card-body pt-2">
+        <p class="post-text"><%= post.content_text %></p>
+      </div>
+
+
       <!-- Image -->
       <% if post.image.attached? %>
         <%= image_tag post.image, class: "post-image", alt: "Image du post" %>
@@ -46,10 +63,11 @@
       <span class="like-section d-flex align-items-center">
       <div class="card-body">
 
+
         <!-- Actions -->
-        <div class="d-flex align-items-center gap-4 mb-2">
+        <div class="card-footer bg-white border-0 d-flex align-items-center gap-3">
         <!-- Like -->
-        <div class="d-flex align-items-center gap-3 mb-2">
+        <div class="action-bubble d-flex align-items-center">
           <%= turbo_frame_tag "like_button_post_#{post.id}" do %>
             <%= render "likes/like_button", post: post %>
           <% end %>
@@ -57,7 +75,7 @@
 
 
         <!-- Comment -->
-        <div class="d-flex align-items-center comment-toggle" data-post-id="<%= post.id %>">
+        <div class="action-bubble d-flex align-items-center comment-toggle" data-post-id="<%= post.id %>">
           <i class="fa-regular fa-comment fa-lg"></i>
           <span class="ms-1"><%= post.comments.count %></span>
         </div>

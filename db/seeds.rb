@@ -10,6 +10,7 @@ user1 = User.create!(
   first_name: "Miki",
   last_name: "Dev",
   city: "Paris",
+  sexe: "Masculin",
   preferences: "dark mode",
   role: "student"
 )
@@ -19,6 +20,7 @@ user2 = User.create!(
   first_name: "Alice",
   last_name: "Smith",
   city: "Lyon",
+  sexe: "Feminin",
   preferences: "light mode",
   role: "teacher"
 )

@@ -17,3 +17,20 @@
     box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px;
   }
 }
+
+.plus-button {
+    width: 36px;
+    height: 36px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 15px; // arrondi très visible mais pas 50%
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    font-size: 20px; // taille du +
+    cursor: pointer;
+
+}
+

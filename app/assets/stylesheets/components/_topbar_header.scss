@@ -1,0 +1,19 @@
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  padding-top: 24px;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+
+  &__title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 12px;
+  }
+}

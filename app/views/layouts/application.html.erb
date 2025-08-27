@@ -10,10 +10,14 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
   </head>
 
   <body class="<%= body_class_for_page %>">
-    <!-- Afficher la navbar seulement si ce n'est pas une page Devise -->
+
+    <%= content_for?(:header) ? yield(:header) : render('layouts/topbar_header') %>
+    
+
     <% unless devise_controller? %>
       <%= render 'layouts/navbar' %>
     <% end %>

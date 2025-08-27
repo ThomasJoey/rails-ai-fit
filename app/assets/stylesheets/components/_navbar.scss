@@ -1,107 +1,72 @@
-// NAVBAR STYLES
-.navbar {
-  background: linear-gradient(45deg,#4D00FF, #00BCEF);
-  box-shadow: 0 2px 20px rgba(47, 0, 255, 0.2);
+.mobile-navbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  height: 60px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
+  height: 65px;
+  background: #fff;
+  border-radius: 20px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 0 15px;
+  padding: 0 16px;
+  z-index: 1000;
 
-  .navbar-brand {
-    color: white;
-    font-size: 1.8em;
-    font-weight: bold;
-    text-decoration: none;
-    letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
-    &:hover {
-      color: rgba(255, 255, 255, 0.9);
-      text-decoration: none;
-    }
-  }
-
-  .navbar-nav {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 30px;
+  .nav-item {
+    flex: 1;
+    text-align: center;
 
     .nav-link {
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 16px;
+      color: #000;
+      font-size: 1.3rem;
+      font-weight: 500;
       text-decoration: none;
-      padding: 10px 15px;
-      border-radius: 8px;
       transition: all 0.3s ease;
-      font-weight: 300;
 
-      &:hover {
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        text-decoration: none;
+      span {
+        display: none;
+        font-size: 0.9rem;
       }
-
     }
 
-    .btn {
-      padding: 10px 20px;
-      border-radius: 25px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s ease;
+    /* Actif avec dégradé */
+    &.active .nav-link {
+      background: white; // dégradé
+      /* Use gradient for text with background-clip */
+      background: linear-gradient(75deg, #166EFD, #A74FFF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 
-      &.btn-outline-light {
-        border: 2px solid rgba(255, 255, 255, 0.8);
-        color: white;
-        background: transparent;
-
-        &:hover {
-          background: white;
-          color: rgb(47, 0, 255);
-          border-color: white;
-        }
+      span {
+        display: inline;
       }
 
-      &.btn-light {
-        background: white;
-        color: rgb(47, 0, 255);
-        border: 2px solid white;
-
-        &:hover {
-          background: rgba(255, 255, 255, 0.9);
-          transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
+      i {
+        background: linear-gradient(75deg, #166EFD, #A74FFF); // dégradé sur l'icône
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
       }
     }
   }
+}
 
-  // Mobile responsive
-  @media (max-width: 768px) {
-    padding: 0 15px;
-    height: 70px;
-
-    .navbar-brand {
-      font-size: 1.5em;
-    }
-
-    .navbar-nav {
-      gap: 10px;
-
-      .nav-link {
-        padding: 8px 12px;
-        font-size: 14px;
-      }
-
-      .btn {
-        padding: 8px 15px;
-        font-size: 14px;
-      }
-    }
+@media (min-width: 992px) {
+  .mobile-navbar {
+    display: none;
   }
 }
