@@ -1,5 +1,5 @@
 class ConversationsController < ApplicationController
-  before_action :set_conversation, only: [:show, :destroy, :create_events]
+  before_action :set_conversation, only: %i[show destroy create_events]
 
   def index
     @conversations = Conversation.all.order(created_at: :desc)
@@ -72,7 +72,6 @@ class ConversationsController < ApplicationController
       end
 
       redirect_to @conversation, notice: "1 événement générés ✅"
-
     rescue JSON::ParserError
       # Si le LLM ne renvoie pas de JSON valide
       @conversation.messages.create!(

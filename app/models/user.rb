@@ -29,7 +29,7 @@ class User < ApplicationRecord
   after_validation :geocode, if: :will_save_change_to_location?
 
   # Scopes
-  scope :near_location, ->(location, distance = 10) {
+  scope :near_location, lambda { |location, distance = 10|
     near(location, distance, units: :km)
   }
 
@@ -71,13 +71,11 @@ class User < ApplicationRecord
   def acceptable_avatar
     return unless avatar.attached?
 
-    unless avatar.blob.byte_size <= 5.megabyte
-      errors.add(:avatar, "est trop lourd (max 5MB)")
-    end
+    errors.add(:avatar, "est trop lourd (max 5MB)") unless avatar.blob.byte_size <= 5.megabyte
 
     acceptable_types = ["image/jpeg", "image/png", "image/gif", "image/webp"]
-    unless acceptable_types.include?(avatar.blob.content_type)
-      errors.add(:avatar, "doit être une image JPEG, PNG, GIF ou WebP")
-    end
+    return if acceptable_types.include?(avatar.blob.content_type)
+
+    errors.add(:avatar, "doit être une image JPEG, PNG, GIF ou WebP")
   end
 end

@@ -46,7 +46,7 @@
 
               <% if @user.avatar.attached? %>
                 <div class="mt-2">
-                  <%= link_to delete_avatar_profile_path,
+                  <%= link_to delete_avatar_profile_path(@user),
                       data: {
                         turbo_method: :delete,
                         turbo_confirm: "Êtes-vous sûr de vouloir supprimer votre avatar ?"
@@ -383,7 +383,7 @@
             <div class="d-grid gap-2">
               <%= f.submit "Enregistrer les modifications",
                   class: "btn btn-primary btn-lg" %>
-              <%= link_to "Annuler", profile_path,
+              <%= link_to "Annuler", profile_path(@user),
                   class: "btn btn-outline-secondary" %>
             </div>
           <% end %>
