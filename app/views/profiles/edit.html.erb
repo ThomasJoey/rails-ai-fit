@@ -75,6 +75,18 @@
               </div>
             </div>
 
+            <div class="mb-3">
+              <%= f.label :sexe, "Genre", class: "form-label" %>
+              <div class="gender-radios">
+                <% ["Masculin", "Féminin", "Autre"].each do |gender| %>
+                  <div class="form-check form-check-inline">
+                    <%= f.radio_button :sexe, gender, id: "gender_#{gender.downcase}" %>
+                    <%= f.label :sexe, gender, class: "form-check-label", for: "gender_#{gender.downcase}" %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
             <!-- Bio -->
             <div class="mb-3">
               <%= f.label :bio, "Bio", class: "form-label" %>
