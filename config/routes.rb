@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: "pages#home"
+  root to: "posts#index"
 
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   namespace :api do
     get 'reverse_geocode', to: 'geocoding#reverse'
   end
+
+  get :search, to: "pages#search"
 
 
   # Defines the root path route ("/")
