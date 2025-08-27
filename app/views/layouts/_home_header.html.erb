@@ -1,0 +1,13 @@
+<header class="home-header">
+  <button class="home-header__icon" aria-label="Menu">
+    ☰
+  </button>
+
+  <h1 class="home-header__title">FIT BUDDY</h1>
+
+  <%= link_to new_post_path, class: "home-header__icon", aria: { label: "Nouvelle publication" } do %>
+    <button class="plus-button" aria-label="Créer">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+  <% end %>
+</header>

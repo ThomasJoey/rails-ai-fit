@@ -1,0 +1,9 @@
+<header class="topbar">
+  <h1 class="topbar__title">
+    <%= content_for?(:page_title) ? yield(:page_title) : "Titre" %>
+  </h1>
+
+  <div class="topbar__actions">
+    <%= yield(:page_button) if content_for?(:page_button) %>
+  </div>
+</header>
