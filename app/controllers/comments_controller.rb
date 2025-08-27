@@ -30,4 +30,3 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:content_text)
   end
 end
-

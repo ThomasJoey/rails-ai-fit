@@ -9,9 +9,7 @@ class MessagesController < ApplicationController
 
     if @message.save
       # Génère un titre si c’est le premier message
-      if @conversation.messages.where(role: "user").count == 1
-        @conversation.generate_title_from_first_message
-      end
+      @conversation.generate_title_from_first_message if @conversation.messages.where(role: "user").count == 1
 
       # Prépare le chat avec l’IA
       @ruby_llm_chat = RubyLLM.chat
@@ -40,7 +38,6 @@ class MessagesController < ApplicationController
           role: "assistant",
           conversation: @conversation
         )
-
       rescue JSON::ParserError
         # 🔹 Sinon, on garde tel quel (texte libre)
         @conversation.messages.create!(
@@ -71,9 +68,7 @@ class MessagesController < ApplicationController
     end
   end
 
-
   private
-
 
   def set_conversation
     @conversation = Conversation.find(params[:conversation_id])

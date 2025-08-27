@@ -5,5 +5,4 @@ class MessageUser < ApplicationRecord
   validates :content, presence: true, length: { maximum: 2000 }
 
   scope :chronological, -> { order(:created_at) }
-
 end

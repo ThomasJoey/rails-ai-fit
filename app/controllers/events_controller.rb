@@ -50,7 +50,6 @@ class EventsController < ApplicationController
     @events = JSON.parse(json_response)
 
     # @events = Event.all.as_json(only: [:title, :description, :starts_at, :ends_at, :location])
-
   end
 
   def index
@@ -60,12 +59,16 @@ class EventsController < ApplicationController
       @events = @events.where("title ILIKE :q OR description ILIKE :q OR location ILIKE :q", q: "%#{params[:query]}%")
     end
 
-    if params[:date].present?
-      date = Date.parse(params[:date]) rescue nil
-      if date
-        @events = @events.where("DATE(starts_at) = ?", date)
-      end
+    return unless params[:date].present?
+
+    date = begin
+      Date.parse(params[:date])
+    rescue StandardError
+      nil
     end
+    return unless date
+
+    @events = @events.where("DATE(starts_at) = ?", date)
   end
 
   def destroy
