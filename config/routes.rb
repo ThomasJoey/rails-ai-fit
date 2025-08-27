@@ -40,5 +40,6 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show]
+  resource :dashboard, only: [:show]
 
 end

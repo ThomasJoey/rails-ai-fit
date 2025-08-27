@@ -1,0 +1,52 @@
+<div class="offcanvas offcanvas-start dashboard-offcanvas" tabindex="-1" id="dashboardMenu" aria-labelledby="dashboardMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="dashboardMenuLabel">Dashboard</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body">
+    <!-- Search -->
+    <div class="input-group mb-3">
+      <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+      <input type="text" class="form-control" placeholder="Search">
+      <button class="btn btn-outline-secondary"><i class="fa-solid fa-microphone"></i></button>
+    </div>
+
+    <!-- Stats -->
+    <ul class="list-group mb-3">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Nombre de pas
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Calories
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Heures/séances
+        <span class="text-muted">Detail</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Km
+        <span class="text-muted">Detail</span>
+      </li>
+    </ul>
+
+    <!-- Challenges / Groups -->
+    <div class="mb-3">
+      <button class="btn btn-light w-100 d-flex align-items-center justify-content-between">
+        <span><i class="fa-solid fa-users me-2"></i>Challenges Groups</span>
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <!-- Mini Avatars -->
+    <div class="d-flex flex-wrap gap-2">
+      <% 4.times do %>
+        <div class="d-flex flex-column align-items-center">
+          <div class="avatar-placeholder"></div>
+          <small class="text-muted">Texte</small>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
