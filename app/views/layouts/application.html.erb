@@ -10,18 +10,21 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-
   </head>
 
   <body class="<%= body_class_for_page %>">
+    <!-- Header (topbar ou home_header) -->
+    <%= content_for?(:header) ? yield(:header) : render("layouts/topbar_header") %>
 
-    <%= content_for?(:header) ? yield(:header) : render('layouts/topbar_header') %>
-    
-
+    <!-- Navbar (hors Devise) -->
     <% unless devise_controller? %>
-      <%= render 'layouts/navbar' %>
+      <%= render "layouts/navbar" %>
     <% end %>
 
+    <!-- Dashboard Offcanvas -->
+    <%= render "layouts/dashboard" %>
+
+    <!-- Contenu principal -->
     <main class="<%= main_content_class %>">
       <%= yield %>
     </main>

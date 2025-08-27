@@ -1,0 +1,40 @@
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #166EFD, #A74FFF);
+}
+
+.offcanvas {
+  width: 280px; /* largeur dashboard */
+}
+
+.dashboard-offcanvas {
+  width: 280px;
+  background: #f9f9f9;
+  border-radius: 12px 0 0 12px;
+
+  .offcanvas-header {
+    border-bottom: 1px solid #eee;
+  }
+
+  .list-group-item {
+    font-size: 0.9rem;
+    border: none;
+    padding: 0.75rem 0;
+  }
+
+  .avatar-placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #166EFD, #A74FFF);
+  }
+}
