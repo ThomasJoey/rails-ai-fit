@@ -1,15 +1,20 @@
 .mobile-navbar {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 70px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
+  height: 65px;
   background: #fff;
-  border-top: 1px solid #eee;
+  border-radius: 20px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 16px;
   z-index: 1000;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
   .nav-item {
     flex: 1;
@@ -29,30 +34,39 @@
       transition: all 0.3s ease;
 
       span {
-        display: none; // caché par défaut
+        display: none;
         font-size: 0.9rem;
       }
     }
 
+    /* Actif avec dégradé */
     &.active .nav-link {
-      background: #f5f3ff;
-      color: #6c63ff;
+      background: white; // dégradé
+      /* Use gradient for text with background-clip */
+      background: linear-gradient(75deg, #166EFD, #A74FFF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 
       span {
-        display: inline; // texte visible quand actif
+        display: inline;
       }
 
       i {
-        color: #6c63ff;
+        background: linear-gradient(75deg, #166EFD, #A74FFF); // dégradé sur l'icône
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
       }
     }
   }
 }
 
-/* Cacher sur desktop */
 @media (min-width: 992px) {
   .mobile-navbar {
     display: none;
   }
 }
-
