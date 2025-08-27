@@ -4,18 +4,26 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # Constantes pour les tranches d'âge
+  AGE_RANGES = [
+    ['18-25 ans', '18-25'],
+    ['26-35 ans', '26-35'],
+    ['36-45 ans', '36-45'],
+    ['46-55 ans', '46-55'],
+    ['56-65 ans', '56-65'],
+    ['66+ ans', '66+']
+  ].freeze
+
   # Associations
   has_many :event_participations, dependent: :destroy
   has_many :events, through: :event_participations
-
   has_many :messages, dependent: :destroy
   has_many :conversations, dependent: :destroy
   has_many :second_conversations, class_name: "Conversation", foreign_key: :second_user_id
-
   has_many :message_users, foreign_key: :sender_id
-
   has_one_attached :avatar
   has_many :posts, dependent: :destroy
+
   # Geocoding
   geocoded_by :location
   after_validation :geocode, if: :will_save_change_to_location?
@@ -27,6 +35,10 @@ class User < ApplicationRecord
 
   # Validations
   validates :location, presence: true, if: :location_required?
+  validates :age_range, inclusion: {
+    in: AGE_RANGES.map(&:last),
+    message: "doit être une tranche d'âge valide"
+  }, allow_blank: true
   validate :acceptable_avatar
 
   # Méthode pour obtenir l'URL de l'avatar ou une image par défaut
@@ -43,6 +55,11 @@ class User < ApplicationRecord
     Conversation.where(user: self, second_user: user)
                 .or(Conversation.where(user: user, second_user: self))
                 .first
+  end
+
+  # Méthode helper pour afficher la tranche d'âge en format lisible
+  def age_range_display
+    age_range.present? ? AGE_RANGES.find { |label, value| value == age_range }&.first : nil
   end
 
   private
