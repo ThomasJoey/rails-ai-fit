@@ -8,7 +8,7 @@
         <i class="fa-regular fa-pen-to-square"></i>
         <% end %>
      <% end %>
-  
+
   <% @posts.each do |post| %>
     <div class="post-card card mb-3">
 
@@ -19,7 +19,7 @@
           <% else %>
             <div class="avatar-placeholder"></div>
           <% end %>
-          
+
           <div>
             <div class="username"><%= post.user.first_name %></div>
             <div class="location">localisation</div>
@@ -107,8 +107,6 @@
           <% end %>
         </div>
 
-
-      <p class="card-text"><%= post.content_text %></p>
       </div>
     </div>
   <% end %>
