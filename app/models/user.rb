@@ -8,14 +8,14 @@ class User < ApplicationRecord
   has_many :event_participations, dependent: :destroy
   has_many :events, through: :event_participations
 
-  has_many :messages
-  has_many :conversations
+  has_many :messages, dependent: :destroy
+  has_many :conversations, dependent: :destroy
   has_many :second_conversations, class_name: "Conversation", foreign_key: :second_user_id
 
   has_many :message_users, foreign_key: :sender_id
 
   has_one_attached :avatar
-  has_many :posts
+  has_many :posts, dependent: :destroy
   # Geocoding
   geocoded_by :location
   after_validation :geocode, if: :will_save_change_to_location?
