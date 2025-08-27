@@ -1,7 +1,7 @@
 class Message < ApplicationRecord
   belongs_to :conversation
   belongs_to :user, optional: true
-  
+
   validates :content, presence: true
   validates :role, presence: true, inclusion: { in: %w[user assistant] }
 
@@ -14,7 +14,6 @@ class Message < ApplicationRecord
 
     yours answers  need to be short, and in french
   PROMPT
-
 
   SYSTEM_PROMPT = <<~PROMPT
     You are a friendly sport events organizer.

@@ -4,7 +4,6 @@ class Conversation < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :message_users, dependent: :destroy
 
-
   validates :title, presence: true
   TITLE_PROMPT = <<~PROMPT
     Generate a short, descriptive, 3-to-6-word title that summarizes the user question for a chat conversation.

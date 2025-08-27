@@ -33,9 +33,12 @@ Rails.application.routes.draw do
   end
 
   # Profile avec gestion de l'avatar
-  resource :profile, only: [:show, :edit, :update] do
+  resources :profiles, only: [:show, :edit, :update,] do
     member do
       delete :delete_avatar
     end
   end
+
+  resources :users, only: [:show]
+
 end

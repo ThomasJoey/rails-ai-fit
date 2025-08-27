@@ -46,7 +46,7 @@
 
               <% if @user.avatar.attached? %>
                 <div class="mt-2">
-                  <%= link_to delete_avatar_profile_path,
+                  <%= link_to delete_avatar_profile_path(@user),
                       data: {
                         turbo_method: :delete,
                         turbo_confirm: "Êtes-vous sûr de vouloir supprimer votre avatar ?"
@@ -72,6 +72,43 @@
                 <%= f.text_field :last_name,
                     class: "form-control",
                     placeholder: "Dupont" %>
+              </div>
+            </div>
+
+            <!-- Genre et Tranche d'âge sur la même ligne -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%= f.label :sexe, "Genre", class: "form-label" %>
+                <div class="gender-radios">
+                  <% ["Masculin", "Féminin", "Autre"].each do |gender| %>
+                    <div class="form-check">
+                      <%= f.radio_button :sexe, gender, id: "gender_#{gender.downcase}", class: "form-check-input" %>
+                      <%= f.label :sexe, gender, class: "form-check-label", for: "gender_#{gender.downcase}" %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+
+              <!-- NOUVELLE SECTION: Tranche d'âge -->
+              <div class="col-md-6 mb-3">
+                <%= f.label :age_range, "Tranche d'âge", class: "form-label" %>
+                <div class="age-range-select">
+                  <%= f.select :age_range,
+                      options_for_select([
+                        ['Sélectionnez votre tranche d\'âge', ''],
+                        ['18-25 ans', '18-25'],
+                        ['26-35 ans', '26-35'],
+                        ['36-45 ans', '36-45'],
+                        ['46-55 ans', '46-55'],
+                        ['56-65 ans', '56-65'],
+                        ['66+ ans', '66+']
+                      ], @user.age_range.presence),
+                      {},
+                      { class: "form-select age-range-selector" } %>
+                  <small class="text-muted mt-1 d-block">
+                    <i class="fas fa-info-circle"></i> Cette information aide à trouver des partenaires sportifs compatibles
+                  </small>
+                </div>
               </div>
             </div>
 
@@ -335,7 +372,9 @@
               <!-- Compteur CSS uniquement -->
               <div class="mt-3">
                 <small class="text-muted">
-                  Sélectionnez vos sports favoris
+                  <i class="fas fa-exclamation-triangle text-warning"></i>
+                  Maximum 3 sports sélectionnables. Vous avez sélectionné :
+                  <span id="sport-counter" class="fw-bold text-primary">0</span>/3 sports
                 </small>
               </div>
             </div>
@@ -344,7 +383,7 @@
             <div class="d-grid gap-2">
               <%= f.submit "Enregistrer les modifications",
                   class: "btn btn-primary btn-lg" %>
-              <%= link_to "Annuler", profile_path,
+              <%= link_to "Annuler", profile_path(@user),
                   class: "btn btn-outline-secondary" %>
             </div>
           <% end %>
@@ -397,6 +436,126 @@
 
   .avatar-upload-container:hover .avatar-preview {
     transform: scale(1.05);
+  }
+
+  /* Styles de la section genre et âge */
+  .gender-radios .form-check {
+    margin-bottom: 8px;
+  }
+
+  .gender-radios .form-check-input {
+    margin-right: 8px;
+  }
+
+  /* NOUVEAUX STYLES pour la tranche d'âge */
+  .age-range-select {
+    position: relative;
+  }
+
+  .age-range-selector {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .age-range-selector:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    outline: none;
+  }
+
+  .age-range-selector:hover {
+    border-color: #667eea;
+  }
+
+  /* Style pour l'option sélectionnée */
+  .age-range-selector option {
+    padding: 8px 12px;
+    background: white;
+    color: #333;
+  }
+
+  .age-range-selector option:checked {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+
+  /* Icône d'information */
+  .age-range-select small .fas {
+    color: #667eea;
+    margin-right: 4px;
+  }
+
+  /* Style pour le compteur de sports */
+  #sport-counter {
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+
+  #sport-counter.max-reached {
+    color: #dc3545 !important;
+  }
+
+  /* Style d'avertissement quand limite atteinte */
+  .sport-limit-warning {
+    color: #dc3545;
+    font-weight: 600;
+    animation: pulse 1s infinite;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+  }
+
+  /* NOUVEAUX STYLES pour la tranche d'âge */
+  .age-range-select {
+    position: relative;
+  }
+
+  .age-range-selector {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .age-range-selector:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    outline: none;
+  }
+
+  .age-range-selector:hover {
+    border-color: #667eea;
+  }
+
+  /* Style pour l'option sélectionnée */
+  .age-range-selector option {
+    padding: 8px 12px;
+    background: white;
+    color: #333;
+  }
+
+  .age-range-selector option:checked {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+
+  /* Icône d'information */
+  .age-range-select small .fas {
+    color: #667eea;
+    margin-right: 4px;
   }
 
   /* Styles de localisation */
@@ -566,7 +725,7 @@
   }
 
   /* Styles des champs de formulaire */
-  .form-control:focus {
+  .form-control:focus, .form-select:focus {
     border-color: #667eea;
     box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
   }
@@ -602,6 +761,11 @@
   .btn-outline-secondary:hover {
     background: #f8f8f8;
     border-color: #ccc;
+  }
+
+  .btn-outline-danger {
+    border-color: #dc3545;
+    color: #dc3545;
   }
 
   .btn-outline-danger {
@@ -691,9 +855,29 @@
 
     // --- Limite de sélection des sports ---
     const checkboxes = document.querySelectorAll(".sport-selector");
+    const sportCounter = document.getElementById("sport-counter");
     const MAX_SELECTION = 3;
 
+    function updateSportCounter() {
+      const checked = document.querySelectorAll(".sport-selector:checked");
+      const count = checked.length;
+      
+      if (sportCounter) {
+        sportCounter.textContent = count;
+        
+        // Change color when max is reached
+        if (count >= MAX_SELECTION) {
+          sportCounter.classList.add("max-reached");
+        } else {
+          sportCounter.classList.remove("max-reached");
+        }
+      }
+    }
+
     if (checkboxes.length > 0) {
+      // Initialize counter on page load
+      updateSportCounter();
+      
       checkboxes.forEach((cb) => {
         cb.addEventListener("change", function () {
           const checked = document.querySelectorAll(".sport-selector:checked");
@@ -701,6 +885,9 @@
             this.checked = false; // annule le dernier clic
             alert(`Vous ne pouvez sélectionner que ${MAX_SELECTION} sports maximum.`);
           }
+          
+          // Update counter after change
+          updateSportCounter();
         });
       });
     }

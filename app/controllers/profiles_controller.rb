@@ -1,62 +1,40 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: %i[show edit update delete_avatar]
 
   def show
-    @user = current_user
-     @events = @user.events.order(starts_at: :asc)
+    @conversation = current_user.find_existing_conversation(@user)
+    @conversation ||= Conversation.create(user: current_user, second_user: @user)
+    
+    @events = @user.events.order(starts_at: :asc)
   end
 
   def edit
-    @user = current_user
+    redirect_to profile_path(@user) if @user != current_user
   end
 
   def update
-    @user = current_user
+    redirect_to profile_path(@user) if @user != current_user
 
     if @user.update(user_params)
-      redirect_to profile_path, notice: "Profil mis à jour avec succès!"
+      redirect_to profile_path(@user), notice: "Profil mis à jour avec succès!"
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
   def delete_avatar
-    current_user.avatar.purge
-    redirect_to profile_path, notice: "Avatar supprimé"
+    @user.avatar.purge
+    redirect_to profile_path(@user), notice: "Avatar supprimé"
   end
 
   private
 
-  def user_params
-    params.require(:user).permit(:avatar, :first_name, :last_name, :bio, sports: [])
+  def set_user
+    @user = User.find(params[:id])
   end
-end
-
-
-# app/controllers/profiles_controller.rb
-class ProfilesController < ApplicationController
-  before_action :authenticate_user!
-
-  def edit
-    @user = current_user
-  end
-
-  def update
-    @user = current_user
-    if @user.update(user_params)
-      redirect_to profile_path, notice: "Profil mis à jour avec succès!"
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :bio, :avatar, :location, sports: [])
-  end
-
-  def create
-    
+  params.require(:user).permit(:first_name, :last_name, :bio, :location, :sexe, :age_range, :avatar, sports: [])
   end
 end
