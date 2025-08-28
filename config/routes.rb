@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "posts#index"
   get "dashboard", to: "dashboards#index"
+  get "dashboard/search", to: "dashboards#search", as: :dashboard_search
 
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check

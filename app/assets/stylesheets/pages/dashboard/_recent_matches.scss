@@ -1,0 +1,56 @@
+.recent-matches {
+  .recent-match-card {
+    background: #ffffff; /* fond blanc pur */
+    border: 1px solid #e5e7eb; /* gris clair subtil */
+    border-radius: 10px; /* arrondi doux */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* ombre légère */
+    padding: 0.75rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  .avatar-wrapper {
+    position: relative;
+
+    .avatar-img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px; /* carré arrondi */
+      border: 1px solid #d1d5db; /* gris clair */
+      object-fit: cover;
+    }
+
+    .notif-pulse {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 8px;
+      height: 8px;
+      background: #ef4444; /* rouge élégant */
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(239, 68, 68, 0.7);
+      animation: pulse 1.5s infinite;
+    }
+  }
+
+  .user-name {
+    color: #111827; /* gris très foncé (presque noir) */
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .user-meta {
+    color: #6b7280; /* gris moyen */
+    font-size: 0.8rem;
+  }
+}
+
+@keyframes pulse {
+  0%   { transform: scale(0.9); opacity: 0.8; }
+  50%  { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
