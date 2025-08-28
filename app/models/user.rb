@@ -51,6 +51,14 @@ class User < ApplicationRecord
     end
   end
 
+  # Nom d'affichage: prénom + nom si présents, sinon base de l'email
+  def display_name
+    name = [first_name, last_name].compact_blank.join(" ")
+    return name if name.present?
+
+    return email.to_s.split("@").first.presence || "Utilisateur"
+  end
+
   def find_existing_conversation(user)
     Conversation.where(user: self, second_user: user)
                 .or(Conversation.where(user: user, second_user: self))
@@ -59,7 +67,7 @@ class User < ApplicationRecord
 
   # Méthode helper pour afficher la tranche d'âge en format lisible
   def age_range_display
-    age_range.present? ? AGE_RANGES.find { |label, value| value == age_range }&.first : nil
+    age_range.present? ? AGE_RANGES.find { |_label, value| value == age_range }&.first : nil
   end
 
   private

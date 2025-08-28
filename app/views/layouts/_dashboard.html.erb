@@ -6,11 +6,17 @@
 
   <div class="offcanvas-body">
     <!-- Search -->
-    <div class="input-group mb-3">
+    <%= form_with url: search_path, method: :get, local: true, class: "input-group mb-3", data: { turbo_frame: "dashboard_search_results" } do %>
       <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
-      <input type="text" class="form-control" placeholder="Search">
-      <button class="btn btn-outline-secondary"><i class="fa-solid fa-microphone"></i></button>
-    </div>
+      <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Rechercher..." %>
+      <button class="btn btn-outline-secondary" type="submit">
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    <% end %>
+
+    <turbo-frame id="dashboard_search_results">
+      <!-- Search results will render here -->
+    </turbo-frame>
 
     <!-- Stats -->
     <ul class="list-group mb-3">
@@ -49,4 +55,3 @@
     </div>
   </div>
 </div>
-
