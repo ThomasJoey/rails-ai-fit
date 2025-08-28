@@ -1,0 +1,32 @@
+.search-form {
+  .search-bar {
+    background: #fff;
+    border-radius: 14px;
+    padding: 0.6rem 1rem;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+    transition: box-shadow 0.25s ease, transform 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transform: translateY(-1px);
+    }
+
+    i {
+      color: #9ca3af; /* gris clair pour l’icône */
+      font-size: 0.95rem;
+    }
+
+    .search-input {
+      border: none;
+      outline: none;
+      background: transparent;
+      flex: 1;
+      font-size: 0.95rem;
+      color: #374151; /* gris foncé */
+      &::placeholder {
+        color: #9ca3af; /* placeholder gris clair */
+      }
+    }
+  }
+  margin : 10px;
+}

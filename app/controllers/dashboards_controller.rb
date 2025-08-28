@@ -3,6 +3,7 @@ class DashboardsController < ApplicationController
 
   def show
     @user = current_user
+    @events = current_user.events.order(starts_at: :asc)
   end
 
   def index
