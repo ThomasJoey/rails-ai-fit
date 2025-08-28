@@ -23,19 +23,18 @@ module ApplicationHelper
     end
   end
 
-  # Données de stats pour le dashboard, disponibles partout (layout)
-  def dashboard_stats
-    {
-      steps:    { label: "Nombre de pas",   current: 8247, goal: 10_000, icon: "fa-shoe-prints" },
-      calories: { label: "Calories",         current: 342,  goal: 500,    icon: "fa-fire" },
-      sessions: { label: "Heures/séances",   current: 135,  goal: 180,    icon: "fa-clock" }, # minutes
-      distance: { label: "Distance",         current: 5.8,  goal: 10.0,   icon: "fa-location-dot" }
-    }
+  # app/helpers/application_helper.rb
+  def user_initials(user)
+    return "U" unless user
+
+    first = user.first_name&.first
+    last = user.last_name&.first
+
+    initials = "#{first}#{last}".upcase
+    initials.present? ? initials : "U"
   end
 
-  def stat_percentage(current, goal)
-    return 0 if goal.to_f <= 0
-    percent = (current.to_f / goal.to_f) * 100.0
-    percent.clamp(0, 100).round
+  def other_participant(conversation, current_user)
+    conversation.participants.reject { |u| u == current_user }.first
   end
 end

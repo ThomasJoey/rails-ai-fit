@@ -18,11 +18,11 @@
 
       <div class="card-header d-flex justify-content-between align-items-center bg-white border-0">
         <div class="d-flex align-items-center gap-3">
-          <% if post.user.avatar.attached? %>
-            <%= image_tag post.user.avatar, class: "avatar" %>
-          <% else %>
-            <div class="avatar-placeholder"></div>
-          <% end %>
+          <%= render "layouts/avatar",
+          image_url: (url_for(post.user.avatar) if post.user.avatar.attached?),
+          initials: user_initials(post.user),
+          gradient: "gradient-purple-pink",
+          size: "md" %>
 
           <div>
             <div class="username"><%= post.user.display_name %></div>

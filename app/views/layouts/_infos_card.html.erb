@@ -1,0 +1,18 @@
+<% title = local_assigns[:title] || "" %>
+<% description = local_assigns[:description] || "" %>
+<% icon = local_assigns[:icon] %>
+<% actions = local_assigns[:actions] %>
+
+<div class="infos-card">
+  <div class="infos-card__icon">
+    <%= icon if icon.present? %>
+  </div>
+
+  <div class="infos-card__content">
+    <div class="infos-card__title"><%= title %></div>
+    <div class="infos-card__description"><%= description %></div>
+    <div class="infos-card__actions">
+      <%= actions if actions.present? %>
+    </div>
+  </div>
+</div>

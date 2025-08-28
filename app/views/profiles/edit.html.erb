@@ -23,11 +23,12 @@
 
               <!-- Aperçu de l'avatar actuel avec overlay -->
               <div class="avatar-upload-container mb-3">
-                <%= image_tag @user.avatar_url,
-                    id: "avatar-preview",
-                    class: "avatar-preview",
-                    style: "width: 150px; height: 150px; object-fit: cover; border-radius: 50%;",
-                    data: { profile_edit_target: "avatarPreview" } %>
+                <%= render "layouts/avatar",
+                  image_url: (url_for(@user.avatar) if @user.avatar.attached?),
+                  initials: user_initials(@user),
+                  size: "xl",
+                  extra_classes: "avatar-preview",
+                  html_options: { id: "avatar-preview" } %>
 
                 <!-- Input file caché et label stylisé -->
                 <%= f.file_field :avatar,
