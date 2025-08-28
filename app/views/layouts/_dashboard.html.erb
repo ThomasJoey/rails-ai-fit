@@ -28,6 +28,8 @@
       { name: "Alex", sport: "Cyclisme", last_seen: "il y a 2h", avatar: placeholder % { n: "Alex" }, unread: true },
       { name: "Emma", sport: "Running", last_seen: "hier", avatar: placeholder % { n: "Emma" }, unread: false }
     ] %>
+    <%# Assure la présence des événements de l'utilisateur sur toutes les pages %>
+    <% @events ||= (current_user&.events&.order(starts_at: :asc) || []) %>
     <% @events_today ||= [
       { title: "Course matinale au Bois", time: "07:30", place: "Bois de Vincennes", participants: "8/12", joinable: true },
       { title: "Session CrossFit", time: "18:00", place: "FitClub Central", participants: nil, joinable: false }
