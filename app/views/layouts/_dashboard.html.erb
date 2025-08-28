@@ -1,12 +1,12 @@
 <div class="offcanvas offcanvas-start dashboard-offcanvas" tabindex="-1" id="dashboardMenu" aria-labelledby="dashboardMenuLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="dashboardMenuLabel">Dashboard</h5>
+    <h5 class="offcanvas-title fw-bold" id="dashboardMenuLabel">Dashboard</h5>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
 
-  <div class="offcanvas-body">
+  <div class="offcanvas-body dashboard-body">
     <!-- Search -->
-    <%= form_with url: search_path, method: :get, local: true, class: "input-group mb-3", data: { turbo_frame: "dashboard_search_results" } do %>
+    <%= form_with url: search_events_path, method: :get, local: true, class: "input-group mb-4", data: { turbo_frame: "dashboard_search_results" } do %>
       <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
       <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Rechercher..." %>
       <button class="btn btn-outline-secondary" type="submit">
@@ -19,39 +19,53 @@
     </turbo-frame>
 
     <!-- Stats -->
-    <ul class="list-group mb-3">
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Nombre de pas
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Calories
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Heures/séances
-        <span class="text-muted">Detail</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Km
-        <span class="text-muted">Detail</span>
-      </li>
-    </ul>
-
-    <!-- Challenges / Groups -->
-    <div class="mb-3">
-      <button class="btn btn-light w-100 d-flex align-items-center justify-content-between">
-        <span><i class="fa-solid fa-users me-2"></i>Challenges Groups</span>
-        <i class="fa-solid fa-chevron-right"></i>
-      </button>
-    </div>
-
-    <!-- Mini Avatars -->
-    <div class="d-flex flex-wrap gap-2">
-      <% 4.times do %>
-        <div class="d-flex flex-column align-items-center">
-          <div class="avatar-placeholder"></div>
-          <small class="text-muted">Texte</small>
+    <div class="stats-section mb-5">
+      <% dashboard_stats.each do |key, s| %>
+        <% percent = stat_percentage(s[:current], s[:goal]) %>
+        <div class="stat-card mb-4 p-3 rounded shadow-sm">
+          <div class="d-flex align-items-center mb-2">
+            <div class="icon-wrapper me-2 <%= key %>">
+              <i class="fa-solid <%= s[:icon] %>"></i>
+            </div>
+            <div class="flex-grow-1">
+              <div class="d-flex justify-content-between">
+                <strong><%= s[:label] %></strong>
+                <span class="small text-muted"><%= percent %>%</span>
+              </div>
+              <div class="progress mt-1" style="height: 12px;">
+                <div class="progress-bar <%= key %>" role="progressbar" style="width: <%= percent %>%;" aria-valuenow="<%= percent %>" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="small text-muted mt-1">
+                <%= s[:current] %> sur <%= s[:goal] %>
+                <%= key == :sessions ? 'min' : (key == :distance ? 'km' : '') %>
+              </div>
+            </div>
+          </div>
         </div>
       <% end %>
     </div>
+
+    <!-- Mon planning -->
+    <h6 class="fw-bold mb-3">Mon planning</h6>
+    <ul class="list-group planning-list">
+      <% Event.order(:starts_at).limit(5).each do |event| %>
+        <li class="list-group-item planning-item mb-2 rounded">
+          <div class="d-flex">
+            <div class="time pe-3 text-center">
+              <i class="fa-regular fa-clock mb-1"></i><br>
+              <strong><%= event.starts_at.strftime("%H:%M") if event.starts_at %></strong>
+            </div>
+            <div>
+              <strong><%= event.title %></strong><br>
+              <% if event.starts_at.present? && event.ends_at.present? %>
+                <small><%= event.starts_at.strftime("%H:%M") %> - <%= event.ends_at.strftime("%H:%M") %></small><br>
+              <% end %>
+              <small class="text-muted"><%= event.location %></small>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>
+

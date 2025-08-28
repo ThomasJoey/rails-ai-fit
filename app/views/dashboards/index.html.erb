@@ -1,0 +1,64 @@
+<!-- app/views/dashboard/index.html.erb -->
+<div class="offcanvas offcanvas-start dashboard-offcanvas" tabindex="-1" id="dashboardMenu" aria-labelledby="dashboardMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="dashboardMenuLabel">Dashboard</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body">
+    <!-- Search -->
+    <%= form_with url: search_path, method: :get, local: true, class: "input-group mb-3", data: { turbo_frame: "dashboard_search_results" } do %>
+      <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+      <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Rechercher..." %>
+      <button class="btn btn-outline-secondary" type="submit">
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    <% end %>
+
+    <turbo-frame id="dashboard_search_results">
+      <%= render partial: "events_list", locals: { events: @events } %>
+    </turbo-frame>
+
+    <!-- Stats -->
+    <ul class="list-group mb-3">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Nombre de pas
+        <span><%= @stats[:steps][:current] %> / <%= @stats[:steps][:goal] %></span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Calories
+        <span><%= @stats[:calories][:current] %> / <%= @stats[:calories][:goal] %> kcal</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Heures/séances
+        <span><%= @stats[:sessions][:current] / 60.0 %>h / <%= @stats[:sessions][:goal] / 60.0 %>h</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Distance
+        <span><%= @stats[:distance][:current] %> km / <%= @stats[:distance][:goal] %> km</span>
+      </li>
+    </ul>
+
+    <!-- Mes Événements -->
+    <h6 class="mt-3">Mes événements</h6>
+    <%= render partial: "events_list", locals: { events: @events } %>
+  </div>
+</div>
+
+
+
+<!-- app/views/dashboard/_events_list.html.erb -->
+<ul class="list-group">
+  <% events.each do |event| %>
+    <li class="list-group-item">
+      <div class="d-flex justify-content-between">
+        <div>
+          <strong><%= event.title %></strong><br>
+          <small><%= event.start_time.strftime("%H:%M") %> - <%= event.end_time.strftime("%H:%M") %></small><br>
+          <small><%= event.location %></small>
+        </div>
+        <span class="badge bg-secondary"><%= event.instructor %></span>
+      </div>
+    </li>
+  <% end %>
+</ul>

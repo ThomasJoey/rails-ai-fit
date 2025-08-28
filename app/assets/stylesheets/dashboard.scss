@@ -1,40 +1,40 @@
-.avatar {
-  width: 42px;
-  height: 42px;
+.dashboard-body {
+  background: #fff;
+  font-size: 0.95rem;
+}
+
+.stats-section .stat-card {
+  background: #fafafa;
+  border-left: 4px solid transparent;
+}
+
+.stats-section .icon-wrapper {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
 }
 
-.avatar-placeholder {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #166EFD, #A74FFF);
+.icon-wrapper.steps   { background: #7b5fff; }
+.icon-wrapper.calories { background: #a855f7; }
+.icon-wrapper.sessions { background: #2563eb; }
+.icon-wrapper.distance { background: #16a34a; }
+
+.progress-bar.steps   { background: #7b5fff; }
+.progress-bar.calories { background: #a855f7; }
+.progress-bar.sessions { background: #2563eb; }
+.progress-bar.distance { background: #16a34a; }
+
+.planning-list .planning-item {
+  background: #f9fafb;
+  border: none;
 }
 
-.offcanvas {
-  width: 280px; /* largeur dashboard */
-}
-
-.dashboard-offcanvas {
-  width: 280px;
-  background: #f9f9f9;
-  border-radius: 12px 0 0 12px;
-
-  .offcanvas-header {
-    border-bottom: 1px solid #eee;
-  }
-
-  .list-group-item {
-    font-size: 0.9rem;
-    border: none;
-    padding: 0.75rem 0;
-  }
-
-  .avatar-placeholder {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #166EFD, #A74FFF);
-  }
+.planning-list .time {
+  width: 60px;
+  font-size: 0.9rem;
+  color: #6b7280;
 }
