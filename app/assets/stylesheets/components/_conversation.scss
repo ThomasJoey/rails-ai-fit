@@ -1,32 +1,52 @@
-.conversation-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
 
-.conversation-card {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.75rem 0;
-  margin: 0;
+ .conversations-index {
+    margin: 0;
+    padding: 0;
+  }
 
-  &-text {
+.conversation-wrapper{
+  width: 100%;
+  background-color: white;
+
+  .conversation-list {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    margin: 0;
+    padding: 0 20px;
+  }
 
-    .conversation-card-title {
-      font-weight: 600;
-      font-size: 1rem;
-      color: #111827;
-      margin: 0;
+  .conversation-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    margin: 0;
+
+    &-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .conversation-card-title {
+        font-weight: 600;
+        font-size: 1rem;
+        color: #111827;
+        margin: 0;
+      }
+
+      .conversation-card-subtitle {
+        font-size: 0.9rem;
+        color: #6b7280;
+        margin: 0;
+      }
     }
 
-    .conversation-card-subtitle {
-      font-size: 0.9rem;
-      color: #6b7280;
-      margin: 0;
+    .conversation-avatar{
+      width: 100%;
     }
+  }
+
+  .conversation-card-content{
+    justify-content: space-between;
   }
 }

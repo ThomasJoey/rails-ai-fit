@@ -16,9 +16,7 @@
   <!-- Avatar + Dropdown -->
   <div class="d-flex align-items-center gap-2">
     <% if content_for?(:page_button) %>
-      <button class="plus-button" aria-label="Créer">
-        <i class="fa-solid fa-plus"></i>
-      </button>
+      <%= yield :page_button %>
     <% end %>
 
     <% if current_user %>
