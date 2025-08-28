@@ -60,6 +60,29 @@ Event.create!([
  }
 ])
 
+Event.create!(
+  title: "HIIT Cardio",
+  starts_at: Time.zone.parse("2025-08-27 08:30"),
+  ends_at: Time.zone.parse("2025-08-27 09:30"),
+  location: "Salle A, Studio 1",
+  user: user1
+)
+
+Event.create!(
+  title: "Yoga Flow",
+  starts_at: Time.zone.parse("2025-08-27 10:30"),
+  ends_at: Time.zone.parse("2025-08-27 11:30"),
+  location: "Salle B, Studio 2",
+  user: user1
+)
+
+Event.create!(
+  title: "Musculation",
+  starts_at: Time.zone.parse("2025-08-27 14:15"),
+  ends_at: Time.zone.parse("2025-08-27 15:45"),
+  location: "Salle C, Poids libres",
+  user: user1
+)
 
 puts "event has been created"
 
