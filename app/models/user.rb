@@ -23,6 +23,8 @@ class User < ApplicationRecord
   has_many :message_users, foreign_key: :sender_id
   has_one_attached :avatar
   has_many :posts, dependent: :destroy
+  has_neighbors :embedding
+  after_save :set_embedding, if: :embedding_relevant_changes?
 
   # Geocoding
   geocoded_by :location
@@ -71,6 +73,18 @@ class User < ApplicationRecord
   end
 
   private
+
+  def set_embedding
+    parts = []
+    parts << "Sports: #{sports.join(', ')}" if sports.present?
+    parts << "user's age range : #{age_range}"
+    embedding = RubyLLM.embed("User profile. " + parts.join(". ") + ".")
+    update(embedding: embedding.vectors)
+  end
+
+  def embedding_relevant_changes?
+    previous_changes.key?("sports") || previous_changes.key?("created_at")
+  end
 
   def location_required?
     false # Mettez true si vous voulez rendre la localisation obligatoire

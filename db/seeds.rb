@@ -12,7 +12,10 @@ user1 = User.create!(
   city: "Paris",
   sexe: "Masculin",
   preferences: "dark mode",
-  role: "student"
+  role: "student",
+  sports: ["Running", "Marathon", "velo"],
+  age_range: "18-25",
+  location: "saint-louis 68300"
 )
 user2 = User.create!(
   email: "test2@example.com",
@@ -22,7 +25,10 @@ user2 = User.create!(
   city: "Lyon",
   sexe: "Feminin",
   preferences: "light mode",
-  role: "teacher"
+  role: "teacher",
+  sports: ["natation", "basket", "velo"],
+  age_range: "18-25",
+  location: "paris"
 )
 
 

@@ -5,7 +5,7 @@ class ProfilesController < ApplicationController
   def show
     @conversation = current_user.find_existing_conversation(@user)
     @conversation ||= Conversation.create(user: current_user, second_user: @user)
-    
+
     @events = @user.events.order(starts_at: :asc)
   end
 
@@ -35,6 +35,6 @@ class ProfilesController < ApplicationController
   end
 
   def user_params
-  params.require(:user).permit(:first_name, :last_name, :bio, :location, :sexe, :age_range, :avatar, sports: [])
+    params.require(:user).permit(:first_name, :last_name, :bio, :location, :sexe, :age_range, :avatar, sports: [])
   end
 end

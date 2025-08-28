@@ -24,6 +24,7 @@
       <% if @user.first_name.blank? && @user.last_name.blank? %>
         <%= @user.email.split('@').first.capitalize %>
       <% end %>
+      <%= "#{@user.age_range} ans" %>
     </div>
 
     <div class="location">📍 <%= @user.location %></div>

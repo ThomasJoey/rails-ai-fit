@@ -1,0 +1,16 @@
+
+<h2>Utilisateurs avec le même sport que toi (<%= @user.sports %>)</h2>
+
+<% if @potential_matches.any? %>
+  <ul>
+    <% @potential_matches.each do |u| %>
+      <li>
+        <strong><%= u.first_name %> <%= u.last_name %></strong>
+        — <%= u.sports.join(", ") %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Aucun match trouvé.</p>
+<% end %>
+
