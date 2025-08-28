@@ -26,8 +26,9 @@ body.main-app {
   background-color: #f8f9fa;
 
   .main-content {
-    
+
     min-height: calc(100vh - 60px);
+    padding-bottom: 100px; // espace pour la navbar mobile (65px hauteur + 20px offset + marge)
   }
 }
 

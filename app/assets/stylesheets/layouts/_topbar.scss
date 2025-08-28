@@ -1,0 +1,43 @@
+.topbar {
+  .dropdown-menu {
+    border: none;
+    border-radius: 14px;
+    padding: 8px;
+    min-width: 240px;
+    box-shadow: 0 10px 30px rgba(16, 24, 40, 0.12);
+    background: #f7f7f9;
+  }
+
+  .dropdown-item {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #161616;
+    padding: 12px 14px;
+    border-radius: 10px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      background-color: #eef0ff;
+      color: #111111;
+    }
+  }
+
+  .dropdown-divider {
+    margin: 6px 0;
+    border-top-color: rgba(0, 0, 0, 0.06);
+  }
+
+  .dropdown-item.text-danger {
+    color: #e03131 !important;
+
+    &:hover {
+      background-color: #fff1f1;
+      color: #c92a2a !important;
+    }
+  }
+
+  // Hide default caret since we already have a visual indicator
+  .dropdown-toggle::after {
+    display: none;
+  }
+}

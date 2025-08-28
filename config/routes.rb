@@ -39,7 +39,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: [:show]
+  # Users are shown via profiles; no separate UsersController needed
+  # resources :users, only: [:show]
   resource :dashboard, only: [:show]
 
 end

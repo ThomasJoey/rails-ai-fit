@@ -12,20 +12,26 @@
   </h1>
 
   <!-- Avatar + Dropdown -->
-  <div class="dropdown">
-    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-      <% if current_user&.avatar&.attached? %>
-        <%= image_tag current_user.avatar, class: "avatar me-2" %>
-      <% else %>
-        <div class="avatar-placeholder me-2"></div>
-      <% end %>
-      <span class="username"><%= current_user&.first_name %></span>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-      <li><%= link_to "Mon Profil", user_path(current_user), class: "dropdown-item" %></li>
-      <li><%= link_to "Paramètres", edit_user_registration_path, class: "dropdown-item" %></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class: "dropdown-item text-danger" %></li>
-    </ul>
-  </div>
+  <% if current_user %>
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <% if current_user.avatar&.attached? %>
+          <%= image_tag current_user.avatar, class: "avatar me-2" %>
+        <% else %>
+          <div class="avatar-placeholder me-2"></div>
+        <% end %>
+        <span class="username"><%= current_user.first_name %></span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+        <li><%= link_to "Mon Profil", profile_path(current_user), class: "dropdown-item" %></li>
+        <li><%= link_to "Paramètres", edit_user_registration_path, class: "dropdown-item" %></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item text-danger" %></li>
+      </ul>
+    </div>
+  <% else %>
+    <div>
+      <%= link_to "Se connecter", new_user_session_path, class: "btn btn-sm btn-outline-primary" %>
+    </div>
+  <% end %>
 </header>

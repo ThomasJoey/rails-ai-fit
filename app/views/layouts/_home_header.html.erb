@@ -1,11 +1,11 @@
 <header class="home-header d-flex justify-content-between align-items-center px-3 py-2">
   <!-- Bouton Burger -->
-  <button class="home-header__icon btn btn-link text-dark p-0"
+  <button class="btn btn-link p-0"
           type="button"
           data-bs-toggle="offcanvas"
           data-bs-target="#dashboardMenu"
           aria-controls="dashboardMenu">
-    ☰
+    <i class="fa-solid fa-bars fa-lg"></i>
   </button>
 
   <!-- Titre -->
@@ -13,14 +13,20 @@
 
   <!-- Avatar User -->
   <div>
-    <%= link_to profile_path(current_user), class: "btn p-0 d-flex align-items-center" do %>
-      <% if current_user && current_user.avatar.attached? %>
-        <%= image_tag current_user.avatar, class: "avatar rounded-circle me-2", alt: current_user.first_name %>
-      <% else %>
-        <div class="avatar-placeholder me-2"></div>
+    <% if current_user %>
+      <%= link_to profile_path(current_user), class: "btn p-0 d-flex align-items-center" do %>
+        <% if current_user.avatar.attached? %>
+          <%= image_tag current_user.avatar, class: "avatar rounded-circle me-2", alt: current_user.first_name %>
+        <% else %>
+          <div class="avatar-placeholder me-2"></div>
+        <% end %>
+        <span><%= current_user.first_name %></span>
       <% end %>
-      <span><%= current_user&.first_name || "Invité" %></span>
+    <% else %>
+      <%= link_to new_user_session_path, class: "btn p-0 d-flex align-items-center" do %>
+        <div class="avatar-placeholder me-2"></div>
+        <span>Se connecter</span>
+      <% end %>
     <% end %>
   </div>
 </header>
-
