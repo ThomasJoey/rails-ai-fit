@@ -5,67 +5,38 @@
   </div>
 
   <div class="offcanvas-body dashboard-body">
-    <!-- Search -->
-    <%= form_with url: search_events_path, method: :get, local: true, class: "input-group mb-4", data: { turbo_frame: "dashboard_search_results" } do %>
-      <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
-      <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Rechercher..." %>
-      <button class="btn btn-outline-secondary" type="submit">
-        <i class="fa-solid fa-arrow-right"></i>
-      </button>
+    <!-- Barre de recherche -->
+    <%= form_with url: search_events_path, method: :get, local: true, data: { turbo_frame: "dashboard_search_results" }, class: "search-form" do %>
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <%= text_field_tag :query, params[:query], class: "search-input", placeholder: "Rechercher..." %>
+      </div>
     <% end %>
 
-    <turbo-frame id="dashboard_search_results">
-      <!-- Search results will render here -->
-    </turbo-frame>
+    <turbo-frame id="dashboard_search_results"></turbo-frame>
 
-    <!-- Stats -->
-    <div class="stats-section mb-5">
-      <% dashboard_stats.each do |key, s| %>
-        <% percent = stat_percentage(s[:current], s[:goal]) %>
-        <div class="stat-card mb-4 p-3 rounded shadow-sm">
-          <div class="d-flex align-items-center mb-2">
-            <div class="icon-wrapper me-2 <%= key %>">
-              <i class="fa-solid <%= s[:icon] %>"></i>
-            </div>
-            <div class="flex-grow-1">
-              <div class="d-flex justify-content-between">
-                <strong><%= s[:label] %></strong>
-                <span class="small text-muted"><%= percent %>%</span>
-              </div>
-              <div class="progress mt-1" style="height: 12px;">
-                <div class="progress-bar <%= key %>" role="progressbar" style="width: <%= percent %>%;" aria-valuenow="<%= percent %>" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-              <div class="small text-muted mt-1">
-                <%= s[:current] %> sur <%= s[:goal] %>
-                <%= key == :sessions ? 'min' : (key == :distance ? 'km' : '') %>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
+    <%# Valeurs par défaut pour que le panneau fonctionne sur toutes les pages %>
+    <% @weather ||= { city: "Paris", temp: 18, label: "Parfait pour courir" } %>
+    <% @stats ||= { matches: 3, messages: 12, events: 5 } %>
+    <% placeholder = "https://ui-avatars.com/api/?name=%{n}&background=7F56D9&color=fff&size=128" %>
+    <% @users_nearby ||= [
+      { name: "Emma", age: 26, sport: "Running", distance: 0.8, match: 92, avatar: placeholder % { n: "Emma" } },
+      { name: "Lucas", age: 29, sport: "CrossFit", distance: 1.2, match: 88, avatar: placeholder % { n: "Lucas" } },
+      { name: "Sofia", age: 24, sport: "Yoga", distance: 2.1, match: 75, avatar: placeholder % { n: "Sofia" } }
+    ] %>
+    <% @recent_matches ||= [
+      { name: "Alex", sport: "Cyclisme", last_seen: "il y a 2h", avatar: placeholder % { n: "Alex" }, unread: true },
+      { name: "Emma", sport: "Running", last_seen: "hier", avatar: placeholder % { n: "Emma" }, unread: false }
+    ] %>
+    <% @events_today ||= [
+      { title: "Course matinale au Bois", time: "07:30", place: "Bois de Vincennes", participants: "8/12", joinable: true },
+      { title: "Session CrossFit", time: "18:00", place: "FitClub Central", participants: nil, joinable: false }
+    ] %>
 
-    <!-- Mon planning -->
-    <h6 class="fw-bold mb-3">Mon planning</h6>
-    <ul class="list-group planning-list">
-      <% Event.order(:starts_at).limit(5).each do |event| %>
-        <li class="list-group-item planning-item mb-2 rounded">
-          <div class="d-flex">
-            <div class="time pe-3 text-center">
-              <i class="fa-regular fa-clock mb-1"></i><br>
-              <strong><%= event.starts_at.strftime("%H:%M") if event.starts_at %></strong>
-            </div>
-            <div>
-              <strong><%= event.title %></strong><br>
-              <% if event.starts_at.present? && event.ends_at.present? %>
-                <small><%= event.starts_at.strftime("%H:%M") %> - <%= event.ends_at.strftime("%H:%M") %></small><br>
-              <% end %>
-              <small class="text-muted"><%= event.location %></small>
-            </div>
-          </div>
-        </li>
-      <% end %>
-    </ul>
+    <%= render "dashboards/header" %>
+    <%= render "dashboards/weather" %>
+    <%= render "dashboards/users_nearby" %>
+    <%= render "dashboards/recent_matches" %>
+    <%= render "dashboards/events_today" %>
   </div>
 </div>
-

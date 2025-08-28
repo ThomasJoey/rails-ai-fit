@@ -12,15 +12,17 @@
 @import "pages/index";
 @import "layouts/index";
 
-@import "home";
-@import "event_index_page";
+@import "pages/home/home";
 @import "profile";
-@import "dashboard";
+@import "pages/messages/conversations";
 
-@import "pages/socialfeedcomments";
-@import "pages/socialfeedpost";
-@import "pages/profiles";
+
+@import "pages/social_feed/socialfeedcomments";
+@import "pages/social_feed/socialfeedpost";
+
 @import "components/navbar";
+
+@import "pages/dashboard/dashboard";
 
 // Styles pour l'application principale (avec navbar)
 body.main-app {

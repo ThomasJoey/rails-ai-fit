@@ -1,0 +1,27 @@
+<h6 class="section-title fw-bold mb-3">
+  <i class="fa-solid fa-satellite-dish me-2"></i> Matchs récents
+</h6>
+
+<ul class="recent-matches list-unstyled mb-4">
+  <% @recent_matches.each do |m| %>
+    <li class="recent-match-card d-flex align-items-center mb-3">
+
+      <!-- Avatar + notif -->
+      <div class="avatar-wrapper me-3">
+        <%= image_tag m[:avatar], class: "avatar-img", alt: m[:name] %>
+        <% if m[:unread] %>
+          <span class="notif-pulse"></span>
+        <% end %>
+      </div>
+
+      <!-- Infos -->
+      <div class="user-info">
+        <strong class="user-name"><%= m[:name] %></strong><br>
+        <small class="user-meta">
+          <%= m[:sport] %> • <%= m[:last_seen] %>
+        </small>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
