@@ -1,0 +1,18 @@
+<% is_current_user = message.sender == current_user %>
+
+<div class="chat-message d-flex mb-3 <%= is_current_user ? 'justify-content-end' : 'justify-content-start' %>">
+  <% unless is_current_user %>
+    <%= render "layouts/avatar",
+        initials: message.sender.first_name&.first&.upcase || "?",
+        image_url: (url_for(message.sender.avatar) if message.sender.avatar.attached?),
+        size: "sm",
+        gradient: "gradient-purple-pink",
+        extra_classes: "me-2" %>
+  <% end %>
+
+
+  <div class="chat-bubble <%= is_current_user ? 'outgoing' : 'incoming' %>">
+    <div class="chat-time small mt-1"><%= l(message.created_at, format: :short) %></div>
+    <%= simple_format(h(message.content)) %>
+  </div>
+</div>

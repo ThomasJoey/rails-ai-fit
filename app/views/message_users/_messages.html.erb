@@ -1,10 +1,5 @@
-<div id="user_messages" class="conversation-messages">
-  <% message_users.each do |m| %>
-    <div class="mb-2 p-2 rounded border <%= 'bg-light' if m.sender == current_user %>">
-      <div class="small text-muted">
-        <%= (m.sender.first_name.presence || m.sender.email) %> — <%= l(m.created_at, format: :short) %>
-      </div>
-      <div><%= simple_format(h(m.content)) %></div>
-    </div>
+<div id="user_messages" class="chat-messages">
+  <% message_users.each do |message| %>
+    <%= render partial: "message_users/message", locals: { message: message } %>
   <% end %>
 </div>

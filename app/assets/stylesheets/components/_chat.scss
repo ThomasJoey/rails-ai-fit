@@ -1,93 +1,40 @@
-// Conteneur principal du chat
-.chat-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 1.5rem;
-}
-
-// Header
-.chat-header {
-  text-align: center;
-  margin-bottom: 2rem;
-
-  h1 {
-    font-size: 1.8rem;
-    font-weight: bold;
-  }
-
-  p {
-    color: #6c757d; // gris Bootstrap
-    font-size: 0.95rem;
-  }
-}
-
-// Zone messages
-.chat-messages {
-  margin-bottom: 2rem;
-}
-
-// Message générique
 .chat-message {
   display: flex;
-  margin-bottom: 1rem;
+  align-items: flex-start;
 
-  .bubble {
-    border-radius: 1rem;
-    padding: 0.75rem 1rem;
+  .chat-bubble {
     max-width: 70%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  }
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-size: 15px;
+    line-height: 1.4;
+    word-break: break-word;
 
-  &.user {
-    justify-content: flex-end;
+    &.outgoing {
+      background-color: #000;
+      color: #fff;
+      border-bottom-right-radius: 6px;
 
-    .bubble {
-      background: $blue; // Bootstrap primary
-      color: white;
+      .chat-time {
+        color: #fff; // Texte de l'heure en blanc pour outgoing
+      }
     }
-  }
 
-  &.assistant {
-    justify-content: flex-start;
+    &.incoming {
+      background-color: #f1f1f1;
+      color: #000;
+      border-bottom-left-radius: 6px;
 
-    .bubble {
-      background: #f8f9fa; // gris clair Bootstrap
-      color: #212529;
+      .chat-time {
+        color: #666; // Tu peux ajuster ici si tu veux un gris plus foncé
+      }
     }
-  }
-}
 
-// Carte event (dans les réponses de l’assistant)
-.event-card {
-  margin-top: 1rem;
-  border: 1px solid #dee2e6;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  background: white;
-
-  h5 {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-  }
-
-  p {
-    margin-bottom: 0.3rem;
-  }
-
-  strong {
-    color: $blue;
-  }
-}
-
-// Formulaire bas de page
-.chat-form {
-  .form-control {
-    border-radius: 0.5rem;
-    resize: none;
-  }
-
-  .btn {
-    border-radius: 0.5rem;
-    font-weight: bold;
+    .chat-time {
+      color: #fff;
+      font-size: 8px;
+      margin-top: 6px;
+      padding-bottom: 4px;
+    }
   }
 }
