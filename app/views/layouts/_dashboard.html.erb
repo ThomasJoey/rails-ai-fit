@@ -1,57 +1,42 @@
 <div class="offcanvas offcanvas-start dashboard-offcanvas" tabindex="-1" id="dashboardMenu" aria-labelledby="dashboardMenuLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="dashboardMenuLabel">Dashboard</h5>
+    <h5 class="offcanvas-title fw-bold" id="dashboardMenuLabel">Dashboard</h5>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
 
-  <div class="offcanvas-body">
-    <!-- Search -->
-    <%= form_with url: search_path, method: :get, local: true, class: "input-group mb-3", data: { turbo_frame: "dashboard_search_results" } do %>
-      <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
-      <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Rechercher..." %>
-      <button class="btn btn-outline-secondary" type="submit">
-        <i class="fa-solid fa-arrow-right"></i>
-      </button>
+  <div class="offcanvas-body dashboard-body">
+    <!-- Barre de recherche -->
+    <%= form_with url: search_events_path, method: :get, local: true, data: { turbo_frame: "dashboard_search_results" }, class: "search-form" do %>
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <%= text_field_tag :query, params[:query], class: "search-input", placeholder: "Rechercher..." %>
+      </div>
     <% end %>
 
-    <turbo-frame id="dashboard_search_results">
-      <!-- Search results will render here -->
-    </turbo-frame>
+    <turbo-frame id="dashboard_search_results"></turbo-frame>
 
-    <!-- Stats -->
-    <ul class="list-group mb-3">
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Nombre de pas
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Calories
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Heures/séances
-        <span class="text-muted">Detail</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Km
-        <span class="text-muted">Detail</span>
-      </li>
-    </ul>
+    <%# Valeurs par défaut pour que le panneau fonctionne sur toutes les pages %>
+    <% @weather ||= { city: "Paris", temp: 18, label: "Parfait pour courir" } %>
+    <% @stats ||= { matches: 3, messages: 12, events: 5 } %>
+    <% placeholder = "https://ui-avatars.com/api/?name=%{n}&background=7F56D9&color=fff&size=128" %>
+    <% @users_nearby ||= [
+      { name: "Emma", age: 26, sport: "Running", distance: 0.8, match: 92, avatar: placeholder % { n: "Emma" } },
+      { name: "Lucas", age: 29, sport: "CrossFit", distance: 1.2, match: 88, avatar: placeholder % { n: "Lucas" } },
+      { name: "Sofia", age: 24, sport: "Yoga", distance: 2.1, match: 75, avatar: placeholder % { n: "Sofia" } }
+    ] %>
+    <% @recent_matches ||= [
+      { name: "Alex", sport: "Cyclisme", last_seen: "il y a 2h", avatar: placeholder % { n: "Alex" }, unread: true },
+      { name: "Emma", sport: "Running", last_seen: "hier", avatar: placeholder % { n: "Emma" }, unread: false }
+    ] %>
+    <% @events_today ||= [
+      { title: "Course matinale au Bois", time: "07:30", place: "Bois de Vincennes", participants: "8/12", joinable: true },
+      { title: "Session CrossFit", time: "18:00", place: "FitClub Central", participants: nil, joinable: false }
+    ] %>
 
-    <!-- Challenges / Groups -->
-    <div class="mb-3">
-      <button class="btn btn-light w-100 d-flex align-items-center justify-content-between">
-        <span><i class="fa-solid fa-users me-2"></i>Challenges Groups</span>
-        <i class="fa-solid fa-chevron-right"></i>
-      </button>
-    </div>
-
-    <!-- Mini Avatars -->
-    <div class="d-flex flex-wrap gap-2">
-      <% 4.times do %>
-        <div class="d-flex flex-column align-items-center">
-          <div class="avatar-placeholder"></div>
-          <small class="text-muted">Texte</small>
-        </div>
-      <% end %>
-    </div>
+    <%= render "dashboards/header" %>
+    <%= render "dashboards/weather" %>
+    <%= render "dashboards/users_nearby" %>
+    <%= render "dashboards/recent_matches" %>
+    <%= render "dashboards/events_today" %>
   </div>
 </div>

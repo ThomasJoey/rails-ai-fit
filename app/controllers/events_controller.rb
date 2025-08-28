@@ -80,6 +80,12 @@ class EventsController < ApplicationController
     end
   end
 
+  def search
+    query = params[:query]
+    @events = Event.where("title ILIKE ?", "%#{query}%")
+    render partial: "dashboards/events_list", locals: { events: @events }
+  end
+
   private
 
   def event_params

@@ -59,6 +59,11 @@ class User < ApplicationRecord
     return email.to_s.split("@").first.presence || "Utilisateur"
   end
 
+  # Localisation d'affichage (préférence: city puis location)
+  def display_location
+    [city, location].compact_blank.first
+  end
+
   def find_existing_conversation(user)
     Conversation.where(user: self, second_user: user)
                 .or(Conversation.where(user: user, second_user: self))

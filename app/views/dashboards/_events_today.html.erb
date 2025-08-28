@@ -1,0 +1,19 @@
+<!-- Événements -->
+  <h6 class="fw-bold mb-2">Événements aujourd'hui</h6>
+  <ul class="list-unstyled">
+    <% @events_today.each do |e| %>
+      <li class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <i class="fa-regular fa-clock me-2"></i>
+          <strong><%= e[:title] %></strong><br>
+          <small class="text-muted"><i class="fa-solid fa-location-dot"></i> <%= e[:place] %></small><br>
+          <% if e[:participants] %>
+            <small class="text-muted"><i class="fa-solid fa-users"></i> <%= e[:participants] %> participants</small>
+          <% end %>
+        </div>
+        <% if e[:joinable] %>
+          <button class="btn btn-success btn-sm">Rejoindre</button>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>

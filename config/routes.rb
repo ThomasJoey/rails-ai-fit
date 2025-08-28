@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "posts#index"
+  get "dashboard", to: "dashboards#index"
+  get "dashboard/search", to: "dashboards#search", as: :dashboard_search
 
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
@@ -25,6 +27,9 @@ Rails.application.routes.draw do
   resources :events, only: [:index, :new, :create, :show, :destroy] do
     post :confirm, on: :member
     resources :event_participations, only: [:new, :create, :destroy]
+    collection do
+      get :search
+    end
   end
 
   resources :posts do
@@ -41,6 +46,5 @@ Rails.application.routes.draw do
 
   # Users are shown via profiles; no separate UsersController needed
   # resources :users, only: [:show]
-  resource :dashboard, only: [:show]
 
 end

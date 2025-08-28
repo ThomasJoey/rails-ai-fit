@@ -1,0 +1,23 @@
+  <!-- Sportifs près de toi -->
+<h6 class="section-title fw-bold mb-3">
+  <i class="fa-solid fa-bolt me-2"></i> Sportifs près de toi
+</h6>
+
+<div class="d-flex gap-4 overflow-auto futuristic-users">
+  <% @users_nearby.each do |u| %>
+    <div class="user-card futuristic-card position-relative">
+      <%= image_tag u[:avatar], class: "user-avatar", alt: u[:name] %>
+
+      <!-- Overlay futuriste -->
+      <div class="user-overlay d-flex flex-column justify-content-end p-3">
+        <div class="user-info">
+          <strong class="user-name"><%= u[:name] %></strong>
+          <div class="user-meta mt-1">
+            <i class="fa-solid fa-location-dot"></i> <%= u[:distance] %> km • <%= u[:sport] %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
