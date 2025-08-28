@@ -15,16 +15,21 @@
   <div>
     <% if current_user %>
       <%= link_to profile_path(current_user), class: "btn p-0 d-flex align-items-center" do %>
-        <% if current_user.avatar.attached? %>
-          <%= image_tag current_user.avatar, class: "avatar rounded-circle me-2", alt: current_user.first_name %>
-        <% else %>
-          <div class="avatar-placeholder me-2"></div>
-        <% end %>
-        <span><%= current_user.first_name %></span>
+        <%= render "layouts/avatar",
+              image_url: (url_for(current_user.avatar) if current_user.avatar.attached?),
+              initials: user_initials(current_user),
+              gradient: "gradient-purple-pink",
+              size: "sm",
+              extra_classes: "me-2" %>
+
       <% end %>
     <% else %>
       <%= link_to new_user_session_path, class: "btn p-0 d-flex align-items-center" do %>
-        <div class="avatar-placeholder me-2"></div>
+        <%= render "layouts/avatar",
+              initials: "?",
+              gradient: "gradient-grey",
+              size: "sm",
+              extra_classes: "me-2" %>
         <span>Se connecter</span>
       <% end %>
     <% end %>

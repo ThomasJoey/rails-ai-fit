@@ -4,20 +4,21 @@
   <div class="profile-card">
     <!-- Section Avatar avec upload -->
     <div class="position-relative d-inline-block">
-      <%= image_tag @user.avatar_url,
-          alt: "Avatar",
-          class: "avatar",
-          style: "width: 150px; height: 150px; object-fit: cover; border-radius: 50%;" %>
-      <!-- Badge pour changer l'avatar -->
-      <% if @user == current_user %>
-        <%= link_to edit_profile_path(@user),
-            class: "position-absolute bottom-0 end-0 btn btn-sm btn-primary rounded-circle p-2",
-            style: "transform: translate(-10%, -10%); width: 40px; height: 40px;",
-            title: "Modifier la photo" do %>
-          <i class="fas fa-camera"></i>
-        <% end %>
+    <%= render "layouts/avatar",
+      image_url: (url_for(@user.avatar) if @user.avatar.attached?),
+      initials: user_initials(@user),
+      size: "xl",
+      extra_classes: "profile-avatar" %>
+
+    <% if @user == current_user %>
+      <%= link_to edit_profile_path(@user),
+          class: "position-absolute bottom-0 end-0 btn btn-sm btn-primary rounded-circle p-2",
+          style: "transform: translate(-10%, -10%); width: 40px; height: 40px;",
+          title: "Modifier la photo" do %>
+        <i class="fas fa-camera"></i>
       <% end %>
-    </div>
+    <% end %>
+  </div>
 
     <div class="name">
       <%= @user.first_name %> <%= @user.last_name %>

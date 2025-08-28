@@ -2,12 +2,12 @@
   <h1>Mon Dashboard</h1>
 
   <div class="card p-3 shadow-sm">
-    <div class="d-flex align-items-center mb-3">
-      <% if @user.avatar.attached? %>
-        <%= image_tag @user.avatar, class: "avatar me-3" %>
-      <% else %>
-        <div class="avatar-placeholder me-3"></div>
-      <% end %>
+    <%= render "layouts/avatar",
+      image_url: (url_for(@user.avatar) if @user.avatar.attached?),
+      initials: user_initials(@user),
+      gradient: "gradient-purple-pink",
+      size: "md",
+      extra_classes: "me-3" %>
       <div>
         <h4 class="mb-0"><%= @user.first_name %> <%= @user.last_name %></h4>
         <p class="text-muted mb-0"><%= @user.email %></p>

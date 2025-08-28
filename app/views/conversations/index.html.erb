@@ -11,13 +11,20 @@
       <%= render 'layouts/topbar_header' %>
     <% end %>
 
+   <div class="infos-card-wrapper">
+    <div class="infos-card__label">Créateur d'évènements</div>
 
+    <%= render "layouts/infos_card",
+        title: "FitBuddy Event Creator",
+        description: "Create sport events instantly! Tell me what activity you want to organize and I’ll help you set it up",
+        icon: content_tag(:i, "", class: "fa-solid fa-calendar-day"),
+        actions: content_tag(:span, "Smart Planning", class: "badge badge-orange") +
+                content_tag(:span, "Auto-Invite", class: "badge badge-pink") %>
+  </div>
 
-  <section class="hero text-center text-white mb-5">
+  <section class="">
     <div class="overlay d-flex align-items-center justify-content-center">
       <div>
-        <h1 class="display-4 fw-bold text-dark">💬 messages</h1>
-        <p class="lead">Discute avec ton assistant sportif et découvre des idées d’événements adaptés à tes envies.</p>
         <%= button_to "+ Nouvelle conversation",
       conversations_path,
       method: :post,
@@ -34,27 +41,12 @@
   </section>
 
   <!-- Conversations -->
-  <div class="row g-4">
-    <% @conversations.each do |conversation| %>
-      <div class="col-md-6 col-lg-4">
-        <div class="card conversation-card shadow-sm h-100">
-          <!-- Image sportive -->
-          <%= image_tag "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-              class: "card-img-top", alt: "Sport event" %>
-
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title text-primary"><%= conversation.display_name_for(current_user) %></h5>
-            <p class="card-text text-muted flex-grow-1"><%= conversation.context %></p>
-
-            <div class="d-flex justify-content-between">
-              <%= link_to "👉 Ouvrir", conversation_path(conversation.id), class: "btn btn-primary btn-sm" %>
-              <%= link_to "🗑️ Supprimer", conversation_path(conversation.id),
-                    data: { turbo_method: :delete, turbo_confirm: "Es-tu sûr ?" },
-                    class: "btn btn-outline-danger btn-sm" %>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
+  <div class="infos-card-wrapper">
+    <div class="infos-card__label">Conversation récente</div>
+    <div class="conversation-list">
+      <% @conversations.each do |conversation| %>
+        <%= render partial: "layouts/conversation_card", locals: { conversation: conversation, current_user: current_user } %>
+      <% end %>
+    </div>
   </div>
 </div>

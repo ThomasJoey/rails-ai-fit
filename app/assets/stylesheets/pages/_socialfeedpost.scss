@@ -30,19 +30,7 @@
   margin-bottom: 0.5rem;
 }
 
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  object-fit: cover;
-}
 
-.avatar-placeholder {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #166EFD, #A74FFF);
-}
 
 .username {
   font-size: 0.95rem;
@@ -159,11 +147,6 @@
   padding-right: 0;  /* même traitement à droite */
 }
 
-/* Avatar toujours aligné */
-.avatar,
-.avatar-placeholder {
-  margin-left: 0;
-}
 
 /* Boutons like/comment deux fois plus petits */
 .action-bubble {

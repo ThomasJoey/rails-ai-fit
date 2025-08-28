@@ -22,4 +22,19 @@ module ApplicationHelper
       "main-content"
     end
   end
+
+  # app/helpers/application_helper.rb
+  def user_initials(user)
+    return "U" unless user
+
+    first = user.first_name&.first
+    last = user.last_name&.first
+
+    initials = "#{first}#{last}".upcase
+    initials.present? ? initials : "U"
+  end
+
+  def other_participant(conversation, current_user)
+    conversation.participants.reject { |u| u == current_user }.first
+  end
 end

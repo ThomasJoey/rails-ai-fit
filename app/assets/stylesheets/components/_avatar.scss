@@ -1,20 +1,61 @@
-.avatar {
-  width: 40px;
-  border-radius: 50%;
-}
-.avatar-large {
-  width: 56px;
-  border-radius: 50%;
-}
-.avatar-bordered {
-  width: 40px;
-  border-radius: 50%;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  border: white 1px solid;
-}
-.avatar-square {
-  width: 40px;
-  border-radius: 0px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  border: white 1px solid;
+.avatar-wrapper {
+  border-radius: 35%;
+  overflow: hidden;
+  display: inline-block;
+
+  &.sm {
+    font-size: 13px;
+    width: 32px;
+    height: 32px;
+  }
+
+  &.md {
+    font-size: 15px;
+    width: 42px;
+    height: 42px;
+  }
+
+  &.lg {
+    font-size: 17px;
+    width: 64px;
+    height: 64px;
+  }
+
+  &.xl {
+    font-size: 15px;
+    width: 150px;
+    height: 150px;
+  }
+
+  .avatar-img,
+  .avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 35%;
+    display: block;
+  }
+
+  .avatar-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    color: white;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #a855f7, #ec4899); // par défaut
+  }
+
+  // Variantes de gradient
+  .gradient-purple-pink {
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+  }
+
+  .gradient-blue-green {
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+  }
+
+  .gradient-orange-red {
+    background: linear-gradient(135deg, #fb923c, #ef4444);
+  }
 }

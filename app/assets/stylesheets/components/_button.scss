@@ -19,17 +19,17 @@
 }
 
 .plus-button {
-    width: 36px;
-    height: 36px;
-    background-color: #000;
+    width: 26px;
+    height: 26px;
+    background-color: #000000;
     color: #fff;
     border: none;
-    border-radius: 15px; // arrondi très visible mais pas 50%
+    border-radius: 10px; // arrondi très visible mais pas 50%
     display: flex;
     align-items: center;
     justify-content: center;
     outline: none;
-    font-size: 20px; // taille du +
+    font-size: 17px; // taille du +
     cursor: pointer;
 
   &:link,
@@ -42,5 +42,5 @@
     text-decoration: none;
   }
 
- 
+
 }

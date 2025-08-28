@@ -1,0 +1,22 @@
+<% user = (conversation.participants - [current_user]).first %>
+
+<div class="conversation-card">
+  <%= render "layouts/avatar",
+        initials: user&.first_name&.first&.upcase || "?",
+        image_url: (url_for(user.avatar) if user&.avatar&.attached?),
+        size: "md" %>
+
+  <div class="conversation-card-text">
+    <div>
+      <h5 class="conversation-card-title"><%= user&.first_name %> <%= user&.last_name %></h5>
+      <p class="conversation-card-subtitle"><%= conversation.context.presence || "Pas encore de message" %></p>
+    </div>
+
+    <%# <div class="d-flex gap-2">
+      <%= link_to "👉 Ouvrir", conversation_path(conversation.id), class: "btn btn-primary btn-sm" %>
+      <%# <%= link_to "🗑️ Supprimer", conversation_path(conversation.id),
+            data: { turbo_method: :delete, turbo_confirm: "Es-tu sûr ?" },
+            class: "btn btn-outline-danger btn-sm" %>
+    <%# </div>  %>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<% image_url ||= nil %>
+<% initials ||= "" %>
+<% gradient ||= "gradient-purple-pink" %>
+<% size ||= "md" %>
+
+<div class="avatar-wrapper <%= size %>">
+  <% if image_url.present? %>
+    <img src="<%= image_url %>" alt="Avatar" class="avatar-img" />
+  <% else %>
+    <div class="avatar-placeholder <%= gradient %> d-flex align-items-center justify-content-center text-white fw-bold">
+      <%= initials %>
+    </div>
+  <% end %>
+</div>
