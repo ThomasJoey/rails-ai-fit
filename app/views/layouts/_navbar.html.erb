@@ -6,10 +6,10 @@
     <% end %>
   </div>
 
-  <div class="nav-item <%= 'active' if current_page?(search_path) %>" data-tab="search">
-    <%= link_to search_path, class: "nav-link" do %>
+  <div class="nav-item <%= 'active' if current_page?(events_path) %>" data-tab="events">
+    <%= link_to events_path, class: "nav-link" do %>
       <i class="fa-solid fa-magnifying-glass"></i>
-      <span>Search</span>
+      <span>Events</span>
     <% end %>
   </div>
 
