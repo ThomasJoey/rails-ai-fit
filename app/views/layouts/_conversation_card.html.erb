@@ -1,27 +1,25 @@
 <% user = (conversation.participants - [current_user]).first %>
 
-<div class="conversation-card">
-  <div class="conversation-avatar">
-    <%= render "layouts/avatar",
-          initials: user&.first_name&.first&.upcase || "?",
-          image_url: (url_for(user.avatar) if user&.avatar&.attached?),
-          size: "md" %>
-  </div>
-  <div class="conversation-card-text">
-    <div class="conversation-card-content d-flex">
-      <div>
-        <h5 class="conversation-card-title"><%= user&.first_name %> <%= user&.last_name %></h5>
-        <p class="conversation-card-subtitle"><%= conversation.context.presence || "Pas encore de message" %></p>
-      </div>
-      <div>
-        <%= link_to "🗑️", conversation_path(conversation.id),
-                data: { turbo_method: :delete, turbo_confirm: "Es-tu sûr ?" },
-                class: "btn btn-outline-danger btn-sm" %>
-      </div>
+<div class="conversation-card d-flex align-items-center">
+  <%= link_to conversation_path(conversation.id), class: "d-flex align-items-center flex-grow-1 text-decoration-none text-reset gap-3" do %>
+    <div class="conversation-avatar">
+      <%= render "layouts/avatar",
+            initials: user&.first_name&.first&.upcase || "?",
+            image_url: (url_for(user.avatar) if user&.avatar&.attached?),
+            size: "md" %>
     </div>
 
-    <%# <div class="d-flex gap-2">
-      <%= link_to "👉 Ouvrir", conversation_path(conversation.id), class: "btn btn-primary btn-sm" %>
-    <%# </div>  %>
+    <div class="conversation-card-text">
+      <h5 class="conversation-card-title m-0"><%= user&.first_name %> <%= user&.last_name %></h5>
+      <p class="conversation-card-subtitle m-0"><%= conversation.context.presence || "Pas encore de message" %></p>
+    </div>
+  <% end %>
+
+  <div>
+    <%= link_to conversation_path(conversation.id),
+                data: { turbo_method: :delete, turbo_confirm: "Es-tu sûr ?" },
+                class: "btn btn-sm ms-2" do %>
+      <i class="fa-solid fa-xmark"></i>
+    <% end %>
   </div>
 </div>
