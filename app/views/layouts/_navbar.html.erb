@@ -1,28 +1,31 @@
 <nav class="mobile-navbar d-flex justify-content-around align-items-center">
   <div class="nav-item <%= 'active' if current_page?(posts_path) %>" data-tab="home">
     <%= link_to posts_path, class: "nav-link" do %>
-      <i class="fa-solid fa-house"></i>
+      <i class="fa-notdog fa-solid fa-house"></i>
       <span>Home</span>
     <% end %>
   </div>
 
   <div class="nav-item <%= 'active' if current_page?(events_path) %>" data-tab="events">
     <%= link_to events_path, class: "nav-link" do %>
-      <i class="fa-solid fa-magnifying-glass"></i>
+      <i class="fa-solid fa-calendar"></i>
       <span>Events</span>
     <% end %>
   </div>
 
+
   <div class="nav-item <%= 'active' if current_page?(matches_path) %>" data-tab="match">
     <%= link_to matches_path, class: "nav-link" do %>
-      <i class="fa-solid fa-dumbbell"></i>
+      <i class="fa-duotone fa-solid fa-people-group"></i>
+
+  
       <span>Match</span>
     <% end %>
   </div>
 
   <div class="nav-item <%= 'active' if current_page?(conversations_path) %>" data-tab="chat">
     <%= link_to conversations_path, class: "nav-link" do %>
-      <i class="fa-regular fa-comment"></i>
+      <i class="fa-solid fa-comment"></i>
       <span>Chat</span>
     <% end %>
   </div>

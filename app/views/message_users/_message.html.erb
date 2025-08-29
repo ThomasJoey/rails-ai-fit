@@ -10,9 +10,10 @@
         extra_classes: "me-2" %>
   <% end %>
 
-
-  <div class="chat-bubble <%= is_current_user ? 'outgoing' : 'incoming' %>">
-    <div class="chat-time small mt-1"><%= l(message.created_at, format: :short) %></div>
-    <%= simple_format(h(message.content)) %>
+  <div class="message-block">
+    <div class="chat-bubble <%= is_current_user ? 'outgoing' : 'incoming' %>">
+      <%= simple_format(h(message.content)) %>
+    </div>
+    <div class="chat-time-below text-muted small mt-1 <%= is_current_user ? 'text-end' : 'text-start' %>"><%= l(message.created_at, format: :short) %></div>
   </div>
 </div>

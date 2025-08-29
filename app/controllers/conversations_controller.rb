@@ -30,7 +30,19 @@ class ConversationsController < ApplicationController
       user: current_user
     )
     @conversation.second_user = User.find(params[:second_user_id]) if params[:second_user_id]
-    redirect_to conversation_path(@conversation) if @conversation.save
+
+    if @conversation.save
+      # Add automatic first message for AI chats
+      if @conversation.ai_chat? && @conversation.messages.none?
+        @conversation.messages.create!(
+          content: "Salut ! Je suis ton coach d’événements sportifs. Dis‑moi ce que tu veux faire, ta ville et tes dispos, et je te propose une idée ✨",
+          role: "assistant"
+        )
+      end
+      redirect_to conversation_path(@conversation)
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -69,9 +81,9 @@ class ConversationsController < ApplicationController
         conversation: @conversation
       )
 
-      # 🔹 Création des events liés à ce message
+      # 🔹 Création des events liés à l'utilisateur (plus de message_id)
       events_data.each do |event_attributes|
-        assistant_message.events.create(event_attributes)
+        Event.create!(event_attributes.merge(user: current_user))
       end
 
       redirect_to @conversation, notice: "1 événement générés ✅"

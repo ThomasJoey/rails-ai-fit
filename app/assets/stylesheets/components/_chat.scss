@@ -2,8 +2,16 @@
   display: flex;
   align-items: flex-start;
 
+  .message-block {
+    display: inline-flex;
+    flex-direction: column;
+    max-width: 80%;
+    padding-left: 10px;
+  }
+
   .chat-bubble {
-    max-width: 70%;
+    display: inline-block;
+    max-width: 100%;
     padding: 10px 16px;
     border-radius: 20px;
     font-size: 15px;
@@ -11,7 +19,7 @@
     word-break: break-word;
 
     &.outgoing {
-      background-color: #000;
+      background: linear-gradient(to bottom right, #60A5FA, #A855F7);
       color: #fff;
       border-bottom-right-radius: 6px;
 
@@ -37,4 +45,79 @@
       padding-bottom: 4px;
     }
   }
+}
+
+.chat-messages {
+  position: relative;
+
+  /* Remove any horizontal rules that might be rendered by content */
+  hr {
+    display: none !important;
+  }
+
+  /* Ensure no borders are shown between messages */
+  .chat-message,
+  .message-block,
+  .chat-bubble {
+    border: none !important;
+    background-clip: padding-box; /* avoid subpixel artifacts */
+  }
+
+  &.has-floating-button {
+    padding-top: 72px; /* a bit more room for the sticky button */
+  }
+
+  .floating-chat-button {
+    position: sticky;
+    top: 8px;
+    display: flex;
+    justify-content: center;
+    margin: 8px 0 12px 0;
+    z-index: 2;
+
+    .plus-button {
+      width: auto;         /* allow the text to define the width */
+      height: auto;        /* no fixed square */
+      min-height: 40px;    /* comfortable tap target */
+      padding: 8px 16px;   /* horizontal padding for label */
+      border-radius: 12px; /* pill-like */
+      font-size: 18px;
+      white-space: nowrap;
+      font-weight: normal; /* prevent line break on the label */
+    }
+  }
+}
+
+.chat-input {
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+
+  .conversation-form {
+    width: 100%;
+    margin: 0;
+  }
+
+  .form-group {
+    /* simple_form wrapper */
+    margin-bottom: 0;
+    flex: 1 1 auto;
+  }
+
+  input.form-control {
+    width: 100%;
+  }
+
+  .plus-button {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 auto;
+  }
+}
+
+
+.chat-time-below {
+  color: #9aa0a6; /* subtle grey */
+  font-size: 11px;
+  margin-top: 4px;
 }
