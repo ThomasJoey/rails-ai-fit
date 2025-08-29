@@ -1,18 +1,23 @@
-<!-- Événements -->
-<h4>📅 Mes événements</h4>
-  <!-- ta liste des events ici -->
-  <% if @events.present? && @events.any? %>
-    <ul class="list-group">
-      <% @events.each do |event| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <div>
-            <strong><%= event.title %></strong><br>
-            <small class="text-muted"><%= event.location %> — <%= l(event.starts_at, format: :long) %></small>
+<!-- Mes événements -->
+<h6 class="section-title fw-bold mb-3">
+  <i class="fa-solid fa-calendar-days me-2"></i> Mes événements
+</h6>
+
+<% if @events.present? && @events.any? %>
+  <div class="events-list d-flex flex-column gap-3">
+    <% @events.each do |event| %>
+      <div class="event-card d-flex justify-content-between align-items-center">
+        <div>
+          <div class="event-title"><%= event.title %></div>
+          <div class="event-meta text-muted">
+            <%= event.location %> — <%= l(event.starts_at, format: :long) %>
           </div>
-          <%= link_to "Voir", event_path(event), class: "btn btn-sm btn-outline-primary" %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p class="text-muted">Tu ne participes encore à aucun événement.</p>
-  <% end %>
+        </div>
+        <%= link_to "Voir", event_path(event), class: "event-link" %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-muted">Tu ne participes encore à aucun événement.</p>
+<% end %>
+

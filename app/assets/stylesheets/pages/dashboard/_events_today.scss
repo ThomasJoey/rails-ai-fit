@@ -1,0 +1,52 @@
+.section-title {
+  font-size: 0.875rem; // ≈ 14px
+  font-weight: 600;
+  color: #6b7280; // gris doux
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.event-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .event-title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #1a1a1a;
+  }
+
+  .event-meta {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 2px;
+  }
+
+  .event-link {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: white; /* violet bleu comme sur ton screenshot */
+    border: 1px solid linear-gradient(135deg, #a445ff, #6a00ff);
+    border-radius: 6px;
+    padding: 2px 10px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    background: linear-gradient(135deg, #a445ff, #6a00ff);
+
+  }
+}
