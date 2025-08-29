@@ -1,11 +1,12 @@
 <% image_url ||= nil %>
 <% initials ||= "" %>
+<% icon ||= nil %>
 <% gradient ||= "gradient-purple-pink" %>
 <% size ||= "md" %>
 <% extra_classes ||= "" %>
 <% html_options ||= {} %>
 
-<div class="avatar-wrapper <%= size %> <%= extra_classes %>" <%= html_options.map { |k, v| 
+<div class="avatar-wrapper <%= size %> <%= extra_classes %>" <%= html_options.map { |k, v|
   if k == :data && v.is_a?(Hash)
     v.map { |data_key, data_value| "data-#{data_key.to_s.gsub('_', '-')}=\"#{data_value}\"" }.join(' ')
   else
@@ -16,7 +17,7 @@
     <img src="<%= image_url %>" alt="Avatar" class="avatar-img" />
   <% else %>
     <div class="avatar-placeholder <%= gradient %> d-flex align-items-center justify-content-center text-white fw-bold">
-      <%= initials %>
+      <%= icon.present? ? icon : initials %>
     </div>
   <% end %>
 </div>
