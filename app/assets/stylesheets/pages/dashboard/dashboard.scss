@@ -4,3 +4,9 @@
 @import "search";
 @import "weather";
 @import "events_today";
+
+.dashboard-title {
+  font-size: 1.5rem; // ≈ 14px
+  font-weight: 600;
+  color: #6b7280; // gris doux
+}

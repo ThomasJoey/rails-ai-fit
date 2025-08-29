@@ -1,69 +1,44 @@
+
 .section-title {
-  font-size: 1.1rem;
-  color: black;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-shadow: black;
-  display: flex;
-  align-items: center;
-  border-radius: 8px;
+  font-size: 0.875rem; // ≈ 14px
+  font-weight: 600;
+  color: #6b7280; // gris doux
 }
 
 .futuristic-users {
   padding-bottom: 1rem;
+  padding-top: 0.5rem;
+  padding-left: 0.3rem;
 }
 
-.futuristic-card {
-  width: 100px;
-  height: 120px;
-  border-radius: 8px;
-  overflow: hidden;
-  position: relative;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* ombre douce */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.user-pill {
+  width: 90px;
+  height: 110px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #a445ff, #6a00ff);
+  flex-shrink: 0;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 
   &:hover {
-    transform: translateY(-6px) scale(1.03);
-    box-shadow: 0 12px 30px rgba(94, 106, 110, 0.5), inset 0 0 16px rgba(255, 255, 255, 0.15);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.35);
   }
 
-  .user-avatar {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.8) contrast(1.1);
-    transition: filter 0.3s ease;
+  .user-initials {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 1px;
   }
 
-  &:hover .user-avatar {
-    filter: brightness(1) contrast(1.2);
+  .user-distance {
+    font-size: 0.8rem;
+    opacity: 0.9;
   }
 
-  .user-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent 60%);
-    color: #fff;
-  }
-
-  .user-info {
-    .user-name {
-      font-size: 1.1rem;
-      font-weight: 600;
-      text-shadow: 0 0 6px rgba(0, 200, 255, 0.8);
-    }
-
-    .user-meta {
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.8);
-
-      i {
-        color: #0ff;
-        margin-right: 4px;
-      }
-    }
+  .user-sport {
+    font-size: 0.9rem;
+    font-weight: 500;
   }
 }
