@@ -5,13 +5,8 @@
   </div>
 
   <div class="offcanvas-body dashboard-body">
-    <!-- Barre de recherche -->
-    <%= form_with url: search_events_path, method: :get, local: true, data: { turbo_frame: "dashboard_search_results" }, class: "search-form" do %>
-      <div class="search-bar">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <%= text_field_tag :query, params[:query], class: "search-input", placeholder: "Rechercher..." %>
-      </div>
-    <% end %>
+  <%= render "dashboards/search" %>
+    
 
     <turbo-frame id="dashboard_search_results"></turbo-frame>
 
@@ -40,5 +35,6 @@
     <%= render "dashboards/users_nearby" %>
     <%= render "dashboards/recent_matches" %>
     <%= render "dashboards/events_today" %>
+
   </div>
 </div>
