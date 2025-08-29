@@ -1,6 +1,7 @@
+
 <div class="row justify-content-center">
   <div class="col-sm-8 my-3">
-    <%= form_with url: search_conversations_path, method: :get, class: "d-flex" do %>
+    <%= form_with url: search_path, method: :get, class: "d-flex" do %>
       <%= text_field_tag :query,
             params[:query],
             class: "form-control",
@@ -15,7 +16,7 @@
     <div class="col-sm-8">
       <turbo-frame id="dashboard_search_results">
         <% if params[:query].present? %>
-          <%= render partial: "pages/search_results", locals: { users: @users } %>
+          <%= render partial: "conversations/search_results", locals: { users: @users } %>
         <% end %>
       </turbo-frame>
     </div>
