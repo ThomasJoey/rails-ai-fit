@@ -27,8 +27,12 @@
 
   <div class="location">📍 <%= user.location %></div>
 
-  <% if user != current_user && conversation.present? %>
-    <%= link_to "envoyer un message", conversation_path(conversation), class: "text-decoration-none" %>
+  <% if enableMessage %>
+    <% if user != current_user && conversation %>
+      <%= link_to "Envoyer un message", conversation_path(conversation), class: "text-decoration-none" %>
+    <% else %>
+      <%= link_to 'Envoyer un message', conversations_path(second_user_id: user.id), data: { turbo_method: :post } %>
+    <% end %>
   <% end %>
 
   <% if user.bio.present? %>

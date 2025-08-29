@@ -21,6 +21,16 @@ class ConversationsController < ApplicationController
   end
 
   def search
+    @users = User.all
+    
+
+    return unless params[:query].present?
+
+    @users = User.where("first_name ILIKE :q OR last_name ILIKE :q", q: "%#{params[:query]}%")
+
+    return unless turbo_frame_request?
+
+    render partial: "conversations/search_results", locals: { users: @users }
   end
 
   def create

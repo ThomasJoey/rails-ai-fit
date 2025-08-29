@@ -4,7 +4,7 @@
   <ul>
     <% @potential_matches.each do |u| %>
       <li>
-        <%= render "layouts/profile_card", user: u, conversation: @conversation %>
+        <%= render "layouts/profile_card", user: u, conversation: @conversation, enableMessage: false  %>
 </div>
       </li>
     <% end %>

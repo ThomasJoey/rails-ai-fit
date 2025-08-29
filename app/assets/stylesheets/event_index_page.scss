@@ -1,45 +1,66 @@
-// 🎨 Events Page Styles
-.events-index {
-  h1 {
-    font-weight: 700;
-    color: #2c3e50;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+.events-page {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f9f9f9;
+  padding: 1rem;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; // 👉 cartes prennent toute la largeur
+}
+
+/* ------------------ 🔍 Barre de recherche ------------------ */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #f3f4f6; // gris clair
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+
+  .icon-search {
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    color: #9ca3af; // gris icône
   }
 
-  // 🔍 Barre de recherche
-  form {
-
-
-    input:focus {
-      border-color: #0d6efd;
-      box-shadow: 0 0 10px rgba(13, 110, 253, 0.2);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #0d6efd, #0a58ca);
-      border: none;
-
-      &:hover {
-        background: linear-gradient(135deg, #0a58ca, #052c65);
-        transform: translateY(-2px);
-      }
-    }
-  }
-
-  // 📦 Cartes des événements
-  .card {
+  input {
     border: none;
-    border-radius: 18px;
-    background: #fff;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    position: relative;
-    overflow: hidden;
+    outline: none;
+    background: transparent;
+    font-size: 0.95rem;
+    color: #374151; // gris foncé
+    flex: 1;
 
-    &:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+    &::placeholder {
+      color: #9ca3af;
     }
+  }
+}
 
+/* ------------------ 🏷️ Filtres ------------------ */
+.filters {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+  overflow-x: auto;
+  padding-bottom: 0.3rem;
+
+  .filter {
+    border: none;
+    background: #f3f4f6;
+    color: #374151;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &.active {
+      background: #000;
+      color: #fff;
+    }
+  }
     // Animation subtile au survol
     &::before {
       content: "";
@@ -52,123 +73,118 @@
       transition: all 0.3s ease;
     }
 
-    &:hover::before {
-      left: 0;
-    }
-
-    .card-body {
-      display: flex;
-      flex-direction: column;
-      padding: 1.5rem;
-
-      h5.card-title {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: 0.75rem;
-        color: #0d6efd;
-      }
-
-      p.card-text {
-        font-size: 0.95rem;
-        line-height: 1.5;
-      }
-
-      ul {
-        font-size: 0.9rem;
-        color: #6c757d;
-
-        li {
-          margin-bottom: 0.25rem;
-        }
-      }
-
-      // Boutons
-      .btn-action {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: auto;
-      height: auto;
-      font-size: 1.1rem;
-      border: none;
-      background: #f1f3f5;
-      color: #495057;
-      transition: all 0.25s ease-in-out;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-
-      &:hover {
-        transform: translateY(-3px) scale(1.1);
-        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
-      }
-
-      &.btn-join {
-        color: white;
-
-      }
-
-      &.btn-leave {
-        color: white;
-      }
-
-      &.btn-delete {
-        color: white;
-
-      }
-    }
-
-    }
+  /* scrollbar invisible */
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 
 
+/* ------------------ 🗂️ Cartes événements ------------------ */
+.event-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 
+  width: 100%;            // 👉 prend toute la largeur
+  max-width: 100%;        // pas de restriction
+  align-self: flex-start;
+  align-items: flex-start;
+  // 👉 aligné à gauche
 
+  display: flex;
+  flex-direction: column;
 
+  .event-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
 
-
-// ✨ Boutons d’action sur la carte Event
-.events-index {
-  .card-body {
-    .event-actions {
+    .event-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
       display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      margin-top: 1rem;
+      align-items: flex-start;
+      justify-content: flex-start;
+      font-size: 1.4rem;
+      color: #fff;
+      margin-right: 0.8rem;
+      flex-shrink: 0;
     }
 
-    .btn-action {
+    .event-title {
+      flex: 1;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
+
+      h3 {
+        font-size: 1rem;
+        margin: 0;
+        font-weight: 600;
+      }
+
+      .price {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #333;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  .event-desc {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0.5rem 0;
+    align-items: flex-start;
+  }
+
+  .event-info {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.8rem 0;
+
+    li {
+      font-size: 0.85rem;
+      color: #444;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.3rem;
+    }
+  }
+
+  .event-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    justify-content: flex-start;
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 8px;
+      background: #eee;
+      white-space: nowrap;
+
+      &.yellow { background: #fff4c4; color: #b58900; }
+      &.grey   { background: #f0f0f0; color: #666; }
+      &.blue   { background: #e0f0ff; color: #0070f3; }
+    }
+
+    .btn-join {
+      margin-left: auto; // 👉 bouton collé à droite
+      background: #000;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
       border: none;
+      font-size: 0.85rem;
       cursor: pointer;
-      transition: all 0.25s ease-in-out;
-
-      &:hover {
-        transform: scale(1.15);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-      }
-
-      &.btn-join {
-        background: linear-gradient(135deg, #20c997);
-        border-radius: 50%;
-
-        &:hover {
-          background: linear-gradient(135deg, #0d6efd, #20c997);
-        }
-      }
-
-      &.btn-delete {
-        background: linear-gradient(135deg, rgb(53, 53, 53));
-        color: #313131;
-        opacity: 85%;
-
-        &:hover {
-          background: linear-gradient(135deg);
-          opacity: 100%;
-        }
-      }
     }
   }
 }
