@@ -8,8 +8,8 @@ class PagesController < ApplicationController
 
     @users = User.where("first_name ILIKE :q OR last_name ILIKE :q", q: "%#{params[:query]}%")
 
-    if turbo_frame_request?
-      render partial: "pages/search_results", locals: { users: @users }
-    end
+    return unless turbo_frame_request?
+
+    render partial: "pages/search_results", locals: { users: @users }
   end
 end

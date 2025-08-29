@@ -1,0 +1,14 @@
+
+
+<% if @potential_matches.any? %>
+  <ul>
+    <% @potential_matches.each do |u| %>
+      <li>
+        <strong><%= u.first_name %> <%= u.last_name %></strong>
+        — <%= u.sports.join(", ") %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Aucun match trouvé.</p>
+<% end %>
