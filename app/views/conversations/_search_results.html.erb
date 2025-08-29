@@ -1,0 +1,11 @@
+<div id="users">
+  <% if users.present? && users.any? %>
+    <% users.each do |user| %>
+      <p>
+        <%= link_to "#{user.first_name} #{user.last_name}", conversations_path(second_user_id: user.id), class: "text-decoration-none", data: { turbo_frame: "_top", turbo_method: :post } %>
+      </p>
+    <% end %>
+  <% else %>
+    <em>Sorry, no users found.</em>
+  <% end %>
+</div>

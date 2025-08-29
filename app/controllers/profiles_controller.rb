@@ -4,7 +4,7 @@ class ProfilesController < ApplicationController
 
   def show
     @conversation = current_user.find_existing_conversation(@user)
-    @conversation ||= Conversation.create(user: current_user, second_user: @user)
+    # @conversation ||= Conversation.create(user: current_user, second_user: @user)
 
     @events = @user.events.order(starts_at: :asc)
   end
