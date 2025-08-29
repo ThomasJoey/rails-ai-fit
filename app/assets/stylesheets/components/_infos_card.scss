@@ -23,15 +23,15 @@
   border: 0.25px solid transparent;
   background-origin: border-box;
   background-image:
-    linear-gradient(#fcf3ed, #fcf3ed), // fond intérieur
-    linear-gradient(90deg, rgba(#fb923c, 0.3), rgba(#ef4444, 0.3)); // bordure
+    linear-gradient(var(--infos-bg, #fcf3ed), var(--infos-bg, #612700)),
+    var(--infos-border-gradient, linear-gradient(90deg, rgba(#fb923c, 0.3), rgba(#ef4444, 0.3)));
   background-clip: padding-box, border-box;
 
   &__icon {
     width: 64px;
     height: 64px;
     border-radius: 35%;
-    background: linear-gradient(135deg, #F31919, #FF8623);
+    background: var(--infos-icon-gradient, linear-gradient(135deg, #F31919, #FF8623));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -49,13 +49,13 @@
 
   &__title {
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 0.25rem;
   }
 
   &__description {
     color: #6b7280;
-    font-size: 0.95rem;
+    font-size: 0.90rem;
   }
 
   &__actions {

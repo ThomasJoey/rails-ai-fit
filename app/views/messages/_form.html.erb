@@ -1,4 +1,12 @@
-<%= simple_form_for [conversation, message], html: { class: "d-flex conversation-form" } do |f| %>
-  <%= f.input :content, as: :text, input_html: { rows: 1, placeholder: "Écris ton message...", class: "form-control me-2 message_content" }, label: false %>
-  <%= f.button :submit, "Envoyer", class: "btn form-control send" %>
-<% end %>
+<div id="new_message" class="chat-input border-top p-3 w-100">
+  <%= simple_form_for [conversation, message], html: { class: "conversation-form d-flex align-items-center gap-2 w-100" } do |f| %>
+<%= f.text_field :content,
+      placeholder: "Écris ton message…",
+      class: "form-control rounded-pill px-4 py-2 w-100",
+      autocomplete: "off" %>
+
+    <%= button_tag type: "submit", class: "btn plus-button d-flex align-items-center justify-content-center" do %>
+      <i class="fa-solid fa-arrow-up"></i>
+    <% end %>
+  <% end %>
+</div>

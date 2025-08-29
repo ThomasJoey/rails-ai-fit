@@ -19,13 +19,14 @@
 }
 
 .plus-button {
-    width: 36px;
+    width: auto;
     height: 36px;
     background-color: #000000;
     color: #fff;
     border: none;
     border-radius: 10px; // arrondi très visible mais pas 50%
     display: flex;
+    padding: 0px 10px;
     align-items: center;
     justify-content: center;
     outline: none;
