@@ -24,6 +24,8 @@
 
 @import "pages/dashboard/dashboard";
 
+@import "event_index_page";
+
 // Styles pour l'application principale (avec navbar)
 body.main-app {
   background-color: #f8f9fa;
@@ -49,4 +51,3 @@ body.devise-controller {
     padding: 20px;
   }
 }
-
