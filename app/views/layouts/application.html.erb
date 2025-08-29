@@ -5,7 +5,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>RailsAiFit</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= tag.link rel: "manifest", href: webmanifest_path(format: :json) %>
+    <%= tag.link rel: "icon", href: image_url("app-icon-512.png"), type: "image/png" %>
+    <%= tag.link rel: "apple-touch-icon", href: image_url("app-icon-512.png") %>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 

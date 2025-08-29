@@ -52,4 +52,6 @@ Rails.application.routes.draw do
   # Users are shown via profiles; no separate UsersController needed
   # resources :users, only: [:show]
 
+  get "webmanifest"    => "pwa#manifest"
+  get "service-worker" => "pwa#service_worker"
 end
