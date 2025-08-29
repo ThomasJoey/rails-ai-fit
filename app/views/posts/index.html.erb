@@ -24,9 +24,9 @@
           gradient: "gradient-purple-pink",
           size: "md" %>
 
-          <div>
+          <div class="user-info">
             <div class="username"><%= post.user.display_name %></div>
-            <div class="location"><%= post.user.display_location || "" %></div>
+            <div class="post-date"><%= smart_post_date(post.created_at) %></div>
           </div>
         </div>
 
@@ -40,7 +40,7 @@
                 <%= button_to post_path(post),
                               method: :delete,
                               data: { confirm: "Supprimer ce post ?" },
-                              class: "dropdown-item text-danger" do %>
+                              class: "delete-post-btn" do %>
                   <i class="fa-solid fa-trash me-2"></i> Supprimer
                 <% end %>
               </li>
@@ -50,27 +50,22 @@
       </div>
 
 
-
-      <!-- Texte -->
       <div class="card-body pt-2">
         <p class="post-text"><%= post.content_text %></p>
       </div>
 
 
-      <!-- Image -->
       <% if post.image.attached? %>
         <%= image_tag post.image, class: "post-image", alt: "Image du post" %>
       <% end %>
 
 
-      <!-- Corps -->
       <span class="like-section d-flex align-items-center">
       <div class="card-body">
 
 
-        <!-- Actions -->
         <div class="card-footer bg-white border-0 d-flex align-items-center gap-3">
-        <!-- Like -->
+ 
         <div class="action-bubble d-flex align-items-center">
           <%= turbo_frame_tag "like_button_post_#{post.id}" do %>
             <%= render "likes/like_button", post: post %>
@@ -78,36 +73,47 @@
         </div>
 
 
-        <!-- Comment -->
+   
         <div class="action-bubble d-flex align-items-center comment-toggle" data-post-id="<%= post.id %>">
           <i class="fa-regular fa-comment fa-lg"></i>
           <span class="ms-1"><%= post.comments.count %></span>
         </div>
       </div>
 
-        <!-- Zone commentaires -->
+
         <div id="comments-<%= post.id %>" class="d-none mt-3">
           <% post.comments.each do |comment| %>
-            <p class="mb-1 d-flex align-items-center">
-              <strong><%= comment.user.first_name %>:</strong>
-              <span class="ms-1"><%= comment.content_text %></span>
+            <div class="comment-item d-flex gap-2 align-items-start mb-3">
+              <%= render "layouts/avatar",
+                  image_url: (url_for(comment.user.avatar) if comment.user.avatar.attached?),
+                  initials: user_initials(comment.user),
+                  gradient: "gradient-purple-pink",
+                  size: "sm" %>
+
+              <div class="comment-body flex-grow-1">
+                <div class="comment-header d-flex justify-content-between align-items-baseline">
+                  <div class="comment-username"><%= comment.user.respond_to?(:display_name) ? comment.user.display_name : comment.user.first_name %></div>
+                  <div class="comment-date"><%= smart_post_date(comment.created_at) %></div>
+                </div>
+                <div class="comment-text"><%= comment.content_text %></div>
+              </div>
 
               <% if comment.user == current_user %>
                 <%= button_to post_comment_path(post, comment),
                               method: :delete,
-                              class: "btn btn-link p-0 ms-2 text-danger" do %>
+                              class: "comment-delete btn btn-link p-0 ms-2 text-danger",
+                              data: { turbo_confirm: "Supprimer ce commentaire ?" } do %>
                   <i class="fa-solid fa-trash"></i>
                 <% end %>
               <% end %>
-            </p>
+            </div>
           <% end %>
 
-
           <!-- Formulaire commentaire -->
-          <%= form_with model: [post, Comment.new], local: true, class: "d-flex mt-2" do |form| %>
+          <%= form_with model: [post, Comment.new], local: true, class: "comment-form d-flex align-items-center mt-2 w-100" do |form| %>
             <%= form.text_field :content_text, placeholder: "Ajouter un commentaire...",
-                                class: "form-control me-2" %>
-            <%= form.submit "Publier", class: "btn btn-primary" %>
+                                class: "comment-input form-control" %>
+            <%= form.submit "Publier", class: "comment-submit" %>
           <% end %>
         </div>
 

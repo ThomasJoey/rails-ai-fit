@@ -1,7 +1,6 @@
 <div class="post-form-card" data-controller="post-form">
   <%= form_with model: @post, local: true, html: { multipart: true, class: "post-form" } do |form| %>
 
-    <!-- Champ texte -->
     <div class="form-group">
       <%= form.text_area :content_text,
                          placeholder: "Exprime-toi...",
@@ -10,20 +9,22 @@
                          rows: 3 %>
     </div>
 
-    <!-- Boutons photo & caméra -->
+    <!-- Zone d'aperçu de l'image -->
+    <div class="image-preview-zone" data-post-form-target="imagePreview" style="display: none;"></div>
+
     <div class="form-actions">
       <label class="form-icon">
         <i class="fa-regular fa-image"></i> Photo
         <%= form.file_field :image, accept: "image/*",
                             class: "hidden-file-input",
-                            data: { post_form_target: "fileInput", action: "change->post-form#update" } %>
+                            data: { post_form_target: "fileInput", action: "change->post-form#handleImageSelect" } %>
       </label>
 
       <label class="form-icon">
         <i class="fa-solid fa-camera"></i> Caméra
         <%= form.file_field :image, accept: "image/*", capture: "environment",
                             class: "hidden-file-input",
-                            data: { post_form_target: "fileInput", action: "change->post-form#update" } %>
+                            data: { post_form_target: "fileInput", action: "change->post-form#handleImageSelect" } %>
       </label>
 
       <%= form.submit "Publier",
