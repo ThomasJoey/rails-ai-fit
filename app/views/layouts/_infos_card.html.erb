@@ -2,17 +2,26 @@
 <% description = local_assigns[:description] || "" %>
 <% icon = local_assigns[:icon] %>
 <% actions = local_assigns[:actions] %>
+<% bg = local_assigns[:bg] %> <!-- ex: "#fcf3ed" -->
+<% border_gradient = local_assigns[:border_gradient] %> <!-- ex: "linear-gradient(90deg, #fb923c4D, #ef44444D)" -->
+<% icon_gradient = local_assigns[:icon_gradient] %> <!-- ex: "linear-gradient(135deg, #6366F1, #22D3EE)" -->
 
-<div class="infos-card">
+<div class="infos-card" style="<%= [
+  ("--infos-bg: #{bg};" if bg.present?),
+  ("--infos-border-gradient: #{border_gradient};" if border_gradient.present?),
+  ("--infos-icon-gradient: #{icon_gradient};" if icon_gradient.present?)
+].compact.join(' ') %>">
   <div class="infos-card__icon">
-    <%= icon if icon.present? %>
+    <%= icon.present? ? icon : "" %>
   </div>
 
   <div class="infos-card__content">
     <div class="infos-card__title"><%= title %></div>
     <div class="infos-card__description"><%= description %></div>
-    <div class="infos-card__actions">
-      <%= actions if actions.present? %>
-    </div>
+    <% if actions.present? %>
+      <div class="infos-card__actions">
+        <%= actions %>
+      </div>
+    <% end %>
   </div>
 </div>

@@ -1,3 +1,17 @@
+
+  <% content_for :page_title do %>
+  <%= @conversation.human_chat? ? "#{@conversation.second_user&.first_name} #{@conversation.second_user&.last_name}" : "IA" %>
+<% end %>
+      <% content_for :page_button do %>
+        <%= link_to new_conversation_path, class: "plus-button", aria: { label: "Nouvelle conversation" } do %>
+          <i class="fa-solid fa-plus"></i>
+        <% end %>
+      <% end %>
+
+    <% content_for :header do %>
+      <%= render 'layouts/topbar_header' %>
+    <% end %>
+
 <div class="chat-page d-flex flex-column h-100">
   <!-- Header conversation -->
   <div class="chat-header d-flex align-items-center p-3 border-bottom">
@@ -15,10 +29,19 @@
     <div class="d-flex flex-column ms-2 user-name">
       <%= @conversation.second_user&.first_name %> <%= @conversation.second_user&.last_name %>
     </div>
-</div>
+  </div>
 
   <!-- Zone de messages -->
-  <div class="chat-messages flex-grow-1 p-3 overflow-auto">
+  <div id="messages" class="chat-messages flex-grow-1 p-3 overflow-auto position-relative<%= @conversation.ai_chat? ? ' has-floating-button' : '' %>">
+    <% unless @conversation.human_chat? %>
+      <div class="floating-chat-button">
+        <%= button_to "Générer l'événement",
+                      create_events_conversation_path(@conversation),
+                      method: :post,
+                      class: "plus-button" %>
+      </div>
+    <% end %>
+
     <% if @conversation.human_chat? %>
       <%= render "message_users/messages",
                  message_users: @conversation.message_users.includes(:sender).chronological %>
@@ -29,24 +52,13 @@
   </div>
 
   <!-- Zone de réponse -->
-  <div class="chat-input border-top p-3">
-    <% if @conversation.human_chat? %>
-      <%= render "message_users/form",
-                 conversation: @conversation,
-                 message_user: @message_user %>
-    <% else %>
-      <%= render "messages/form",
-                 conversation: @conversation,
-                 message: @message %>
-    <% end %>
-  </div>
-
-  <% unless @conversation.human_chat? %>
-    <div class="mt-2 text-center">
-      <%= button_to "Générer l'événement",
-                    create_events_conversation_path(@conversation),
-                    method: :post,
-                    class: "btn btn-dark px-4 mt-2" %>
-    </div>
+  <% if @conversation.human_chat? %>
+    <%= render "message_users/form",
+               conversation: @conversation,
+               message_user: @message_user %>
+  <% else %>
+    <%= render "messages/form",
+               conversation: @conversation,
+               message: @message %>
   <% end %>
 </div>

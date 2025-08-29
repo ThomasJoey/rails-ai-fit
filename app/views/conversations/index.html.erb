@@ -1,15 +1,6 @@
 <div class="conversations-index">
     <% content_for :page_title, "Messages" %>
 
-<%# Button for new IA conversation %>
-       <%# <% content_for :page_button do %>
-      <%# <%= form_with url: conversations_path, method: :post, data: { turbo: false }, class: "inline-form" do %>
-          <%# <button type="submit" class="plus-button" aria-label="Nouvelle conversation"> %>
-            <%# <i class="fa-solid fa-plus"></i> %>
-          <%# </button> %>
-        <%# <% end %>
-      <%# <% end %>
-
       <% content_for :page_button do %>
         <%= link_to new_conversation_path, class: "plus-button", aria: { label: "Nouvelle conversation" } do %>
           <i class="fa-solid fa-plus"></i>
@@ -21,15 +12,25 @@
     <% end %>
 
   <div class="infos-card-wrapper pb-4">
-    <div class="infos-card__label">Créateur d'évènements</div>
+  <div class="infos-card__label">Créateur d'évènements</div>
+
+  <%= button_to conversations_path,
+                method: :post,
+                form: { data: { turbo: false } },
+                class: "p-0 border-0 bg-transparent w-100 text-start" do %>
 
     <%= render "layouts/infos_card",
         title: "FitBuddy Event Creator",
         description: "Create sport events instantly! Tell me what activity you want to organize and I’ll help you set it up",
-        icon: content_tag(:i, "", class: "fa-solid fa-calendar-day"),
-        actions: content_tag(:span, "Smart Planning", class: "badge badge-orange") +
-                content_tag(:span, "Auto-Invite", class: "badge badge-pink") %>
-  </div>
+        icon: content_tag(:i, "", class: "fa-solid fa-bolt-lightning"),
+        bg: "rgba(240, 245, 255, 1)",
+        border_gradient: "linear-gradient(90deg, rgba(167, 79, 255, 0.35), rgba(22, 110, 253, 0.35))",
+        icon_gradient: "linear-gradient(135deg, rgba(167, 79, 255, 1), rgba(22, 110, 253, 1))"
+    %>
+
+  <% end %>
+</div>
+</div>
 
   <!-- Conversations -->
 <div class ="conversation-wrapper">

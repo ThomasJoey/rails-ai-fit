@@ -1,4 +1,4 @@
-<div class="chat-input">
+<div class="chat-input border-top p-3 w-100">
   <%= form_with model: [conversation, message_user], local: true, class: "d-flex align-items-center gap-2" do |f| %>
     <%= f.text_field :content, placeholder: "Tapez votre message…", class: "form-control rounded-pill", autocomplete: "off" %>
     <%= f.button :submit, class: "btn plus-button d-flex align-items-center justify-content-center" do %>

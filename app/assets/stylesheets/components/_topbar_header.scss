@@ -2,6 +2,10 @@
   background: #fff;
   border-bottom: 1px solid #eee;
   height: 76px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04);
 
   &__title {
     font-size: 1.1rem;
@@ -19,6 +23,10 @@
   background: #fff;
   border-bottom: 1px solid #eee;
   height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04);
 
   &__icon {
     background: none;
