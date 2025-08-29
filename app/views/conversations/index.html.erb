@@ -1,4 +1,4 @@
-<div class="conversations-index">
+
     <% content_for :page_title, "Messages" %>
 
       <% content_for :page_button do %>
@@ -11,8 +11,9 @@
       <%= render 'layouts/topbar_header' %>
     <% end %>
 
+<div class="conversations-index">
   <div class="infos-card-wrapper pb-4">
-  <div class="infos-card__label">Créateur d'évènements</div>
+  <div class="infos-card__label ">Créateur d'évènements</div>
 
   <%= button_to conversations_path,
                 method: :post,
@@ -24,8 +25,8 @@
         description: "Create sport events instantly! Tell me what activity you want to organize and I’ll help you set it up",
         icon: content_tag(:i, "", class: "fa-solid fa-bolt-lightning"),
         bg: "rgba(240, 245, 255, 1)",
-        border_gradient: "linear-gradient(90deg, rgba(167, 79, 255, 0.35), rgba(22, 110, 253, 0.35))",
-        icon_gradient: "linear-gradient(135deg, rgba(167, 79, 255, 1), rgba(22, 110, 253, 1))"
+        border_gradient: "linear-gradient(90deg, rgba(14, 104, 252, 0.35), rgba(29, 229, 102, 0.35))",
+        icon_gradient: "linear-gradient(135deg, rgba(14, 104, 252, 1), rgba(29, 229, 102, 1))"
     %>
 
   <% end %>

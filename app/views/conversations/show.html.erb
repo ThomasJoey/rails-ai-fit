@@ -1,6 +1,6 @@
 
   <% content_for :page_title do %>
-  <%= @conversation.human_chat? ? "#{@conversation.second_user&.first_name} #{@conversation.second_user&.last_name}" : "IA" %>
+  <%= @conversation.human_chat? ? "#{@conversation.second_user&.first_name} #{@conversation.second_user&.last_name}" : "FitBuddy IA" %>
 <% end %>
       <% content_for :page_button do %>
         <%= link_to new_conversation_path, class: "plus-button", aria: { label: "Nouvelle conversation" } do %>
@@ -19,27 +19,38 @@
       <i class="fa-solid fa-arrow-left"></i>
     </a>
 
-    <%= render "layouts/avatar",
-      initials: @conversation.second_user&.first_name&.first&.upcase || "?",
-      image_url: (url_for(@conversation.second_user.avatar) if @conversation.second_user&.avatar&.attached?),
-      gradient: "gradient-purple-pink",
-      size: "md",
-      extra_classes: "me-2" %>
+    <% if @conversation.ai_chat? %>
+      <%= render "layouts/avatar",
+        initials: "AI",
+        image_url: nil,
+        gradient: "gradient-blue-green",
+        size: "md",
+        extra_classes: "me-2" %>
+    <% else %>
+      <%= render "layouts/avatar",
+        initials: @conversation.second_user&.first_name&.first&.upcase || "?",
+        image_url: (url_for(@conversation.second_user.avatar) if @conversation.second_user&.avatar&.attached?),
+        gradient: "gradient-purple-pink",
+        size: "md",
+        extra_classes: "me-2" %>
+    <% end %>
 
     <div class="d-flex flex-column ms-2 user-name">
-      <%= @conversation.second_user&.first_name %> <%= @conversation.second_user&.last_name %>
+      <%= @conversation.display_name_for(current_user) %>
     </div>
   </div>
 
   <!-- Zone de messages -->
   <div id="messages" class="chat-messages flex-grow-1 p-3 overflow-auto position-relative<%= @conversation.ai_chat? ? ' has-floating-button' : '' %>">
     <% unless @conversation.human_chat? %>
-      <div class="floating-chat-button">
-        <%= button_to "Générer l'événement",
-                      create_events_conversation_path(@conversation),
-                      method: :post,
-                      class: "plus-button" %>
-      </div>
+      <% if @conversation.ready_for_event_generation? %>
+        <div class="floating-chat-button">
+          <%= button_to "Générer l'événement",
+                        create_events_conversation_path(@conversation),
+                        method: :post,
+                        class: "plus-button" %>
+        </div>
+      <% end %>
     <% end %>
 
     <% if @conversation.human_chat? %>
@@ -51,14 +62,16 @@
     <% end %>
   </div>
 
-  <!-- Zone de réponse -->
-  <% if @conversation.human_chat? %>
-    <%= render "message_users/form",
-               conversation: @conversation,
-               message_user: @message_user %>
-  <% else %>
-    <%= render "messages/form",
-               conversation: @conversation,
-               message: @message %>
-  <% end %>
+  <!-- Zone de réponse (sticky bottom) -->
+  <div class="chat-input px-3 py-2 border-top bg-white">
+    <% if @conversation.human_chat? %>
+      <%= render "message_users/form",
+                 conversation: @conversation,
+                 message_user: @message_user %>
+    <% else %>
+      <%= render "messages/form",
+                 conversation: @conversation,
+                 message: @message %>
+    <% end %>
+  </div>
 </div>

@@ -1,6 +1,13 @@
+.chat-page {
+  height: 100vh;
+  overflow: hidden; /* only messages scroll */
+  margin-top: 150px;
+}
+
 .chat-message {
   display: flex;
   align-items: flex-start;
+  padding-top: 0;
 
   .message-block {
     display: inline-flex;
@@ -47,8 +54,23 @@
   }
 }
 
+.chat-header {
+  position: fixed;
+  margin-top: 15px;
+  top: 56px; /* below topbar header */
+  left: 0;
+  right: 0;
+  z-index: 5;
+  background: #fff;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+
 .chat-messages {
   position: relative;
+  overflow: auto; /* the only scrolling area */
+  height: 100vh; /* fill viewport */
+  padding-top: 184px; /* add more space between header and button */
+  padding-bottom: 84px; /* input bar height + spacing */
 
   /* Remove any horizontal rules that might be rendered by content */
   hr {
@@ -63,27 +85,27 @@
     background-clip: padding-box; /* avoid subpixel artifacts */
   }
 
-  &.has-floating-button {
-    padding-top: 72px; /* a bit more room for the sticky button */
-  }
-
   .floating-chat-button {
-    position: sticky;
-    top: 8px;
+    position: fixed;
+    top: 112px; /* below topbar + chat-header */
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: center;
-    margin: 8px 0 12px 0;
-    z-index: 2;
+    margin: 8px 12px;
+    padding: 0 12px;
+    z-index: 4;
 
     .plus-button {
       width: auto;         /* allow the text to define the width */
       height: auto;        /* no fixed square */
-      min-height: 40px;    /* comfortable tap target */
-      padding: 8px 16px;   /* horizontal padding for label */
+      min-height: 44px;    /* comfortable tap target */
+      padding: 12px 20px;  /* more padding for better tap area */
       border-radius: 12px; /* pill-like */
       font-size: 18px;
       white-space: nowrap;
       font-weight: normal; /* prevent line break on the label */
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12); /* lighter shadow */
     }
   }
 }
@@ -92,6 +114,12 @@
   width: 100%;
   padding-left: 0;
   padding-right: 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  background: #fff;
 
   .conversation-form {
     width: 100%;
