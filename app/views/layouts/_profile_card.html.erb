@@ -35,6 +35,15 @@
     <% end %>
   <% end %>
 
+  <% if validPlace %>
+    <div class="icons-actions" style="display: flex; justify-content: center; gap: 20px; margin-top: 10px;">
+      <i class="fa-solid fa-check"
+        style="border: 2px solid green; border-radius: 50%; padding: 8px; color: green; font-size: 20px; cursor: pointer; transition: 0.2s;"></i>
+
+      <i class="fa-solid fa-xmark"
+        style="border: 2px solid red; border-radius: 50%; padding: 8px; color: red; font-size: 20px; cursor: pointer; transition: 0.2s;"></i>
+    </div>
+  <% end %>
   <% if user.bio.present? %>
     <div class="bio mt-3">
       <p><%= user.bio %></p>
