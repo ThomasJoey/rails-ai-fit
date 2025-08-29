@@ -12,7 +12,7 @@ import "./new_post"
 function scrollMessagesToBottom() {
   const container = document.getElementById("messages")
   if (container) {
-    container.scrollTop = container.scrollHeight
+    container.scrollTo({ top: container.scrollHeight, behavior: "smooth" })
   }
 }
 
@@ -24,6 +24,15 @@ document.addEventListener("turbo:before-stream-render", (event) => {
   const action = event.target?.getAttribute?.("action")
   if (action === "append" || action === "update" || action === "replace") {
     // defer scroll to after render
+    requestAnimationFrame(() => setTimeout(scrollMessagesToBottom, 0))
+  }
+})
+
+// Ensure staying at bottom after submitting the message form
+document.addEventListener("submit", (e) => {
+  const form = e.target
+  if (form && form.closest("#messages")) {
+    // If a form lives inside the messages container, keep bottom after submit
     requestAnimationFrame(() => setTimeout(scrollMessagesToBottom, 0))
   }
 })

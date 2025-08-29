@@ -23,7 +23,7 @@
     <%= content_for?(:header) ? yield(:header) : render("layouts/topbar_header") %>
 
     <!-- Navbar (hors Devise) -->
-    <% unless devise_controller? %>
+    <% unless devise_controller? || (defined?(controller_name) && controller_name == 'conversations' && action_name == 'show') %>
       <%= render "layouts/navbar" %>
     <% end %>
 

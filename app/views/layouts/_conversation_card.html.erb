@@ -3,15 +3,29 @@
 <div class="conversation-card d-flex align-items-center">
   <%= link_to conversation_path(conversation.id), class: "d-flex align-items-center flex-grow-1 text-decoration-none text-reset gap-3" do %>
     <div class="conversation-avatar">
-      <%= render "layouts/avatar",
-            initials: user&.first_name&.first&.upcase || "?",
-            image_url: (url_for(user.avatar) if user&.avatar&.attached?),
-            size: "md" %>
+      <% if conversation.ai_chat? %>
+        <%= render "layouts/avatar",
+              initials: "AI",
+              image_url: nil,
+              gradient: "gradient-blue-green",
+              size: "md" %>
+      <% else %>
+        <%= render "layouts/avatar",
+              initials: user&.first_name&.first&.upcase || "?",
+              image_url: (url_for(user.avatar) if user&.avatar&.attached?),
+              size: "md" %>
+      <% end %>
     </div>
 
     <div class="conversation-card-text">
-      <h5 class="conversation-card-title m-0"><%= user&.first_name %> <%= user&.last_name %></h5>
-      <p class="conversation-card-subtitle m-0"><%= conversation.context.presence || "Pas encore de message" %></p>
+      <% if conversation.ai_chat? %>
+        <h5 class="conversation-card-title m-0">FitBuddy IA</h5>
+        <% summary = conversation.messages.order(:created_at).where.not(content: [nil, ""]).last&.content %>
+        <p class="conversation-card-subtitle m-0"><%= summary.present? ? truncate(summary, length: 80) : "Pas encore de message" %></p>
+      <% else %>
+        <h5 class="conversation-card-title m-0"><%= user&.first_name %> <%= user&.last_name %></h5>
+        <p class="conversation-card-subtitle m-0"><%= conversation.context.presence || "Pas encore de message" %></p>
+      <% end %>
     </div>
   <% end %>
 

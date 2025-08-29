@@ -57,17 +57,7 @@ class ConversationsController < ApplicationController
 
   def destroy
     @conversation.destroy
-    if Conversation.exists?
-      redirect_to Conversation.order(created_at: :desc).first, notice: "Conversation supprimée ✅"
-    else
-      # 👉 On recrée une conversation vide si tout est supprimé
-      new_conv = Conversation.create!(
-        title: "Nouvelle conversation",
-        context: "",
-        user: current_user
-      )
-      redirect_to new_conv, notice: "Conversation supprimée. Nouvelle conversation créée ✅"
-    end
+    redirect_to conversations_path, notice: "Conversation supprimée ✅"
   end
 
   # 🚀 Génération des 3 events
