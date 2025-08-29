@@ -61,12 +61,24 @@
       color: #fff;
     }
   }
+    // Animation subtile au survol
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #0d6efd, #20c997);
+      transition: all 0.3s ease;
+    }
 
   /* scrollbar invisible */
   &::-webkit-scrollbar {
     display: none;
   }
 }
+
 
 /* ------------------ 🗂️ Cartes événements ------------------ */
 .event-card {
