@@ -9,13 +9,13 @@ user1 = User.create!(
   password: "password123", # Devise va générer l'encrypted_password
   first_name: "Miki",
   last_name: "Dev",
-  city: "Paris",
+  city: "Paris ",
   sexe: "Masculin",
   preferences: "dark mode",
   role: "student",
   sports: ["Running", "Marathon", "velo"],
   age_range: "18-25",
-  location: "saint-louis 68300"
+  location: "lyon, france"
 )
 user2 = User.create!(
   email: "test2@example.com",
@@ -28,7 +28,7 @@ user2 = User.create!(
   role: "teacher",
   sports: ["natation", "basket", "velo"],
   age_range: "18-25",
-  location: "paris"
+  location: "paris, france "
 )
 
 
