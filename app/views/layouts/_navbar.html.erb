@@ -13,9 +13,12 @@
     <% end %>
   </div>
 
-  <div class="nav-item <%= 'active' if current_page?(new_post_path) %>" data-tab="match">
-    <%= link_to new_post_path, class: "nav-link" do %>
+
+  <div class="nav-item <%= 'active' if current_page?(matches_path) %>" data-tab="match">
+    <%= link_to matches_path, class: "nav-link" do %>
       <i class="fa-duotone fa-solid fa-people-group"></i>
+
+  
       <span>Match</span>
     <% end %>
   </div>

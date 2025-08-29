@@ -6,7 +6,7 @@ User.destroy_all
 puts "Création des utilisateurs..."
 user1 = User.create!(
   email: "test@example.com",
-  password: "password123", # Devise va générer l'encrypted_password
+  password: "password456", # Devise va générer l'encrypted_password
   first_name: "Miki",
   last_name: "Dev",
   city: "Paris ",
@@ -15,7 +15,7 @@ user1 = User.create!(
   role: "student",
   sports: ["Running", "Marathon", "velo"],
   age_range: "18-25",
-  location: "lyon, france"
+  location: "paris, france"
 )
 user2 = User.create!(
   email: "test2@example.com",
@@ -28,7 +28,46 @@ user2 = User.create!(
   role: "teacher",
   sports: ["natation", "basket", "velo"],
   age_range: "18-25",
-  location: "paris, france "
+  location: "paris, france"
+)
+user3 = User.create!(
+  email: "test3@example.com",
+  password: "password456",
+  first_name: "ben",
+  last_name: "thom",
+  city: "Lyon",
+  sexe: "Feminin",
+  preferences: "light mode",
+  role: "teacher",
+  sports: ["kung fu", "musculation", "velo"],
+  age_range: "18-25",
+  location: "paris, france"
+)
+user4 = User.create!(
+  email: "test4@example.com",
+  password: "password456",
+  first_name: "sophie",
+  last_name: "lachaise",
+  city: "Lyon",
+  sexe: "Feminin",
+  preferences: "light mode",
+  role: "teacher",
+  sports: ["escalade", "football", "velo"],
+  age_range: "18-25",
+  location: "paris, france"
+)
+user5 = User.create!(
+  email: "test5@example.com",
+  password: "password456",
+  first_name: "clara",
+  last_name: "pierre",
+  city: "Lyon",
+  sexe: "Feminin",
+  preferences: "light mode",
+  role: "teacher",
+  sports: ["danse", "gym", "velo"],
+  age_range: "18-25",
+  location: "paris, france"
 )
 
 

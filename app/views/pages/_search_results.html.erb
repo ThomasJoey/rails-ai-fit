@@ -2,7 +2,7 @@
   <% if users.present? && users.any? %>
     <% users.each do |user| %>
       <p>
-        <%= link_to "#{user.first_name} #{user.last_name}", profile_path(user), class: "text-decoration-none" %>
+        <%= link_to "#{user.first_name} #{user.last_name}", profile_path(user), class: "text-decoration-none", data: { turbo_frame: "_top" } %>
       </p>
     <% end %>
   <% else %>

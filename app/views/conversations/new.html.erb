@@ -1,19 +1,7 @@
-<h1>ICI C'EST LA NEW</h1>
-<ul>
-<% @users.each do |user| %>
-<% conversation = user.find_existing_conversation(current_user) %>
-  <% if conversation %>
-    <%= link_to user.first_name, conversation_path(conversation) %>
-  <% else %>
-    <li>
-    <%= user.first_name %>
-    <%= button_to "start chat",
-      conversations_path(second_user_id: user.id),
-      method: :post,
-      form: { data: { turbo: "false" } },
-      class: "btn btn-success w-100 mb-3" %>
-    </li>
-  <% end %>
+<%= form_with url: search_conversations_path, method: :get, class: "d-flex",
+              data: { turbo_frame: "users" } do %>
+  <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Type a keyword" %>
+  <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
+<% end %>
 
-  <% end %>
-</ul>
+<turbo-frame id="users"></turbo-frame>

@@ -20,6 +20,9 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.new
   end
 
+  def search
+  end
+
   def create
     @conversation = Conversation.new(
       title: "Nouvelle conversation",

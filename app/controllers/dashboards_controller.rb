@@ -23,7 +23,8 @@ class DashboardsController < ApplicationController
     ]
 
     @events_today = [
-      { title: "Course matinale au Bois", time: "07:30", place: "Bois de Vincennes", participants: "8/12", joinable: true },
+      { title: "Course matinale au Bois", time: "07:30", place: "Bois de Vincennes", participants: "8/12",
+        joinable: true },
       { title: "Session CrossFit", time: "18:00", place: "FitClub Central", participants: nil, joinable: false }
     ]
   end

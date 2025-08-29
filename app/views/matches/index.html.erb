@@ -4,8 +4,8 @@
   <ul>
     <% @potential_matches.each do |u| %>
       <li>
-        <strong><%= u.first_name %> <%= u.last_name %></strong>
-        — <%= u.sports.join(", ") %>
+        <%= render "layouts/profile_card", user: u, conversation: @conversation %>
+</div>
       </li>
     <% end %>
   </ul>
