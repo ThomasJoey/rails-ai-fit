@@ -28,7 +28,10 @@
                   initials: user_initials(@user),
                   size: "xl",
                   extra_classes: "avatar-preview",
-                  html_options: { id: "avatar-preview" } %>
+                  html_options: { 
+                    id: "avatar-preview",
+                    data: { profile_edit_target: "avatarPreview" }
+                  } %>
 
                 <!-- Input file caché et label stylisé -->
                 <%= f.file_field :avatar,

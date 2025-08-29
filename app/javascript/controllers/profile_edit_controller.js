@@ -27,7 +27,19 @@ export default class extends Controller {
     if (file && this.hasAvatarPreviewTarget) {
       const reader = new FileReader()
       reader.onload = (e) => {
-        this.avatarPreviewTarget.src = e.target.result
+        const avatarImg = this.avatarPreviewTarget.querySelector('.avatar-img')
+        const avatarPlaceholder = this.avatarPreviewTarget.querySelector('.avatar-placeholder')
+
+        if (avatarImg) {
+          avatarImg.src = e.target.result
+        } else if (avatarPlaceholder) {
+          const newImg = document.createElement('img')
+          newImg.src = e.target.result
+          newImg.alt = 'Avatar'
+          newImg.className = 'avatar-img'
+          this.avatarPreviewTarget.insertBefore(newImg, avatarPlaceholder)
+          avatarPlaceholder.style.display = 'none'
+        }
       }
       reader.readAsDataURL(file)
     }
@@ -71,7 +83,7 @@ export default class extends Controller {
 
   handleLocationError(error) {
     this.setLoadingState(false)
-    
+
     let message = "Erreur lors de la détection de votre position"
     switch(error.code) {
       case error.PERMISSION_DENIED:
@@ -90,7 +102,7 @@ export default class extends Controller {
   setLoadingState(loading) {
     if (this.hasDetectLocationBtnTarget) {
       this.detectLocationBtnTarget.disabled = loading
-      this.detectLocationBtnTarget.innerHTML = loading 
+      this.detectLocationBtnTarget.innerHTML = loading
         ? '<i class="fas fa-spinner fa-spin"></i>'
         : '<i class="fas fa-crosshairs"></i>'
     }
@@ -108,7 +120,7 @@ export default class extends Controller {
 
   handleSportChange(event) {
     const checkedBoxes = this.element.querySelectorAll(".sport-selector:checked")
-    
+
     if (checkedBoxes.length > this.maxSportsValue) {
       event.target.checked = false
       alert(`Vous ne pouvez sélectionner que ${this.maxSportsValue} sports maximum.`)

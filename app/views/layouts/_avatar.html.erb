@@ -4,8 +4,15 @@
 <% gradient ||= "gradient-purple-pink" %>
 <% size ||= "md" %>
 <% extra_classes ||= "" %>
+<% html_options ||= {} %>
 
-<div class="avatar-wrapper <%= size %> <%= extra_classes %>">
+<div class="avatar-wrapper <%= size %> <%= extra_classes %>" <%= html_options.map { |k, v|
+  if k == :data && v.is_a?(Hash)
+    v.map { |data_key, data_value| "data-#{data_key.to_s.gsub('_', '-')}=\"#{data_value}\"" }.join(' ')
+  else
+    "#{k}=\"#{v}\""
+  end
+}.join(' ').html_safe if html_options.any? %>>
   <% if image_url.present? %>
     <img src="<%= image_url %>" alt="Avatar" class="avatar-img" />
   <% else %>
