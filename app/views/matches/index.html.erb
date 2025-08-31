@@ -3,6 +3,7 @@
     <div class="profile-card"
          data-controller="popup"
          data-swipe-target="card"
+         data-user-id="<%= u.id %>"
          data-action="
            mousedown->swipe#startDrag
            mousemove->swipe#drag
@@ -40,21 +41,28 @@
         <button class="btn like-btn" data-action="click->popup#stop"><i class="fa-solid fa-circle-check"></i></button>
       </div>
 
-      <!-- POPUP PROFIL -->
-      <div data-popup-target="popup" class="profil-popup hidden">
-        <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-3" data-action="click->popup#close">✕</button>
-        <div class="popup-content text-white p-4">
-          <h3><%= u.first_name %> <%= u.last_name %></h3>
-          <p><%= u.bio %></p>
-          <div><strong>Sports :</strong>
-            <% u.sports.each do |sport| %>
-              <span class="sport-tag"><%= sport %></span>
-            <% end %>
-          </div>
-        </div>
+      <!-- mini-aperçu -->
+      <div class="profile-overlay">
+        <h2><%= u.first_name %> <%= u.last_name %></h2>
       </div>
 
+      <!-- Popup -->
+      <turbo-frame id="profile_popup_<%= u.id %>"
+                  class="profil-popup hidden"
+                  data-popup-target="popup"
+                  data-action="click->popup#close">
+
+        <div class="popup-content" data-action="click->popup#stop">
+          <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-3"
+                  data-action="click->popup#close">✕</button>
+
+          <%= render "layouts/profile_card",
+                    user: u,
+                    conversation: (defined?(@conversation) ? @conversation : nil),
+                    enableMessage: true,
+                    validPlace: false %>
+        </div>
+      </turbo-frame>
     </div>
   <% end %>
 </div>
-

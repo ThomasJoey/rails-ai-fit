@@ -28,6 +28,18 @@ class ProfilesController < ApplicationController
     redirect_to profile_path(@user), notice: "Avatar supprimé"
   end
 
+  def card
+    @user = User.find(params[:id])
+    conversation = find_or_create_conversation_with(@user)
+
+    render partial: "layouts/profile_card", locals: {
+      user: @user,
+      conversation: conversation,
+      enableMessage: true,
+      validPlace: false
+    }
+  end
+
   private
 
   def set_user
@@ -36,5 +48,10 @@ class ProfilesController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :bio, :location, :sexe, :age_range, :avatar, sports: [])
+  end
+
+  def find_or_create_conversation_with(user)
+    Conversation.between(current_user, user).first ||
+      Conversation.create!(user: current_user, second_user: user)
   end
 end
