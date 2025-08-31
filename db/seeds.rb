@@ -6,10 +6,10 @@ User.destroy_all
 puts "Création des utilisateurs..."
 user1 = User.create!(
   email: "test@example.com",
-  password: "password456", # Devise va générer l'encrypted_password
+  password: "password456",
   first_name: "Miki",
   last_name: "Dev",
-  city: "Paris ",
+  city: "Paris",
   sexe: "Masculin",
   preferences: "dark mode",
   role: "student",
@@ -18,6 +18,13 @@ user1 = User.create!(
   latitude: 48.8600,
   longitude: 2.3490,
 )
+
+user1.avatar.attach(
+  io: File.open(Rails.root.join("db/images/mikiphoto.jpg")),
+  filename: "mikiphoto.jpg",
+  content_type: "image/jpg"
+)
+
 user2 = User.create!(
   email: "test2@example.com",
   password: "password456",
@@ -32,13 +39,20 @@ user2 = User.create!(
   latitude: 48.8600,
   longitude: 2.3490,
 )
+
+user2.avatar.attach(
+  io: File.open(Rails.root.join("db/images/alice.jpg")),
+  filename: "alice.jpg",
+  content_type: "image/jpg"
+)
+
 user3 = User.create!(
   email: "test3@example.com",
   password: "password456",
-  first_name: "ben",
-  last_name: "thom",
+  first_name: "Ben",
+  last_name: "Thom",
   city: "Lyon",
-  sexe: "Feminin",
+  sexe: "Masculin",
   preferences: "light mode",
   role: "teacher",
   sports: ["kung fu", "musculation", "velo"],
@@ -46,11 +60,18 @@ user3 = User.create!(
   latitude: 48.8600,
   longitude: 2.3490,
 )
+
+user3.avatar.attach(
+  io: File.open(Rails.root.join("db/images/ben.jpg")),
+  filename: "ben.jpg",
+  content_type: "image/jpg"
+)
+
 user4 = User.create!(
   email: "test4@example.com",
   password: "password456",
-  first_name: "sophie",
-  last_name: "lachaise",
+  first_name: "Sophie",
+  last_name: "Lachaise",
   city: "Lyon",
   sexe: "Feminin",
   preferences: "light mode",
@@ -60,11 +81,18 @@ user4 = User.create!(
   latitude: 48.8600,
   longitude: 2.3490,
 )
+
+user4.avatar.attach(
+  io: File.open(Rails.root.join("db/images/sophie.jpeg")),
+  filename: "sophie.jpeg",
+  content_type: "image/jpeg"
+)
+
 user5 = User.create!(
   email: "test5@example.com",
   password: "password456",
-  first_name: "clara",
-  last_name: "pierre",
+  first_name: "Clara",
+  last_name: "Pierre",
   city: "Lyon",
   sexe: "Feminin",
   preferences: "light mode",
@@ -75,6 +103,11 @@ user5 = User.create!(
   longitude: 2.3490,
 )
 
+user5.avatar.attach(
+  io: File.open(Rails.root.join("db/images/clara.jpg")),
+  filename: "clara.jpg",
+  content_type: "image/jpg"
+)
 
 puts "Création des conversations..."
 Conversation.create!([
