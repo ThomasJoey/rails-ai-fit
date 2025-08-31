@@ -1,4 +1,3 @@
-/* Container principal : centre les cartes à l'écran */
 .matches-container {
   position: relative;
   width: 100%;
@@ -10,131 +9,107 @@
   align-items: center;
 }
 
-/* Cartes de profil */
 .profile-card {
   position: absolute;
   width: 90%;
-  max-width: 380px;
-  aspect-ratio: 1 / 1; /* carré */
-  border-radius: 20px;
+  max-width: 360px;
+  aspect-ratio: 1 / 1;
+  border-radius: 18px;
   background-size: cover;
   background-position: center;
   box-shadow: 0 12px 25px rgba(0,0,0,0.3);
   overflow: hidden;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* info en bas */
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.profile-overlay {
   color: white;
 }
 
-/* Empilement des cartes (stack style) */
-.profile-card:nth-child(1) {
-  z-index: 3;
-  transform: translateY(0) scale(1);
-  opacity: 1;
-}
-
-.profile-card:nth-child(2) {
-  z-index: 2;
-  transform: translateY(80px) scale(0.92);
-  opacity: 0.85;
-}
-
-.profile-card:nth-child(3) {
-  z-index: 1;
-  transform: translateY(160px) scale(0.85);
-  opacity: 0.7;
-}
-
-.profile-card:nth-child(n+4) {
-  display: none;
-}
-
-/* Overlay sombre pour le texte */
-.profile-overlay {
-  width: 100%;
-  padding: 1.2rem;
-  background: linear-gradient(transparent, rgba(0,0,0,0.8));
-}
-
-/* Infos utilisateur */
 .profile-info {
-  text-align: center; /* centré */
-}
-
-.profile-info h2 {
-  margin: 0;
-  font-size: 1.6rem;
-  font-weight: bold;
-}
-
-.profile-info p {
-  margin: 0.3rem 0;
-  font-size: 0.95rem;
-  opacity: 0.9;
-}
-
-/* Sports */
-.sports {
-  margin-top: 0.7rem;
   display: flex;
-  justify-content: center; /* centré */
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  justify-content: space-between; /* gauche/droite */
+  align-items: flex-end;
+}
+
+.profile-details h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+  white-space: nowrap;      /* empêche le retour à la ligne */
+  overflow: hidden;         /* cache si ça dépasse */
+  text-overflow: ellipsis;  /* ajoute "…" si trop long */
+  max-width: 200px;         /* adapte selon la largeur dispo */
+}
+
+.profile-details p {
+  margin: 0.3rem 0 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+}
+
+.profile-details p i {
+  margin-right: 0.3rem;
+}
+
+.sports {
+  display: flex;
+  gap: 0.4rem;
 }
 
 .sport-tag {
-  background: rgba(255,255,255,0.25);
-  padding: 0.4rem 0.8rem;
+  background: rgba(0,0,0,0.5);
+  padding: 0.3rem 0.6rem;
   border-radius: 12px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
-/* Actions (like/dislike) */
 .actions {
   position: absolute;
   top: 50%;
-  left: 0;
-  right: 0;
   width: 100%;
   display: flex;
-  justify-content: space-between; /* gauche/droite */
-  align-items: center;
-  padding: 0 2rem; /* espace par rapport au bord */
+  justify-content: space-between;
+  padding: 0 1.5rem;
   transform: translateY(-50%);
-  pointer-events: none;
 }
 
 .actions button {
-  pointer-events: auto;
   border: none;
-  font-size: 1.5rem;
-  background: white;
+  font-size: 1.4rem;
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  width: 40px;
+  height: 40px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  justify-content: center;
 }
 
-.actions button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+/* Popup cachée par défaut */
+.profil-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 10000;
+  overflow-y: auto;
 }
 
-.dislike-btn {
-  color: #ff4d4d;
+.popup-content {
+  max-width: 500px;
+  margin: 60px auto;
+  background: #222;
+  border-radius: 12px;
+}
+.hidden {
+  display: none !important;
 }
 
-.like-btn {
-  color: #2ecc71;
-}
-
-/* Aucun match */
-.no-match {
-  text-align: center;
-  color: #666;
-  margin-top: 2rem;
-}

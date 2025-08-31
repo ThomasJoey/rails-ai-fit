@@ -1,33 +1,60 @@
-<% if @potential_matches.any? %>
-  <div class="matches-container">
-    <% @potential_matches.each do |u| %>
-      <div class="profile-card"
-           style="background-image: url('<%= cl_image_path(u.avatar.key, crop: :fill, width: 800, height: 1000) if u.avatar.attached? %>')">
-        <div class="profile-overlay">
-          <div class="profile-info">
-            <h2><%= u.first_name %> <%= u.last_name %></h2>
+<div class="matches-container" data-controller="swipe">
+  <% @potential_matches.each do |u| %>
+    <div class="profile-card"
+         data-controller="popup"
+         data-swipe-target="card"
+         data-action="
+           mousedown->swipe#startDrag
+           mousemove->swipe#drag
+           mouseup->swipe#endDrag
+           touchstart->swipe#startDrag
+           touchmove->swipe#drag
+           touchend->swipe#endDrag
+           click->popup#toggle"
+         style="background-image: url('<%= cl_image_path(u.avatar.key, crop: :fill, width: 600, height: 600) if u.avatar.attached? %>')">
 
+      <!-- Overlay du bas -->
+      <div class="profile-overlay">
+        <div class="profile-info">
+          <div class="profile-details">
+            <h2><%= u.first_name %> <%= u.last_name %></h2>
             <% if u.distance_from(@user).present? %>
-              <p><i class="fa fa-map-marker"></i>
+              <p>
+                <i class="fa fa-map-marker"></i>
                 <%= number_with_precision(u.distance_from(@user), precision: 1) %> km away
               </p>
             <% end %>
-
-            <div class="sports">
-              <% u.sports.each do |sport| %>
-                <span class="sport-tag"><%= sport %></span>
-              <% end %>
-            </div>
           </div>
 
-          <div class="actions">
-            <button class="dislike-btn">❌</button>
-            <button class="like-btn">✅</button>
+          <div class="sports">
+            <% u.sports.each do |sport| %>
+              <span class="sport-tag"><%= sport %></span>
+            <% end %>
           </div>
         </div>
       </div>
-    <% end %>
-  </div>
-<% else %>
-  <p class="no-match">Aucun match trouvé.</p>
-<% end %>
+
+      <!-- Boutons Like / Dislike -->
+      <div class="actions">
+        <button class="btn dislike-btn" data-action="click->popup#stop"><i class="fa-solid fa-circle-xmark"></i></button>
+        <button class="btn like-btn" data-action="click->popup#stop"><i class="fa-solid fa-circle-check"></i></button>
+      </div>
+
+      <!-- POPUP PROFIL -->
+      <div data-popup-target="popup" class="profil-popup hidden">
+        <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-3" data-action="click->popup#close">✕</button>
+        <div class="popup-content text-white p-4">
+          <h3><%= u.first_name %> <%= u.last_name %></h3>
+          <p><%= u.bio %></p>
+          <div><strong>Sports :</strong>
+            <% u.sports.each do |sport| %>
+              <span class="sport-tag"><%= sport %></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  <% end %>
+</div>
+
