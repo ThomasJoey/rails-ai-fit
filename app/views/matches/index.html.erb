@@ -1,14 +1,33 @@
-
-
 <% if @potential_matches.any? %>
-  <ul>
+  <div class="matches-container">
     <% @potential_matches.each do |u| %>
-      <li>
-        <%= render "layouts/profile_card", user: u, conversation: @conversation, enableMessage: false, validPlace: true  %>
-</div>
-      </li>
+      <div class="profile-card"
+           style="background-image: url('<%= cl_image_path(u.avatar.key, crop: :fill, width: 800, height: 1000) if u.avatar.attached? %>')">
+        <div class="profile-overlay">
+          <div class="profile-info">
+            <h2><%= u.first_name %> <%= u.last_name %></h2>
+
+            <% if u.distance_from(@user).present? %>
+              <p><i class="fa fa-map-marker"></i>
+                <%= number_with_precision(u.distance_from(@user), precision: 1) %> km away
+              </p>
+            <% end %>
+
+            <div class="sports">
+              <% u.sports.each do |sport| %>
+                <span class="sport-tag"><%= sport %></span>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="dislike-btn">❌</button>
+            <button class="like-btn">✅</button>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </ul>
+  </div>
 <% else %>
-  <p>Aucun match trouvé.</p>
+  <p class="no-match">Aucun match trouvé.</p>
 <% end %>
