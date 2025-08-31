@@ -23,16 +23,51 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .profile-overlay {
-  background: linear-gradient(transparent, rgba(0,0,0,0.8));
-  padding: 1rem;
   color: white;
 }
 
 .profile-info {
-  text-align: center;
+  display: flex;
+  justify-content: space-between; /* gauche/droite */
+  align-items: flex-end;
+}
+
+.profile-details h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+  white-space: nowrap;      /* empêche le retour à la ligne */
+  overflow: hidden;         /* cache si ça dépasse */
+  text-overflow: ellipsis;  /* ajoute "…" si trop long */
+  max-width: 200px;         /* adapte selon la largeur dispo */
+}
+
+.profile-details p {
+  margin: 0.3rem 0 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+}
+
+.profile-details p i {
+  margin-right: 0.3rem;
+}
+
+.sports {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.sport-tag {
+  background: rgba(0,0,0,0.5);
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
 }
 
 .actions {
@@ -48,11 +83,33 @@
 .actions button {
   border: none;
   font-size: 1.4rem;
-  background: white;
   border-radius: 50%;
   width: 40px;
   height: 40px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+/* Popup cachée par défaut */
+.profil-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 10000;
+  overflow-y: auto;
+}
+
+.popup-content {
+  max-width: 500px;
+  margin: 60px auto;
+  background: #222;
+  border-radius: 12px;
+}
+.hidden {
+  display: none !important;
 }
 

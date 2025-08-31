@@ -41,8 +41,13 @@ export default class extends Controller {
 
   // Gestion souris + tactile
   getX(event) {
-    return event.type.includes("touch")
-      ? event.touches[0].clientX
-      : event.clientX
+    if (event.type.startsWith("mouse")) {
+      return event.clientX
+    } else if (event.type === "touchend") {
+      return event.changedTouches[0].clientX
+    } else {
+      return event.touches[0].clientX
+    }
   }
+
 }
