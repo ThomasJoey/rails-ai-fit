@@ -1,5 +1,8 @@
 <div class="profile-card">
   <!-- Section Avatar avec upload -->
+  <button class="btn btn-light position-absolute top-0 end-0 m-3"
+        data-action="click->popup#close">✕</button>
+
   <div class="position-relative d-inline-block">
     <%= render "layouts/avatar",
       image_url: (url_for(user.avatar) if user.avatar.attached?),
