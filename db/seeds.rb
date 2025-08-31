@@ -15,7 +15,8 @@ user1 = User.create!(
   role: "student",
   sports: ["Running", "Marathon", "velo"],
   age_range: "18-25",
-  location: "paris, france"
+  latitude: 48.8600,
+  longitude: 2.3490,
 )
 user2 = User.create!(
   email: "test2@example.com",
@@ -28,7 +29,8 @@ user2 = User.create!(
   role: "teacher",
   sports: ["natation", "basket", "velo"],
   age_range: "18-25",
-  location: "paris, france"
+  latitude: 48.8600,
+  longitude: 2.3490,
 )
 user3 = User.create!(
   email: "test3@example.com",
@@ -41,7 +43,8 @@ user3 = User.create!(
   role: "teacher",
   sports: ["kung fu", "musculation", "velo"],
   age_range: "18-25",
-  location: "paris, france"
+  latitude: 48.8600,
+  longitude: 2.3490,
 )
 user4 = User.create!(
   email: "test4@example.com",
@@ -54,7 +57,8 @@ user4 = User.create!(
   role: "teacher",
   sports: ["escalade", "football", "velo"],
   age_range: "18-25",
-  location: "paris, france"
+  latitude: 48.8600,
+  longitude: 2.3490,
 )
 user5 = User.create!(
   email: "test5@example.com",
@@ -67,7 +71,8 @@ user5 = User.create!(
   role: "teacher",
   sports: ["danse", "gym", "velo"],
   age_range: "18-25",
-  location: "paris, france"
+  latitude: 48.8600,
+  longitude: 2.3490,
 )
 
 
