@@ -1,7 +1,7 @@
 <% if post.likes.exists?(user: current_user) %>
   <%= button_to post_like_path(post, post.likes.find_by(user: current_user)),
                 method: :delete,
-                data: { turbo_frame: "like_button_post_#{post.id}" },
+                data: { turbo_frame: "like_button_post_#{post.id}", controller: "posts", post_target: "like", action: "click->posts#like" },
                 class: "btn btn-link p-0 like-btn d-flex align-items-center" do %>
     <i class="fa-solid fa-heart text-danger fa-lg"></i>
     <span class="ms-1"><%= post.likes.count %></span>
@@ -9,10 +9,9 @@
 <% else %>
   <%= button_to post_likes_path(post),
                 method: :post,
-                data: { turbo_frame: "like_button_post_#{post.id}" },
+                data: { turbo_frame: "like_button_post_#{post.id}", controller: "posts", post_target: "like" },
                 class: "btn btn-link p-0 like-btn d-flex align-items-center" do %>
     <i class="fa-regular fa-heart fa-lg"></i>
     <span class="ms-1"><%= post.likes.count %></span>
   <% end %>
 <% end %>
-
