@@ -1,13 +1,30 @@
 <div class="events-page" data-controller="events">
 
-  <!-- 🔍 Barre de recherche -->
+  <!-- Barre de recherche -->
   <div class="search-bar">
-    <i class="icon-search">🔍</i>
+    <i class="fa-solid fa-magnifying-glass me-2"></i>
     <input type="text"
            placeholder="Rechercher un événement..."
            data-events-target="searchInput"
            data-action="input->events#search">
   </div>
+
+
+    <%= button_to conversations_path,
+                    method: :post,
+                    form: { data: { turbo: false } },
+                    class: "p-0 border-0 bg-transparent w-100 text-start" do %>
+
+      <%= render "layouts/infos_card",
+            title: "FitBuddy Event Creator",
+            description: "Create sport events instantly! Tell me what activity you want to organize and I’ll help you set it up",
+            icon: content_tag(:i, "", class: "fa-solid fa-bolt-lightning"),
+            bg: "rgba(240, 245, 255, 1)",
+            border_gradient: "linear-gradient(90deg, rgba(14, 104, 252, 0.35), rgba(29, 229, 102, 0.35))",
+            icon_gradient: "linear-gradient(135deg, rgba(14, 104, 252, 1), rgba(29, 229, 102, 1))"
+      %>
+
+    <% end %>
 
   <!-- Boucle dynamique -->
   <% @events.each do |event| %>
