@@ -7,7 +7,7 @@ export default class extends Controller {
   connect() {
     this.currentCard = null
     this.startX = 0
-  }
+    }
 
   startDrag(event) {
     this.currentCard = event.currentTarget
@@ -38,6 +38,25 @@ export default class extends Controller {
 
     this.currentCard = null
   }
+
+  dislike(event) {
+    this.currentCard = event.target.offsetParent.offsetParent
+    this.currentCard.style.transition = "transform 0.3s ease, opacity 0.3s ease"
+    this.currentCard.style.transform = "translateX(-150%) rotate(15deg)"
+    this.currentCard.style.opacity = 0
+    this.currentCard = null
+    const offsetX = -150
+  }
+
+  like(event) {
+    this.currentCard = event.target.offsetParent.offsetParent
+    this.currentCard.style.transition = "transform 0.3s ease, opacity 0.3s ease"
+    this.currentCard.style.transform = "translateX(150%) rotate(15deg)"
+    this.currentCard.style.opacity = 0
+    this.currentCard = null
+    const offsetX = 150
+  }
+
 
   // Gestion souris + tactile
   getX(event) {

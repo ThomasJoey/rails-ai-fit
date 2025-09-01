@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :matches, only: [:index]
+  resources :matches, only: [:index, :create]
 
   # Users are shown via profiles; no separate UsersController needed
   # resources :users, only: [:show]

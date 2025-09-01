@@ -4,110 +4,194 @@ Event.destroy_all
 User.destroy_all
 
 puts "Création des utilisateurs..."
-user1 = User.create!(
-  email: "test@example.com",
-  password: "password456",
-  first_name: "Miki",
-  last_name: "Dev",
-  city: "Paris",
-  sexe: "Masculin",
-  preferences: "dark mode",
-  role: "student",
-  sports: ["Running", "Marathon", "velo"],
+# db/seeds.rb
+
+# db/seeds.rb
+
+# ===== Groupe A : 18-25 (sport commun: Vélo) =====
+user1  = User.create!(
+  email: "test@example1.com",  password: "password123",
+  first_name: "Lina",  last_name: "Durand",
+  city: "Paris", role: "",
+  sports: ["Vélo", "Marathon", "Trail"],
   age_range: "18-25",
-  latitude: 48.8600,
-  longitude: 2.3490,
+  location: "Paris, 1er arrondissement"
 )
 
-user1.avatar.attach(
-  io: File.open(Rails.root.join("db/images/mikiphoto.jpg")),
-  filename: "mikiphoto.jpg",
-  content_type: "image/jpg"
-)
-
-user2 = User.create!(
-  email: "test2@example.com",
-  password: "password456",
-  first_name: "Alice",
-  last_name: "Smith",
-  city: "Lyon",
-  sexe: "Feminin",
-  preferences: "light mode",
-  role: "teacher",
-  sports: ["natation", "basket", "velo"],
+user2  = User.create!(
+  email: "test@example2.com",  password: "password123",
+  first_name: "Noah",  last_name: "Bernard",
+  city: "Paris", role: "",
+  sports: ["Vélo", "Running", "Triathlon"],
   age_range: "18-25",
-  latitude: 48.8600,
-  longitude: 2.3490,
+  location: "Paris, 2e arrondissement"
 )
 
-user2.avatar.attach(
-  io: File.open(Rails.root.join("db/images/alice.jpg")),
-  filename: "alice.jpg",
-  content_type: "image/jpg"
-)
-
-user3 = User.create!(
-  email: "test3@example.com",
-  password: "password456",
-  first_name: "Ben",
-  last_name: "Thom",
-  city: "Lyon",
-  sexe: "Masculin",
-  preferences: "light mode",
-  role: "teacher",
-  sports: ["kung fu", "musculation", "velo"],
+user3  = User.create!(
+  email: "test@example3.com",  password: "password123",
+  first_name: "Maya",  last_name: "Petit",
+  city: "Paris", role: "",
+  sports: ["Vélo", "Randonnée", "Musculation"],
   age_range: "18-25",
-  latitude: 48.8600,
-  longitude: 2.3490,
+  location: "Paris, 3e arrondissement"
 )
 
-user3.avatar.attach(
-  io: File.open(Rails.root.join("db/images/ben.jpg")),
-  filename: "ben.jpg",
-  content_type: "image/jpg"
-)
-
-user4 = User.create!(
-  email: "test4@example.com",
-  password: "password456",
-  first_name: "Sophie",
-  last_name: "Lachaise",
-  city: "Lyon",
-  sexe: "Feminin",
-  preferences: "light mode",
-  role: "teacher",
-  sports: ["escalade", "football", "velo"],
+user4  = User.create!(
+  email: "test@example4.com",  password: "password123",
+  first_name: "Elias",  last_name: "Robert",
+  city: "Paris", role: "",
+  sports: ["Vélo", "CrossFit-Hyrox", "Haltérophilie"],
   age_range: "18-25",
-  latitude: 48.8600,
-  longitude: 2.3490,
+  location: "Paris, 4e arrondissement"
 )
 
-user4.avatar.attach(
-  io: File.open(Rails.root.join("db/images/sophie.jpeg")),
-  filename: "sophie.jpeg",
-  content_type: "image/jpeg"
-)
-
-user5 = User.create!(
-  email: "test5@example.com",
-  password: "password456",
-  first_name: "Clara",
-  last_name: "Pierre",
-  city: "Lyon",
-  sexe: "Feminin",
-  preferences: "light mode",
-  role: "teacher",
-  sports: ["danse", "gym", "velo"],
+user5  = User.create!(
+  email: "test@example5.com",  password: "password123",
+  first_name: "Zoé",  last_name: "Moreau",
+  city: "Paris", role: "",
+  sports: ["Vélo", "Aviron", "Kayak"],
   age_range: "18-25",
-  latitude: 48.8600,
-  longitude: 2.3490,
+  location: "Paris, 5e arrondissement"
 )
 
-user5.avatar.attach(
-  io: File.open(Rails.root.join("db/images/clara.jpg")),
-  filename: "clara.jpg",
-  content_type: "image/jpg"
+# ===== Groupe B : 26-35 (sport commun: Football) =====
+user6  = User.create!(
+  email: "test@example6.com",  password: "password123",
+  first_name: "Yanis", last_name: "Garcia",
+  city: "Paris", role: "",
+  sports: ["Football", "Basketball", "Volleyball"],
+  age_range: "26-35",
+  location: "Paris, 6e arrondissement"
 )
+
+user7  = User.create!(
+  email: "test@example7.com",  password: "password123",
+  first_name: "Éva", last_name: "Lambert",
+  city: "Paris", role: "",
+  sports: ["Football", "Handball", "Boxe"],
+  age_range: "26-35",
+  location: "Paris, 7e arrondissement"
+)
+
+user8  = User.create!(
+  email: "test@example8.com",  password: "password123",
+  first_name: "Sami", last_name: "Rousseau",
+  city: "Paris", role: "",
+  sports: ["Football", "MMA", "Rugby"],
+  age_range: "26-35",
+  location: "Paris, 8e arrondissement"
+)
+
+user9  = User.create!(
+  email: "test@example9.com",  password: "password123",
+  first_name: "Inès", last_name: "Fournier",
+  city: "Paris", role: "",
+  sports: ["Football", "Badminton", "Tennis"],
+  age_range: "26-35",
+  location: "Paris, 9e arrondissement"
+)
+
+user10 = User.create!(
+  email: "test@example10.com", password: "password123",
+  first_name: "Léo", last_name: "Chevalier",
+  city: "Paris", role: "",
+  sports: ["Football", "Squash", "Ping-pong"],
+  age_range: "26-35",
+  location: "Paris, 10e arrondissement"
+)
+
+# ===== Groupe C : 36-45 (sport commun: Natation) =====
+user11 = User.create!(
+  email: "test@example11.com", password: "password123",
+  first_name: "Chloé", last_name: "Lopez",
+  city: "Paris", role: "",
+  sports: ["Natation", "Aviron", "Triathlon"],
+  age_range: "36-45",
+  location: "Paris, 11e arrondissement"
+)
+
+user12 = User.create!(
+  email: "test@example12.com", password: "password123",
+  first_name: "Nolan", last_name: "Martins",
+  city: "Paris", role: "",
+  sports: ["Natation", "Ski", "Snowboard"],
+  age_range: "36-45",
+  location: "Paris, 12e arrondissement"
+)
+
+user13 = User.create!(
+  email: "test@example13.com", password: "password123",
+  first_name: "Amina", last_name: "Girard",
+  city: "Paris", role: "",
+  sports: ["Natation", "Plongée", "Surf"],
+  age_range: "36-45",
+  location: "Paris, 13e arrondissement"
+)
+
+user14 = User.create!(
+  email: "test@example14.com", password: "password123",
+  first_name: "Hugo", last_name: "Morel",
+  city: "Paris", role: "",
+  sports: ["Natation", "Voile", "Kayak"],
+  age_range: "36-45",
+  location: "Paris, 14e arrondissement"
+)
+
+user15 = User.create!(
+  email: "test@example15.com", password: "password123",
+  first_name: "Sarah", last_name: "Renard",
+  city: "Paris", role: "",
+  sports: ["Natation", "Escrime", "Athlétisme"],
+  age_range: "36-45",
+  location: "Paris, 15e arrondissement"
+)
+
+# ===== Groupe D : 46-55 (sport commun: Yoga) =====
+user16 = User.create!(
+  email: "test@example16.com", password: "password123",
+  first_name: "Karim", last_name: "Perrin",
+  city: "Paris", role: "",
+  sports: ["Yoga", "Danse", "Pilates"],
+  age_range: "46-55",
+  location: "Paris, 16e arrondissement"
+)
+
+user17 = User.create!(
+  email: "test@example17.com", password: "password123",
+  first_name: "Mina", last_name: "Leroux",
+  city: "Paris", role: "",
+  sports: ["Yoga", "Golf", "Équitation"],
+  age_range: "46-55",
+  location: "Paris, 17e arrondissement"
+)
+
+user18 = User.create!(
+  email: "test@example18.com", password: "password123",
+  first_name: "Arthur", last_name: "Leblanc",
+  city: "Paris", role: "",
+  sports: ["Yoga", "Tennis", "Padel"],
+  age_range: "46-55",
+  location: "Paris, 18e arrondissement"
+)
+
+user19 = User.create!(
+  email: "test@example19.com", password: "password123",
+  first_name: "Nadia", last_name: "Gonzalez",
+  city: "Paris", role: "",
+  sports: ["Yoga", "Haltérophilie", "Musculation"],
+  age_range: "46-55",
+  location: "Paris, 19e arrondissement"
+)
+
+user20 = User.create!(
+  email: "test@example20.com", password: "password123",
+  first_name: "Theo", last_name: "Faure",
+  city: "Paris", role: "",
+  sports: ["Yoga", "Aviron", "Marathon"],
+  age_range: "46-55",
+  location: "Paris, 20e arrondissement"
+)
+
 
 puts "Création des conversations..."
 Conversation.create!([
