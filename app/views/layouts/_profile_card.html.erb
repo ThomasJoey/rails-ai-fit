@@ -1,6 +1,11 @@
 <div class="user-profile-card shadowed">
 
   <!-- Header avatar + nom -->
+    <% if user == current_user %>
+      <%= link_to edit_profile_path(user), class: "edit-btn" do %>
+        <i class="fa-solid fa-pen-to-square"></i>
+      <% end %>
+    <% end %>
   <div class="profile-header d-flex align-items-center gap-3 mb-3">
     <%= render "layouts/avatar",
       image_url: (user.avatar.attached? ? url_for(user.avatar) : nil),
@@ -58,8 +63,23 @@
       <%= link_to "Envoyer un message", (conversation ? conversation_path(conversation) : conversations_path(second_user_id: user.id)), class: "btn btn-white shadowed" %>
     <% end %>
 
-    <% if user == current_user %>
-      <%= link_to "Modifier mon profil", edit_profile_path(user), class: "btn plus-button gradient-blue-purple" %>
-    <% end %>
   </div>
+
+  <h2>Mes événements</h2>
+    <% if @events.present? %>
+      <ul class="list-group" id="my_events_list">
+        <% @events.each do |event| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center" id="<%= dom_id(event, :profile_item) %>">
+            <div>
+              <strong><%= event.title %></strong><br>
+              <small class="text-muted"><%= event.location %> — <%= l(event.starts_at, format: :long) %></small>
+            </div>
+              <%= link_to "Voir", events_path, class: "btn btn-sm btn-outline-primary" %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-muted">Tu ne participes encore à aucun événement.</p>
+      <ul class="list-group" id="my_events_list"></ul>
+    <% end %>
 </div>

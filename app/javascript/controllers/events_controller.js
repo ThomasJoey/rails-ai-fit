@@ -1,4 +1,3 @@
-// app/javascript/controllers/events_controller.js
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
@@ -23,12 +22,12 @@ export default class extends Controller {
     })
   }
 
-  register(event) {
-    event.preventDefault()
+  showPopup() {
     this.popupTarget.classList.remove("hidden")
   }
 
   closePopup() {
-    this.popupTarget.classList.add("hidden")
+  this.popupTarget.classList.add("hidden")
   }
+
 }
