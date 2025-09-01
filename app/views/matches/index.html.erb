@@ -41,11 +41,6 @@
         <button class="btn like-btn" data-action="click->popup#stop"><i class="fa-solid fa-circle-check"></i></button>
       </div>
 
-      <!-- mini-aperçu -->
-      <div class="profile-overlay">
-        <h2><%= u.first_name %> <%= u.last_name %></h2>
-      </div>
-
       <!-- Popup -->
       <turbo-frame id="profile_popup_<%= u.id %>"
                   class="profil-popup hidden"
