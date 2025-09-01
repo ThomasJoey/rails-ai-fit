@@ -25,6 +25,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_neighbors :embedding
   after_save :set_embedding, if: :embedding_relevant_changes?
+  has_many :matches
 
   # Geocoding
   geocoded_by :location

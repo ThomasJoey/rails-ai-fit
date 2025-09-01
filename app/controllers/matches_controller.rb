@@ -17,7 +17,7 @@ class MatchesController < ApplicationController
 
     # 5) Filtre rayon 10 km SANS casser l'ordre (corrigé)
     if @user.latitude.present? && @user.longitude.present?
-      scope = base.where(id: @user.nearbys(1000).map(&:id))
+      scope = base.where(id: @user.nearbys(10).map(&:id))
     else
       flash.now[:alert] = "Ton emplacement n'est pas défini — filtrage par distance ignoré."
       scope = base # fallback to unfiltered base
@@ -25,5 +25,11 @@ class MatchesController < ApplicationController
 
     # 6) Limite finale
     @potential_matches = scope.limit(10)
+  end
+
+  def create
+    @matcher_id = current_user
+    
+
   end
 end
