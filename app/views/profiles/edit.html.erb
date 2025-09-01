@@ -28,7 +28,7 @@
                   initials: user_initials(@user),
                   size: "xl",
                   extra_classes: "avatar-preview",
-                  html_options: { 
+                  html_options: {
                     id: "avatar-preview",
                     data: { profile_edit_target: "avatarPreview" }
                   } %>
@@ -130,10 +130,11 @@
             </div>
 
             <!-- Localisation avec géolocalisation -->
-            <div class="mb-3">
-              <label for="location" class="form-label">
+            <div class="mb-3" data-controller="location">
+              <label for="location-input" class="form-label">
                 <i class="fas fa-map-marker-alt text-danger"></i> Localisation
               </label>
+
               <div class="input-group">
                 <%= f.text_field :location,
                     id: "location-input",
@@ -141,22 +142,27 @@
                     placeholder: "Entrez votre adresse ou ville...",
                     value: @user.location,
                     autocomplete: "off",
-                    data: { profile_edit_target: "locationInput" } %>
+                    data: { location_target: "input" } %>
+
                 <button type="button"
-                    id="detect-location"
-                    class="btn btn-outline-secondary"
-                    data-bs-toggle="tooltip"
-                    title="Utiliser ma position actuelle"
-                    data-profile-edit-target="detectLocationBtn">
+                        id="detect-location"
+                        class="btn btn-outline-secondary"
+                        data-bs-toggle="tooltip"
+                        title="Utiliser ma position actuelle"
+                        data-action="location#detect"
+                        data-location-target="button">
                   <i class="fas fa-crosshairs"></i>
                 </button>
               </div>
+
               <small class="form-text text-muted">
                 Ex: "Paris, France" ou "75001" ou une adresse complète
               </small>
+
               <!-- Affichage de la carte (optionnel) -->
               <div id="location-map" class="mt-3 rounded" style="height: 200px; display: none;"></div>
             </div>
+
 
             <!-- Sports favoris avec checkboxes cachées -->
             <div class="mb-4" data-controller="sport-filter">
@@ -399,4 +405,3 @@
     </div>
   </div>
 </div>
-

@@ -5,7 +5,7 @@
   <!-- Avatar + Nom + Infos -->
   <div class="profile-header">
     <%= render "layouts/avatar",
-      image_url: (url_for(user.avatar) if user.avatar.attached?),
+      image_url: (user.avatar.attached? ? url_for(user.avatar) : nil),
       initials: user_initials(user),
       size: "xl",
       extra_classes: "profile-avatar" %>
