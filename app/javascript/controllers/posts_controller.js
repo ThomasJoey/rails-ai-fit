@@ -1,12 +1,15 @@
-// app/javascript/controllers/navbar_controller.js
+
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="navbar"
+// Connects to data-controller="posts"
 export default class extends Controller {
-  static targets = ["item"]
+  static targets = ["like"]
 
-  activate(event) {
-    this.itemTargets.forEach((el) => el.classList.remove("active"))
-    event.currentTarget.classList.add("active")
+  connect() {
+    console.log(this.likeTargets);
+
   }
-}
+
+  like(event) {
+    event.currentTarget.classList.add("btn-success")
+    setTimeout(() => event.currentTarget.classList.remove("btn-success"), 300)

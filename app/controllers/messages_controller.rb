@@ -23,6 +23,11 @@ class MessagesController < ApplicationController
       # 🔹 On essaye de parser en JSON (si l’IA a renvoyé du JSON)
       begin
         json_response = JSON.parse(assistant_response)
+      rescue JSON::ParserError => e
+        puts e
+      end
+
+      if json_response
         proposals = json_response["proposals"]
 
         # On stocke seulement le texte des propositions
@@ -38,7 +43,7 @@ class MessagesController < ApplicationController
           role: "assistant",
           conversation: @conversation
         )
-      rescue JSON::ParserError
+      else
         # 🔹 Sinon, on garde tel quel (texte libre)
         @conversation.messages.create!(
           content: assistant_response,
@@ -47,7 +52,6 @@ class MessagesController < ApplicationController
           user: current_user
         )
       end
-
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to conversation_path(@conversation), notice: "Message envoyé ✅" }
