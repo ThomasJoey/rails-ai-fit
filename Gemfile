@@ -57,6 +57,7 @@ gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
 gem 'geocoder'
 gem 'neighbor'
+gem 'wicked'
 
 group :development, :test do
   gem "dotenv-rails"

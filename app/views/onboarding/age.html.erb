@@ -1,0 +1,55 @@
+<div class="age-onboarding-container" data-controller="age">
+  <div class="progress-bar">
+    <div class="progress-step active"></div>
+    <div class="progress-step"></div>
+    <div class="progress-step"></div>
+  </div>
+
+  <div class="age-content">
+    <div class="cake-icon">🎂</div>
+
+    <h1 class="age-title">Quel âge as-tu ?</h1>
+
+    <p class="age-subtitle">
+      Pas de panique, on ne le dira à personne !
+    </p>
+
+    <p class="age-description">
+      <em>C'est juste pour te proposer des partenaires dans ta tranche d'âge 😉</em>
+    </p>
+
+    <%= form_with model: @user, url: wizard_path, method: :patch, local: true do |f| %>
+      <div class="age-selector">
+        <div class="age-display">
+          <span class="age-number" data-age-target="display">25</span>
+          <span class="age-label">ans</span>
+        </div>
+
+        <div class="slider-container">
+          <%= f.range_field :age_range,
+              min: 18,
+              max: 99,
+              value: 25,
+              class: "age-slider",
+              data: {
+                action: "input->age#updateDisplay",
+                age_target: "slider"
+              } %>
+          <div class="slider-labels">
+            <span>18</span>
+            <span>99</span>
+          </div>
+        </div>
+
+        <div class="generation-labels">
+          <span class="generation-label" data-range="18-27">Génération Z</span>
+          <span class="generation-label" data-range="28-43">Millénial</span>
+          <span class="generation-label" data-range="44-59">Génération X</span>
+          <span class="generation-label" data-range="60-99">Baby Boomer</span>
+        </div>
+      </div>
+
+      <%= f.submit "Continuer", class: "continue-btn" %>
+    <% end %>
+  </div>
+</div>

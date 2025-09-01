@@ -18,6 +18,8 @@ module ApplicationHelper
   def main_content_class
     if devise_controller?
       "devise-content"
+    elsif controller_name == "onboarding"
+      "onboarding-content"
     else
       "main-content"
     end

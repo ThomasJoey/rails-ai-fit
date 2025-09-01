@@ -1,0 +1,120 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <h2 class="card-title">Vos sports préférés</h2>
+            <p class="text-muted">Sélectionnez les sports qui vous intéressent</p>
+            <div class="progress mb-3">
+              <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemax="100"></div>
+            </div>
+            <small class="text-muted">Étape 2 sur 3</small>
+          </div>
+
+          <%= simple_form_for @user, url: wizard_path, method: :put do |f| %>
+            <div class="mb-4">
+              <h4 class="mb-3">Quels sports pratiquez-vous ou souhaitez-vous pratiquer ?</h4>
+              <small class="text-muted mb-3 d-block">Vous pouvez en sélectionner plusieurs</small>
+              
+              <div class="sports-grid">
+                <% sports_list = [
+                  ['Football', 'football'], 
+                  ['Basketball', 'basketball'], 
+                  ['Tennis', 'tennis'],
+                  ['Running', 'running'], 
+                  ['Cyclisme', 'cyclisme'], 
+                  ['Natation', 'natation'],
+                  ['Fitness', 'fitness'], 
+                  ['Yoga', 'yoga'], 
+                  ['Musculation', 'musculation'],
+                  ['Volleyball', 'volleyball'], 
+                  ['Badminton', 'badminton'], 
+                  ['Escalade', 'escalade'],
+                  ['Randonnée', 'randonnee'], 
+                  ['Danse', 'danse'], 
+                  ['Arts martiaux', 'arts_martiaux'],
+                  ['Ski', 'ski'], 
+                  ['Surf', 'surf'], 
+                  ['Autre', 'autre']
+                ] %>
+                
+                <% sports_list.each do |sport_name, sport_value| %>
+                  <div class="sport-item">
+                    <input type="checkbox" 
+                           name="user[sports][]" 
+                           value="<%= sport_value %>" 
+                           id="sport_<%= sport_value %>"
+                           class="form-check-input"
+                           <%= 'checked' if @user.sports&.include?(sport_value) %>>
+                    <label for="sport_<%= sport_value %>" class="sport-label">
+                      <%= sport_name %>
+                    </label>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <%= link_to 'Précédent', previous_wizard_path, class: 'btn btn-outline-secondary' %>
+              <%= f.submit 'Suivant', class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .sports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .sport-item {
+    position: relative;
+  }
+
+  .sport-item input[type="checkbox"] {
+    display: none;
+  }
+
+  .sport-label {
+    display: block;
+    padding: 1rem;
+    border: 2px solid #dee2e6;
+    border-radius: 0.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    background-color: white;
+    margin: 0;
+  }
+
+  .sport-label:hover {
+    background-color: #f8f9fa;
+    border-color: #0d6efd;
+  }
+
+  .sport-item input[type="checkbox"]:checked + .sport-label {
+    background-color: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .sports-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 0.5rem;
+    }
+    
+    .sport-label {
+      padding: 0.75rem 0.5rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>
