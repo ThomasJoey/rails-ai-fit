@@ -2,11 +2,10 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: #f9f9f9;
   padding: 1rem;
-  min-height: 100vh;
-
   display: flex;
   flex-direction: column;
-  align-items: stretch; // 👉 cartes prennent toute la largeur
+  align-items: stretch;
+  gap: 20px; // 👉 cartes prennent toute la largeur
 }
 
 /* ------------------ 🔍 Barre de recherche ------------------ */
@@ -16,7 +15,7 @@
   background: #f3f4f6; // gris clair
   border-radius: 999px;
   padding: 0.6rem 1rem;
-  margin-bottom: 1rem;
+
 
   .icon-search {
     font-size: 1rem;
@@ -84,8 +83,6 @@
 .event-card {
   background: #fff;
   border-radius: 16px;
-  padding: 1rem;
-  margin-bottom: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 
   width: 100%;            // 👉 prend toute la largeur
