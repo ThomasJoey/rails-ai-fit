@@ -8,20 +8,20 @@
 </div>
 
   <h2>📅 Mes événements</h2>
-  <!-- ta liste des events ici -->
-  <% if @events.any? %>
-    <ul class="list-group">
-      <% @events.each do |event| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <div>
-            <strong><%= event.title %></strong><br>
-            <small class="text-muted"><%= event.location %> — <%= l(event.starts_at, format: :long) %></small>
-          </div>
-          <%= link_to "Voir", event_path(event), class: "btn btn-sm btn-outline-primary" %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p class="text-muted">Tu ne participes encore à aucun événement.</p>
-  <% end %>
+    <% if @events.any? %>
+      <ul class="list-group" id="my_events_list">
+        <% @events.each do |event| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center" id="<%= dom_id(event, :profile_item) %>">
+            <div>
+              <strong><%= event.title %></strong><br>
+              <small class="text-muted"><%= event.location %> — <%= l(event.starts_at, format: :long) %></small>
+            </div>
+            <%= link_to "Voir", event_path(event), class: "btn btn-sm btn-outline-primary" %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-muted">Tu ne participes encore à aucun événement.</p>
+      <ul class="list-group" id="my_events_list"></ul>
+    <% end %>
 </div>

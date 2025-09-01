@@ -26,15 +26,17 @@ Rails.application.routes.draw do
     resources :message_users, only: [:create]
   end
 
-  # Events avec participations
-  resources :events, only: [:index, :new, :create, :show, :destroy] do
+    # No route matches [GET] "/events/1/event_participations"
+
+    resources :events, only: [:index, :new, :create, :show, :destroy] do
     post :confirm, on: :member
-    resources :event_participations, only: [:new, :create, :destroy]
+    resources :event_participations, only: [:create]
     collection do
       get :search
     end
   end
 
+  resources :event_participations, only: [:destroy]
   resources :posts do
     resources :likes, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy]

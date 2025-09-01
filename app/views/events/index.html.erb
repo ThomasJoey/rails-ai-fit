@@ -1,192 +1,57 @@
-<div class="events-page">
+<div class="events-page" data-controller="events">
 
   <!-- 🔍 Barre de recherche -->
   <div class="search-bar">
     <i class="icon-search">🔍</i>
-    <input type="text" placeholder="Rechercher un événement...">
+    <input type="text"
+           placeholder="Rechercher un événement..."
+           data-events-target="searchInput"
+           data-action="input->events#search">
   </div>
 
-  <!-- 🏷️ Filtres -->
-  <div class="filters">
-    <button class="filter active">🎾 Tennis</button>
-    <button class="filter">🏃 Running</button>
-    <button class="filter">🧘 Yoga</button>
-    <button class="filter">🚴 Cyclisme</button>
-  </div>
+  <!-- Boucle dynamique -->
+  <% @events.each do |event| %>
+    <div class="event-card" data-events-target="card">
+      <div class="event-header">
+        <div class="event-icon">🎯</div>
+        <div class="event-title">
+          <h3><%= event.title %></h3>
+        </div>
+      </div>
 
-  <!-- 1️⃣ Tennis -->
-  <div class="event-card">
-    <div class="event-header">
-      <div class="event-icon" style="background: linear-gradient(135deg, #6DD5FA, #2980B9);">
-        🎾
-      </div>
-      <div class="event-title">
-        <h3>Tennis en double</h3>
-        <span class="price">Gratuit</span>
-      </div>
-    </div>
-    <p class="event-desc">Match de tennis en double pour améliorer votre jeu</p>
-    <ul class="event-info">
-      <li>📅 Aujourd'hui</li>
-      <li>⏰ 10:00</li>
-      <li>📍 Parc Central, Paris</li>
-      <li>👥 3/4 participants</li>
-    </ul>
-    <div class="event-footer">
-      <span class="tag yellow">Intermédiaire</span>
-      <span class="tag grey">1 place restante</span>
-      <button class="btn-join">Rejoindre</button>
-    </div>
-  </div>
+      <p class="event-desc"><%= event.description %></p>
+      <ul class="event-info">
+        <li>📅 <%= l(event.starts_at, format: :long) %></li>
+        <li>📍 <%= event.location %></li>
+      </ul>
 
-  <!-- 2️⃣ Running -->
-  <div class="event-card">
-    <div class="event-header">
-      <div class="event-icon" style="background: linear-gradient(135deg, #6a11cb, #2575fc);">
-        🏃
+      <div class="event-footer">
+        <%= turbo_frame_tag dom_id(event, :participation_button) do %>
+          <% if current_user.events.include?(event) %>
+            <%= button_to "Inscrit ✅",
+                          event_participation_path(current_user.event_participations.find_by(event: event)),
+                          method: :delete,
+                          class: "btn btn-success btn-join" %>
+          <% else %>
+            <%= button_to "S'inscrire",
+                          event_event_participations_path(event),
+                          method: :post,
+                          class: "btn btn-outline-primary btn-join" %>
+          <% end %>
+        <% end %>
+
       </div>
-      <div class="event-title">
-        <h3>Session running matinale</h3>
-        <span class="price">Gratuit</span>
-      </div>
+
     </div>
-    <p class="event-desc">Course en groupe pour commencer la journée en forme</p>
-    <ul class="event-info">
-      <li>📅 Demain</li>
-      <li>⏰ 07:00</li>
-      <li>📍 Bois de Boulogne</li>
-      <li>👥 8/12 participants</li>
-    </ul>
-    <div class="event-footer">
-      <span class="tag blue">Tous niveaux</span>
-      <span class="tag grey">4 places restantes</span>
-      <button class="btn-join">Rejoindre</button>
+  <% end %>
+
+  <!-- 🌟 Popup global -->
+  <div class="popup hidden" data-events-target="popup">
+    <div class="popup-content">
+      <h3>✅ Inscription réussie</h3>
+      <p>Vous êtes bien inscrits.<br>
+         Si l’activité est payante, veuillez penser à venir avec un moyen de paiement 💳.</p>
+      <button class="btn-close" data-action="click->events#closePopup">Fermer</button>
     </div>
   </div>
-
-  <!-- 3️⃣ Yoga -->
-  <div class="event-card">
-    <div class="event-header">
-      <div class="event-icon" style="background: linear-gradient(135deg, #f7971e, #ffd200);">
-        🧘
-      </div>
-      <div class="event-title">
-        <h3>Yoga Sunrise</h3>
-        <span class="price">15€</span>
-      </div>
-    </div>
-    <p class="event-desc">Séance de yoga au lever du soleil face à la Seine</p>
-    <ul class="event-info">
-      <li>📅 Samedi</li>
-      <li>⏰ 06:30</li>
-      <li>📍 Berges de Seine</li>
-      <li>👥 6/10 participants</li>
-    </ul>
-    <div class="event-footer">
-      <span class="tag yellow">Détente</span>
-      <span class="tag grey">4 places restantes</span>
-      <button class="btn-join">Rejoindre</button>
-    </div>
-  </div>
-
-  <!-- 4️⃣ Vélo -->
-  <div class="event-card">
-    <div class="event-header">
-      <div class="event-icon" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
-        🚴
-      </div>
-      <div class="event-title">
-        <h3>Sortie cyclisme</h3>
-        <span class="price">Gratuit</span>
-      </div>
-    </div>
-    <p class="event-desc">Balade sportive en groupe dans la vallée de Chevreuse</p>
-    <ul class="event-info">
-      <li>📅 Dimanche</li>
-      <li>⏰ 09:00</li>
-      <li>📍 Gare Montparnasse</li>
-      <li>👥 12/20 participants</li>
-    </ul>
-    <div class="event-footer">
-      <span class="tag blue">Confirmés</span>
-      <span class="tag grey">8 places restantes</span>
-      <button class="btn-join">Rejoindre</button>
-    </div>
-  </div>
-
-  <!-- 5️⃣ Musculation -->
-  <div class="event-card">
-    <div class="event-header">
-      <div class="event-icon" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);">
-        🏋️
-      </div>
-      <div class="event-title">
-        <h3>CrossFit Challenge</h3>
-        <span class="price">20€</span>
-      </div>
-    </div>
-    <p class="event-desc">Séance intense de CrossFit avec coach certifié</p>
-    <ul class="event-info">
-      <li>📅 Lundi</li>
-      <li>⏰ 18:00</li>
-      <li>📍 Salle FitFactory</li>
-      <li>👥 10/15 participants</li>
-    </ul>
-    <div class="event-footer">
-      <span class="tag yellow">Intense</span>
-      <span class="tag grey">5 places restantes</span>
-      <button class="btn-join">Rejoindre</button>
-    </div>
-  </div>
-
-  <!-- 6️⃣ Randonnée -->
-  <div class="event-card">
-    <div class="event-header">
-      <div class="event-icon" style="background: linear-gradient(135deg, #43cea2, #185a9d);">
-        🥾
-      </div>
-      <div class="event-title">
-        <h3>Randonnée Montagne</h3>
-        <span class="price">Gratuit</span>
-      </div>
-    </div>
-    <p class="event-desc">Marche en groupe dans les sentiers de Fontainebleau</p>
-    <ul class="event-info">
-      <li>📅 Mardi</li>
-      <li>⏰ 10:00</li>
-      <li>📍 Gare de Fontainebleau</li>
-      <li>👥 15/25 participants</li>
-    </ul>
-    <div class="event-footer">
-      <span class="tag blue">Tous niveaux</span>
-      <span class="tag grey">10 places restantes</span>
-      <button class="btn-join">Rejoindre</button>
-    </div>
-  </div>
-
-  <!-- 7️⃣ Natation -->
-  <div class="event-card">
-    <div class="event-header">
-      <div class="event-icon" style="background: linear-gradient(135deg, #36d1dc, #5b86e5);">
-        🏊
-      </div>
-      <div class="event-title">
-        <h3>Entraînement Natation</h3>
-        <span class="price">10€</span>
-      </div>
-    </div>
-    <p class="event-desc">Session d’endurance et technique en piscine olympique</p>
-    <ul class="event-info">
-      <li>📅 Mercredi</li>
-      <li>⏰ 19:00</li>
-      <li>📍 Piscine Georges Vallerey</li>
-      <li>👥 8/12 participants</li>
-    </ul>
-    <div class="event-footer">
-      <span class="tag yellow">Avancé</span>
-      <span class="tag grey">4 places restantes</span>
-      <button class="btn-join">Rejoindre</button>
-    </div>
-  </div>
-
 </div>
