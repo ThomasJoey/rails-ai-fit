@@ -1,11 +1,19 @@
 <div id="users">
   <% if users.present? && users.any? %>
     <% users.each do |user| %>
-      <p>
-        <%= link_to "#{user.first_name} #{user.last_name}", profile_path(user), class: "text-decoration-none", data: { turbo_frame: "_top" } %>
-      </p>
+      <div class="d-flex align-items-center mb-3">
+        <%= image_tag user.avatar_url,
+              alt: "#{user.first_name} #{user.last_name}",
+              class: "rounded-8 me-3 shadow-sm",
+              size: "48x48" %>
+
+        <%= link_to "#{user.first_name} #{user.last_name}",
+              profile_path(user),
+              class: "fw-semibold text-decoration-none text-dark",
+              data: { turbo_frame: "_top" } %>
+      </div>
     <% end %>
   <% else %>
-    <em>Sorry, no users found.</em>
+    <em class="text-muted">Sorry, no users found.</em>
   <% end %>
 </div>
