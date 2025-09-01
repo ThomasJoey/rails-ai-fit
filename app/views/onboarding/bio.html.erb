@@ -1,93 +1,68 @@
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card shadow">
-        <div class="card-body">
-          <div class="text-center mb-4">
-            <h2 class="card-title">Parlez-nous de vous</h2>
-            <p class="text-muted">Ajoutez une petite description personnelle</p>
-            <div class="progress mb-3">
-              <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemax="100"></div>
-            </div>
-            <small class="text-muted">Étape 3 sur 3</small>
-          </div>
+<div class="onboarding-container" style="padding: 70px 0px">
+  <div class="progress-bar">
+    <div class="progress-step"></div>
+    <div class="progress-step"></div>
+    <div class="progress-step active"></div>
+  </div>
 
-          <%= simple_form_for @user, url: wizard_path, method: :put do |f| %>
-            <div class="mb-4">
-              <h4 class="mb-3">Écrivez une courte bio</h4>
-              <small class="text-muted mb-3 d-block">Partagez vos objectifs sportifs, votre expérience ou ce qui vous motive (optionnel)</small>
-              
-              <%= f.input :bio, 
-                  as: :text,
-                  input_html: { 
-                    class: 'form-control bio-textarea', 
-                    rows: 5, 
-                    placeholder: 'Ex: Passionné de running depuis 5 ans, je cherche des partenaires pour mes sorties du weekend. J\'aime aussi le yoga pour la récupération et je découvre l\'escalade !',
-                    maxlength: 500
-                  },
-                  label: false %>
-              
-              <div class="text-end">
-                <small class="text-muted character-count">
-                  <span class="current-count">0</span>/500 caractères
-                </small>
-              </div>
-            </div>
+  <div class="age-content">
+    <div class="cake-icon">✨</div>
 
-            <div class="d-flex justify-content-between">
-              <%= link_to 'Précédent', previous_wizard_path, class: 'btn btn-outline-secondary' %>
-              <%= f.submit 'Terminer', class: 'btn btn-success' %>
-            </div>
-          <% end %>
+    <h1 class="age-title">Raconte ton histoire</h1>
+
+    <p class="age-subtitle">
+      Quelques mots sur tes passions sportives pour que les autres te découvrent
+    </p>
+
+    <p class="age-description">
+      <em>Sois toi-même c'est déjà extraordinaire!</em>
+    </p>
+
+    <%= simple_form_for @user, url: wizard_path, method: :put, html: { data: { controller: "bio-character-counter" } } do |f| %>
+      <div class="form-label-custom">Raconte-nous qui tu es en quelques mots</div>
+
+      <%= f.input :bio, as: :text, input_html: {
+        class: "bio-textarea",
+        placeholder: "Ex: Passionnée de trail et toujours partante pour un run collectif...",
+        maxlength: 200,
+        data: { 
+          bio_character_counter_target: "textarea",
+          action: "input->bio-character-counter#updateCounter"
+        }
+      }, label: false %>
+
+      <div class="character-counter">
+        <span class="count" data-bio-character-counter-target="counter">0</span>/200 caractères
+      </div>
+
+      <!-- Inspiration Section -->
+      <div class="inspiration-section">
+        <div class="inspiration-header">
+          💡 Besoin d'inspiration ?
+        </div>
+        <div class="inspiration-example">
+          <strong>Passionnée de trail et toujours partante pour un run collectif 🏃‍♀️</strong>
+        </div>
+        <div class="inspiration-example">
+          <strong>Amateur·rice de basket depuis l'enfance, je cherche des coéquipiers motivés ! 🏀</strong>
         </div>
       </div>
-    </div>
+
+      <!-- Pro Tip -->
+      <div class="pro-tip">
+        <div class="pro-tip-header">
+          ✏️ Astuce pro :
+        </div>
+        <div class="pro-tip-content">
+          Mentionne tes objectifs, ton niveau, ou même ton sport de rêve ! Plus tu es authentique, plus tu attireras les bonnes personnes. 💫
+        </div>
+      </div>
+
+      <div class="buttons-container">
+        <%= link_to "Précédent", previous_wizard_path, class: "btn-custom btn-back" %>
+        <%= f.submit "Terminer", class: "continue-btn" %>
+      </div>
+    <% end %>
   </div>
 </div>
 
-<style>
-  .bio-textarea {
-    resize: vertical;
-    min-height: 120px;
-  }
-
-  .bio-textarea:focus {
-    border-color: #0d6efd;
-    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
-  }
-
-  .character-count {
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-  }
-
-  .character-count .current-count {
-    font-weight: 500;
-  }
-</style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const textarea = document.querySelector('.bio-textarea');
-    const currentCount = document.querySelector('.current-count');
-    
-    if (textarea && currentCount) {
-      // Initialiser le compteur
-      currentCount.textContent = textarea.value.length;
-      
-      // Mettre à jour le compteur en temps réel
-      textarea.addEventListener('input', function() {
-        currentCount.textContent = textarea.value.length;
-        
-        // Changer la couleur si on approche de la limite
-        if (textarea.value.length > 450) {
-          currentCount.style.color = '#dc3545'; // Rouge
-        } else if (textarea.value.length > 400) {
-          currentCount.style.color = '#fd7e14'; // Orange
-        } else {
-          currentCount.style.color = '#6c757d'; // Gris par défaut
-        }
-      });
-    }
-  });
-</script>
