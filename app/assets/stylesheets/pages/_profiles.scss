@@ -136,3 +136,26 @@
   color: #ccc;
   font-weight: 500;
 }
+
+.edit-btn {
+  position: absolute;
+  top: 0.75rem;   /* distance du haut */
+  right: 0.75rem; /* distance à droite */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  background: black;
+  color: #fff;
+  font-size: 1.2rem;
+  transition: background 0.2s ease, transform 0.15s ease;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.edit-btn:hover {
+  background: #1d4ed8;
+  transform: scale(1.05);
+}

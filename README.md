@@ -14,10 +14,12 @@
 
 
 
-THOMAS:
-
-FAIRE UNE SEED AVEC DES EVENTS
-ITERER SUR LES EVENTS
-ET TOUT VA MARCHER
-
-COMME PAR MAGIE
+<%= turbo_stream.replace "signup-popup" do %>
+  <div id="signup-popup" class="popup">
+    <div class="popup-content">
+      <h3>✅ Inscription réussie</h3>
+      <p>Vous êtes bien inscrit à l’événement.</p>
+      <button class="btn-close" data-action="click->events#closePopup">Fermer</button>
+    </div>
+  </div>
+<% end %>

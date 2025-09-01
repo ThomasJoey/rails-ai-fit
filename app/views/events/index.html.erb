@@ -46,12 +46,14 @@
   <% end %>
 
   <!-- 🌟 Popup global -->
-  <div class="popup hidden" data-events-target="popup">
-    <div class="popup-content">
+  <div id="signup-popup" class="popup-overlay hidden" data-events-target="popup">
+    <div class="popup">
       <h3>✅ Inscription réussie</h3>
-      <p>Vous êtes bien inscrits.<br>
-         Si l’activité est payante, veuillez penser à venir avec un moyen de paiement 💳.</p>
+      <p>Vous êtes bien inscrit…</p>
       <button class="btn-close" data-action="click->events#closePopup">Fermer</button>
+
     </div>
   </div>
+
+
 </div>
