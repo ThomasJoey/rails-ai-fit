@@ -2,6 +2,7 @@
 <div class="container py-5" data-controller="profile-edit">
   <div class="row justify-content-center">
     <div class="col-md-8">
+
       <div class="card profile-edit-card">
         <div class="card-body">
           <h3 class="text-center mb-4">Modifier mon profil</h3>
@@ -96,24 +97,8 @@
 
               <!-- NOUVELLE SECTION: Tranche d'âge -->
               <div class="col-md-6 mb-3">
-                <%= f.label :age_range, "Tranche d'âge", class: "form-label" %>
-                <div class="age-range-select">
-                  <%= f.select :age_range,
-                      options_for_select([
-                        ['Sélectionnez votre tranche d\'âge', ''],
-                        ['18-25 ans', '18-25'],
-                        ['26-35 ans', '26-35'],
-                        ['36-45 ans', '36-45'],
-                        ['46-55 ans', '46-55'],
-                        ['56-65 ans', '56-65'],
-                        ['66+ ans', '66+']
-                      ], @user.age_range.presence),
-                      {},
-                      { class: "form-select age-range-selector" } %>
-                  <small class="text-muted mt-1 d-block">
-                    <i class="fas fa-info-circle"></i> Cette information aide à trouver des partenaires sportifs compatibles
-                  </small>
-                </div>
+                <%= f.label :age, "Âge", class: "form-label" %>
+                <%= f.number_field :age, min: 13, max: 99, class: "form-control", placeholder: "Ex : 24" %>
               </div>
             </div>
 

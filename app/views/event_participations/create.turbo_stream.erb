@@ -1,0 +1,16 @@
+<%= turbo_stream.replace dom_id(@event, :participation_button) do %>
+  <%= turbo_frame_tag dom_id(@event, :participation_button) do %>
+
+    <% if current_user.events.include?(@event) %>
+      <%= button_to "Inscrit ✅",
+                    event_participation_path(current_user.event_participations.find_by(event: @event)),
+                    method: :delete,
+                    class: "btn btn-success btn-join" %>
+    <% else %>
+      <%= button_to "S'inscrire",
+                    event_event_participations_path(@event),
+                    method: :post,
+                    class: "btn btn-outline-primary btn-join" %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -47,7 +47,7 @@ class ProfilesController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :bio, :location, :sexe, :age_range, :avatar, sports: [])
+    params.require(:user).permit(:first_name, :last_name, :bio, :location, :sexe, :age_range, :avatar, :age, sports: [])
   end
 
   def find_or_create_conversation_with(user)

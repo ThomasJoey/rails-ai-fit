@@ -57,4 +57,11 @@ module ApplicationHelper
       post_date.strftime("%d/%m/%Y")
     end
   end
+
+  # def color_for_sport(sport)
+  #   styles = ['badge-orange', 'badge-pink', 'badge-green', 'badge-blue', 'badge-red']
+  #   index = sport.hash % styles.size
+  #   styles[index]
+  # end
+
 end

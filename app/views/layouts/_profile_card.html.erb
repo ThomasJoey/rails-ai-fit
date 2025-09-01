@@ -1,58 +1,65 @@
-<div class="user-profile-card">
-  <!-- Bouton fermeture -->
-  <button class="close-button" data-action="click->popup#close">✕</button>
+<div class="user-profile-card shadowed">
 
-  <!-- Avatar + Nom + Infos -->
-  <div class="profile-header">
+  <!-- Header avatar + nom -->
+  <div class="profile-header d-flex align-items-center gap-3 mb-3">
     <%= render "layouts/avatar",
       image_url: (user.avatar.attached? ? url_for(user.avatar) : nil),
       initials: user_initials(user),
-      size: "xl",
-      extra_classes: "profile-avatar" %>
+      size: "lg",
+      extra_classes: "avatar-wrapper" %>
 
     <div>
-      <div class="profile-name">
+      <div class="profile-name fw-bold fs-5">
         <%= user.first_name %> <%= user.last_name %>
         <% if user.first_name.blank? && user.last_name.blank? %>
           <%= user.email.split('@').first.capitalize %>
         <% end %>
       </div>
-      <div class="profile-subtext">
-        <%= "#{user.age_range} ans" %> · 📍 <%= user.location %>
-      </div>
+
+      <% if user.age.present? || user.location.present? %>
+        <div class="profile-subtext text-muted d-flex align-items-center gap-2" style="margin-top: 4px;">
+          <% if user.age.present? %>
+            <span><%= user.age %> ans</span>
+          <% end %>
+
+           <% if user.location.present? %>
+            <span>
+              <i class="fa-solid fa-location-dot" style="margin-right: 4px;"></i>
+              <%= user.location %>
+            </span>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 
-  <!-- Tags (sports, personnalités, etc.) -->
+  <!-- Sports principaux -->
+  <% badge_styles = ['badge-orange', 'badge-pink', 'badge-green', 'badge-blue'] %>
+
   <% if user.sports.present? %>
-    <div class="profile-tags">
+    <div class="profile-tags d-flex flex-wrap gap-2 mb-3">
       <% user.sports.each do |sport| %>
-        <span class="tag"><%= sport.humanize %></span>
+        <span class="badge badge-purple"><%= sport.humanize %></span>
       <% end %>
     </div>
   <% end %>
 
   <!-- À propos -->
   <% if user.bio.present? %>
-    <div class="profile-bio">
-      <h3>À propos</h3>
-      <p><%= simple_format(user.bio) %></p>
+    <div class="profile-bio mb-4">
+      <h4 class="mb-2">À propos</h4>
+      <p class="text-body"><%= simple_format(user.bio) %></p>
     </div>
   <% end %>
 
-  <!-- Sports -->
-  <% if user.sports.present? %>
-    <div class="profile-sports">
-      <% user.sports.each do |sport| %>
-        <span class="sport-tag">
-          <i class="fas fa-star"></i> <%= sport.humanize %>
-        </span>
-      <% end %>
-    </div>
-  <% end %>
+  <!-- Boutons -->
+  <div class="profile-actions d-flex flex-column gap-2">
+    <% if user != current_user && enableMessage %>
+      <%= link_to "Envoyer un message", (conversation ? conversation_path(conversation) : conversations_path(second_user_id: user.id)), class: "btn btn-white shadowed" %>
+    <% end %>
 
-  <!-- Bouton édition -->
-  <% if user == current_user %>
-    <%= link_to "Modifier mon profil", edit_profile_path(user), class: "btn-edit" %>
-  <% end %>
+    <% if user == current_user %>
+      <%= link_to "Modifier mon profil", edit_profile_path(user), class: "btn plus-button gradient-blue-purple" %>
+    <% end %>
+  </div>
 </div>
