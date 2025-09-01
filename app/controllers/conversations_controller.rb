@@ -22,7 +22,6 @@ class ConversationsController < ApplicationController
 
   def search
     @users = User.all
-    
 
     return unless params[:query].present?
 
@@ -75,7 +74,7 @@ class ConversationsController < ApplicationController
       proposals   = json_response["proposals"] || []
 
       # 🔹 Message assistant avec les propositions lisibles
-      assistant_message = @conversation.messages.create!(
+      @conversation.messages.create!(
         content: proposals.is_a?(Array) ? proposals.map { |p| p["text"] }.join("\n\n") : proposals.to_s,
         role: "assistant",
         conversation: @conversation

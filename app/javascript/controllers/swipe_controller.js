@@ -3,10 +3,14 @@ import { Controller } from "@hotwired/stimulus"
 // data-controller="swipe"
 export default class extends Controller {
   static targets = ["card"]
+  static values = {
+    user: Number
+  }
 
   connect() {
     this.currentCard = null
     this.startX = 0
+    console.log(this.userValue)
     }
 
   startDrag(event) {
@@ -35,7 +39,8 @@ export default class extends Controller {
     } else {
       this.currentCard.style.transform = ""
     }
-
+    const matchedUser = this.currentCard.dataset.userId;
+    this.#handleMatch(offsetX, matchedUser)
     this.currentCard = null
   }
 
@@ -44,8 +49,11 @@ export default class extends Controller {
     this.currentCard.style.transition = "transform 0.3s ease, opacity 0.3s ease"
     this.currentCard.style.transform = "translateX(-150%) rotate(15deg)"
     this.currentCard.style.opacity = 0
+    const matchedUser = this.currentCard.dataset.userId;
     this.currentCard = null
     const offsetX = -150
+    this.#handleMatch(offsetX, matchedUser)
+
   }
 
   like(event) {
@@ -53,9 +61,14 @@ export default class extends Controller {
     this.currentCard.style.transition = "transform 0.3s ease, opacity 0.3s ease"
     this.currentCard.style.transform = "translateX(150%) rotate(15deg)"
     this.currentCard.style.opacity = 0
+    const matchedUser = this.currentCard.dataset.userId;
     this.currentCard = null
     const offsetX = 150
+
+    this.#handleMatch(offsetX, matchedUser)
   }
+
+
 
 
   // Gestion souris + tactile
@@ -68,5 +81,26 @@ export default class extends Controller {
       return event.touches[0].clientX
     }
   }
+
+    #handleMatch(offsetX, matchedUserId) {
+    const url = '/matches'
+
+    const status = offsetX > 100 ? "pending" : "declined"
+    const body = JSON.stringify({matcher_id: this.userValue, matched_id: matchedUserId, status: status })
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content,
+
+      },
+      body: body
+    })
+    .then(response => response.json())
+    .then(data => console.log(data));
+  }
+
 
 }
