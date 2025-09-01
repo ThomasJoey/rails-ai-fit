@@ -3,10 +3,6 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "@popperjs/core"
 import "bootstrap"
-import "./comments"
-import "./posts"
-import "./navbar"
-import "./new_post"
 
 // Auto-scroll chat to bottom on updates
 function scrollMessagesToBottom() {

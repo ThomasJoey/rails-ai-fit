@@ -1,28 +1,19 @@
 <div class="container mt-4">
-  <% content_for :header do %>
-        <%= render 'layouts/home_header' %>
-      <% end %>
-
-      <% content_for :page_button do %>
-        <%= link_to new_post_path, class: "", aria: { label: "Créer une publication" } do %>
-        <i class="fa-regular fa-pen-to-square"></i>
-        <% end %>
-     <% end %>
-
+  
   <div class="post-card">
-  <%= render 'layouts/new_post' %>
+    <%= render "layouts/new_post" %>
   </div>
 
   <% @posts.each do |post| %>
-    <div class="post-card card mb-3">
-
+    <div class="post-card card mb-3" data-controller="comments">
+      <!-- Header -->
       <div class="card-header d-flex justify-content-between align-items-center bg-white border-0">
         <div class="d-flex align-items-center gap-3">
           <%= render "layouts/avatar",
-          image_url: (url_for(post.user.avatar) if post.user.avatar.attached?),
-          initials: user_initials(post.user),
-          gradient: "gradient-purple-pink",
-          size: "md" %>
+            image_url: (url_for(post.user.avatar) if post.user.avatar.attached?),
+            initials: user_initials(post.user),
+            gradient: "gradient-purple-pink",
+            size: "md" %>
 
           <div class="user-info">
             <div class="username"><%= post.user.display_name %></div>
@@ -32,7 +23,11 @@
 
         <% if post.user == current_user %>
           <div class="dropdown">
-            <button class="btn btn-link text-dark p-0" type="button" id="dropdownMenu<%= post.id %>" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-link text-dark p-0"
+                    type="button"
+                    id="dropdownMenu<%= post.id %>"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
               <i class="fa-solid fa-ellipsis"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu<%= post.id %>">
@@ -49,23 +44,16 @@
         <% end %>
       </div>
 
-
+      <!-- Body -->
       <div class="card-body pt-2">
         <p class="post-text"><%= post.content_text %></p>
       </div>
 
-
       <% if post.image.attached? %>
         <%= image_tag post.image, class: "post-image", alt: "Image du post" %>
       <% end %>
-
-
-      <span class="like-section d-flex align-items-center">
-      <div class="card-body">
-
-
-        <div class="card-footer bg-white border-0 d-flex align-items-center gap-3">
- 
+      <!-- Actions -->
+      <div class="card-footer bg-white border-0 d-flex align-items-center gap-3">
         <div class="action-bubble d-flex align-items-center">
           <%= turbo_frame_tag "like_button_post_#{post.id}" do %>
             <%= render "likes/like_button", post: post %>
@@ -73,50 +61,54 @@
         </div>
 
 
-   
-        <div class="action-bubble d-flex align-items-center comment-toggle" data-post-id="<%= post.id %>">
+        <div class="action-bubble d-flex align-items-center"
+             data-action="click->comments#toggle"
+             data-post-id="<%= post.id %>">
           <i class="fa-regular fa-comment fa-lg"></i>
           <span class="ms-1"><%= post.comments.count %></span>
         </div>
       </div>
 
+      <!-- Commentaires -->
+      <div id="comments-<%= post.id %>" class="d-none mt-3" data-comments-target="comments">
+        <% post.comments.each do |comment| %>
+          <div class="comment-item d-flex gap-2 align-items-start mb-3">
+            <%= render "layouts/avatar",
+              image_url: (url_for(comment.user.avatar) if comment.user.avatar.attached?),
+              initials: user_initials(comment.user),
+              gradient: "gradient-purple-pink",
+              size: "sm" %>
 
-        <div id="comments-<%= post.id %>" class="d-none mt-3">
-          <% post.comments.each do |comment| %>
-            <div class="comment-item d-flex gap-2 align-items-start mb-3">
-              <%= render "layouts/avatar",
-                  image_url: (url_for(comment.user.avatar) if comment.user.avatar.attached?),
-                  initials: user_initials(comment.user),
-                  gradient: "gradient-purple-pink",
-                  size: "sm" %>
-
-              <div class="comment-body flex-grow-1">
-                <div class="comment-header d-flex justify-content-between align-items-baseline">
-                  <div class="comment-username"><%= comment.user.respond_to?(:display_name) ? comment.user.display_name : comment.user.first_name %></div>
-                  <div class="comment-date"><%= smart_post_date(comment.created_at) %></div>
+            <div class="comment-body flex-grow-1">
+              <div class="comment-header d-flex justify-content-between align-items-baseline">
+                <div class="comment-username">
+                  <%= comment.user.respond_to?(:display_name) ? comment.user.display_name : comment.user.first_name %>
                 </div>
-                <div class="comment-text"><%= comment.content_text %></div>
+                <div class="comment-date"><%= smart_post_date(comment.created_at) %></div>
               </div>
-
-              <% if comment.user == current_user %>
-                <%= button_to post_comment_path(post, comment),
-                              method: :delete,
-                              class: "comment-delete btn btn-link p-0 ms-2 text-danger",
-                              data: { turbo_confirm: "Supprimer ce commentaire ?" } do %>
-                  <i class="fa-solid fa-trash"></i>
-                <% end %>
-              <% end %>
+              <div class="comment-text"><%= comment.content_text %></div>
             </div>
-          <% end %>
 
-          <!-- Formulaire commentaire -->
-          <%= form_with model: [post, Comment.new], local: true, class: "comment-form d-flex align-items-center mt-2 w-100" do |form| %>
-            <%= form.text_field :content_text, placeholder: "Ajouter un commentaire...",
-                                class: "comment-input form-control" %>
-            <%= form.submit "Publier", class: "comment-submit" %>
-          <% end %>
-        </div>
+            <% if comment.user == current_user %>
+              <%= button_to post_comment_path(post, comment),
+                            method: :delete,
+                            class: "comment-delete btn btn-link p-0 ms-2 text-danger",
+                            data: { turbo_confirm: "Supprimer ce commentaire ?" } do %>
+                <i class="fa-solid fa-trash"></i>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
 
+        <!-- Formulaire commentaire -->
+        <%= form_with model: [post, Comment.new],
+                      local: true,
+                      class: "comment-form d-flex align-items-center mt-2 w-100" do |form| %>
+          <%= form.text_field :content_text,
+                              placeholder: "Ajouter un commentaire...",
+                              class: "comment-input form-control" %>
+          <%= form.submit "Publier", class: "comment-submit" %>
+        <% end %>
       </div>
     </div>
   <% end %>

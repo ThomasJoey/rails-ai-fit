@@ -1,0 +1,122 @@
+/* === Animations === */
+
+@keyframes float {
+  0%   { transform: translateY(2px); opacity: 1; }
+  50%  { transform: translateY(-4px); opacity: 0.9; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes rotate-self {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* === Modale === */
+
+.fit-modal-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+  background: #f8f8f8;
+
+  // Option overlay si besoin
+  // position: fixed;
+  // top: 0; left: 0;
+  // width: 100%; height: 100vh;
+  // background: rgba(0, 0, 0, 0.3);
+  // z-index: 9999;
+
+  .fit-card {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2rem 1.5rem;
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 0.5s ease-out;
+
+    .fit-illustration {
+      margin-bottom: 1.5rem;
+
+      .fit-svg {
+        width: 220px;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+    }
+
+    .fit-text {
+      .fit-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #111;
+        margin-bottom: 0.5rem;
+      }
+
+      .fit-subtitle {
+        font-size: 1rem;
+        color: #666;
+        margin-bottom: 2rem;
+      }
+    }
+
+    .fit-button-container {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+
+/* === SVG ciblage === */
+
+#star-orange-1,
+#star-pink-1,
+#star-pink-2,
+#star-pink-3 {
+  animation: float 3s ease-in-out infinite;
+}
+
+#circle-blue,
+#circle-blue_2,
+#circle-blue_3,
+#circle-pink {
+  animation: float 3s ease-in-out infinite;
+}
+
+#star-orange-2 {
+  transform-origin: 70.08px 69px;
+  animation: rotate-self 9s linear infinite;
+}
+
+#rectangle-purple {
+  transform-origin: 204.08px 56.22px;
+  animation: rotate-self 9s linear infinite;
+}
+
+#rectangle-green {
+  transform-origin: 119.58px 80.22px;
+  animation: rotate-self 9s linear infinite;
+}
+
+#star-green {
+  transform-origin: 223.08px 114.72px;
+  animation: rotate-self 6s linear infinite;
+}

@@ -1,4 +1,4 @@
-<div class="matches-container" data-controller="swipe">
+<div class="matches-container" data-controller="swipe" data-swipe-user-value="<%=current_user.id%>">
   <% @potential_matches.each do |u| %>
     <div class="profile-card"
          data-controller="popup"
@@ -37,13 +37,9 @@
 
       <!-- Boutons Like / Dislike -->
       <div class="actions">
-        <button class="btn dislike-btn" data-action="click->popup#stop"><i class="fa-solid fa-circle-xmark"></i></button>
-        <button class="btn like-btn" data-action="click->popup#stop"><i class="fa-solid fa-circle-check"></i></button>
-      </div>
+        <button class="btn dislike-btn" data-action="click->popup#stop click->swipe#dislike"><i class="fa-solid fa-circle-xmark"></i></button>
+        <button class="btn like-btn" data-action="click->popup#stop click->swipe#like"><i class="fa-solid fa-circle-check"></i></button>
 
-      <!-- mini-aperçu -->
-      <div class="profile-overlay">
-        <h2><%= u.first_name %> <%= u.last_name %></h2>
       </div>
 
       <!-- Popup -->

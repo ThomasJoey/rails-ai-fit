@@ -9,7 +9,7 @@ class Conversation < ApplicationRecord
     Generate a short, descriptive, 3-to-6-word title that summarizes the user question for a chat conversation.
   PROMPT
 
-  scope :between, ->(u1, u2) {
+  scope :between, lambda { |u1, u2|
     where(
       "(user_id = :u1 AND second_user_id = :u2) OR (user_id = :u2 AND second_user_id = :u1)",
       u1: u1.id,
@@ -67,7 +67,7 @@ class Conversation < ApplicationRecord
     day_words = %w[aujourd'hui demain lundi mardi mercredi jeudi vendredi samedi dimanche]
     day_word_present = day_words.any? { |w| content.include?(w) }
 
-    numeric_date_regex = /\b\d{1,2}\s*\/\s*\d{1,2}(?:\s*\/\s*\d{2,4})?\b/
+    numeric_date_regex = %r{\b\d{1,2}\s*/\s*\d{1,2}(?:\s*/\s*\d{2,4})?\b}
     month_words_regex = /(janv|févr|fevr|mars|avr|mai|juin|juil|août|aout|sept|oct|nov|déc|dec)/
 
     has_time = content.match?(time_regex)
@@ -83,5 +83,4 @@ class Conversation < ApplicationRecord
       u2: user2.id
     )
   end
-
 end

@@ -1,0 +1,26 @@
+<%= turbo_stream.replace dom_id(@event, :participation_button) do %>
+  <%= turbo_frame_tag dom_id(@event, :participation_button) do %>
+    <% if current_user.events.include?(@event) %>
+      <%= button_to "Inscrit ✅",
+                    event_participation_path(current_user.event_participations.find_by(event: @event)),
+                    method: :delete,
+                    class: "btn btn-success btn-join" %>
+    <% else %>
+      <%= button_to "S'inscrire",
+                    event_event_participations_path(@event),
+                    method: :post,
+                    class: "btn btn-outline-primary btn-join" %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.replace "signup-popup" do %>
+  <div id="signup-popup" class="popup-overlay" data-events-target="popup">
+    <div class="popup">
+      <h3>✅ Inscription réussie</h3>
+      <p>Vous êtes bien inscrit à l’événement.<br>
+         Si l’activité est payante, pensez à venir avec un moyen de paiement 💳.</p>
+      <button class="btn-close" data-action="click->events#closePopup">X</button>
+    </div>
+  </div>
+<% end %>

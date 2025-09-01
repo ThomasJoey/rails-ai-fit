@@ -1,27 +1,20 @@
 <!-- app/views/profiles/show.html.erb -->
-<div class="container py-5 profile-page">
-<% if @user == current_user %>
-  <h1>Mon Profil</h1>
-  <% end %>
 
+<% content_for :page_title do %>
+  <% if @user == current_user %>
+    Mon profil
+  <% else %>
+    Profil de <%= @user.first_name %>
+  <% end %>
+<% end %>
+
+<% content_for :header do %>
+  <%= render 'layouts/topbar_header' %>
+<% end %>
+
+<div class="container py-5 profile-page">
   <%= render "layouts/profile_card", user: @user, conversation: @conversation, enableMessage: true, validPlace: false %>
 </div>
 
-  <h2>📅 Mes événements</h2>
-  <!-- ta liste des events ici -->
-  <% if @events.any? %>
-    <ul class="list-group">
-      <% @events.each do |event| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <div>
-            <strong><%= event.title %></strong><br>
-            <small class="text-muted"><%= event.location %> — <%= l(event.starts_at, format: :long) %></small>
-          </div>
-          <%= link_to "Voir", event_path(event), class: "btn btn-sm btn-outline-primary" %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p class="text-muted">Tu ne participes encore à aucun événement.</p>
-  <% end %>
+  
 </div>

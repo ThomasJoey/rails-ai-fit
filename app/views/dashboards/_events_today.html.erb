@@ -13,11 +13,10 @@
             <%= event.location %> — <%= l(event.starts_at, format: :long) %>
           </div>
         </div>
-        <%= link_to "Voir", event_path(event), class: "event-link" %>
+        <%= link_to "Voir", events_path, class: "event-link" %>
       </div>
     <% end %>
   </div>
 <% else %>
   <p class="text-muted">Tu ne participes encore à aucun événement.</p>
 <% end %>
-
