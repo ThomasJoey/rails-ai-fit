@@ -24,12 +24,33 @@ class MatchesController < ApplicationController
     end
 
     # 6) Limite finale
-    @potential_matches = scope.limit(10)
+    @potential_matches = scope - current_user.matched_users
   end
 
-  def create
-    @matcher_id = current_user
-    
 
+
+  def create
+    user = current_user
+    other = User.find(params[:matched_id])
+    decision = params[:status]
+
+
+    # 1) Enregistrer/mettre à jour MON vote A->B
+    match = Match.where(matcher_id: current_user.id, matched_id: other.id).or(Match.where(matcher_id: other.id, matched_id: current_user.id)).first
+    if match
+      match.status == "pending" && decision == "pending" ? match.update(status: "accepted") : match.update(status: "declined")
+    else
+      match = Match.new(matcher: current_user, matched: other, status: decision)
+    end
+    match.save!
+
+    render json: { ok: true, id: match.id }, status: :created
+  end
+
+  private
+
+
+  def match_params
+    params.require(:match).permit(:matched_id, :matcher_id, :status)
   end
 end

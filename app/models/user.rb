@@ -25,7 +25,14 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_neighbors :embedding
   after_save :set_embedding, if: :embedding_relevant_changes?
-  has_many :matches
+  has_many :matches_as_matcher,
+           class_name: "Match",
+           foreign_key: :matcher_id
+  has_many :matches_as_matched,
+           class_name: "Match",
+           foreign_key: :matched_id
+
+    has_many :matched_users, through: :matches_as_matcher, source: :matched
 
   # Geocoding
   geocoded_by :location
