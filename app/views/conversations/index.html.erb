@@ -14,15 +14,12 @@
 <div class="conversations-index">
   <div class="infos-card-wrapper">
 
-    <%= button_to events_path,
-                  method: :post,
-                  form: { data: { turbo: false } },
-                  class: "p-0 border-0 bg-transparent w-100 text-start" do %>
+    <%= link_to events_path, class: "p-0 border-0 bg-transparent w-100 text-start text-decoration-none" do %>
 
       <%= render "layouts/infos_card",
           title: "Retrouves les evènements",
           description: "Consulte par ici toutes les prochaines sessions et rejoins celles qui t’intéressent !",
-          icon: content_tag(:i, "", class: "fa-solid fa-bolt-lightning"),
+          icon: content_tag(:i, "", class: "fa-solid fa-hands-clapping"),
           bg: "rgba(245, 235, 255, 1)",
           border_gradient: "linear-gradient(90deg, rgba(167, 79, 255, 0.35), rgba(22, 110, 253, 0.35))",
           icon_gradient: "linear-gradient(135deg, rgba(167, 79, 255, 1), rgba(22, 110, 253, 1))"
