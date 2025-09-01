@@ -11,3 +11,13 @@
 
 - Coté messages controller, dans le message de l'assistant, en tant que message.content, enregistrer non pas tout le json mais uniquement le contenu de la clef "reply"
 - Dans la show de la convo, afficher les events associes a un message
+
+
+
+THOMAS:
+
+FAIRE UNE SEED AVEC DES EVENTS
+ITERER SUR LES EVENTS
+ET TOUT VA MARCHER
+
+COMME PAR MAGIE

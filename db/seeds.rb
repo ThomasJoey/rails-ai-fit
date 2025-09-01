@@ -215,42 +215,68 @@ user: user2,
  }
 ])
 
-puts "Start creation of events"
-Event.create!([
- {
-  title: "Tennis à 10",
-  description: "Participez à une course conviviale de 5 km pour tous les niveaux, idéale pour rencontrer d'autres passionnés de course à pied.",
-  starts_at: Time.zone.parse("2025-08-22 10:00"),
-  ends_at: Time.zone.parse("2025-08-22 12:00"),
-  location: "Parc Central, Paris",
-  user: User.all.sample
- }
-])
+puts "🗑️ Suppression des anciens événements..."
+Event.destroy_all
 
-Event.create!(
-  title: "HIIT Cardio",
-  starts_at: Time.zone.parse("2025-08-27 08:30"),
-  ends_at: Time.zone.parse("2025-08-27 09:30"),
-  location: "Salle A, Studio 1",
-  user: user1
-)
+puts "🌱 Création des événements..."
 
-Event.create!(
-  title: "Yoga Flow",
-  starts_at: Time.zone.parse("2025-08-27 10:30"),
-  ends_at: Time.zone.parse("2025-08-27 11:30"),
-  location: "Salle B, Studio 2",
-  user: user1
-)
+events = [
+  {
+    title: "Tennis en double",
+    description: "Match de tennis en double pour améliorer votre jeu",
+    location: "Parc Central, Paris",
+    starts_at: Time.zone.now.change(hour: 10, min: 0),
+    user: user1
+  },
+  {
+    title: "Session running matinale",
+    description: "Course en groupe pour commencer la journée en forme",
+    location: "Bois de Boulogne",
+    starts_at: 1.day.from_now.change(hour: 7, min: 0),
+    user: user1
+  },
+  {
+    title: "Yoga Sunrise",
+    description: "Séance de yoga au lever du soleil face à la Seine",
+    location: "Berges de Seine",
+    starts_at: Date.today.next_occurring(:saturday).to_time.change(hour: 6, min: 30),
+    user: user1
+  },
+  {
+    title: "Sortie cyclisme",
+    description: "Balade sportive en groupe dans la vallée de Chevreuse",
+    location: "Gare Montparnasse",
+    starts_at: Date.today.next_occurring(:sunday).to_time.change(hour: 9, min: 0),
+    user: user1
+  },
+  {
+    title: "CrossFit Challenge",
+    description: "Séance intense de CrossFit avec coach certifié",
+    location: "Salle FitFactory",
+    starts_at: Date.today.next_occurring(:monday).to_time.change(hour: 18, min: 0),
+    user: user1
+  },
+  {
+    title: "Randonnée Montagne",
+    description: "Marche en groupe dans les sentiers de Fontainebleau",
+    location: "Gare de Fontainebleau",
+    starts_at: Date.today.next_occurring(:tuesday).to_time.change(hour: 10, min: 0),
+    user: user1
+  },
+  {
+    title: "Entraînement Natation",
+    description: "Session d’endurance et technique en piscine olympique",
+    location: "Piscine Georges Vallerey",
+    starts_at: Date.today.next_occurring(:wednesday).to_time.change(hour: 19, min: 0),
+    user: user1
+  }
+]
 
-Event.create!(
-  title: "Musculation",
-  starts_at: Time.zone.parse("2025-08-27 14:15"),
-  ends_at: Time.zone.parse("2025-08-27 15:45"),
-  location: "Salle C, Poids libres",
-  user: user1
-)
+events.each do |attrs|
+  Event.create!(attrs)
+end
 
-puts "event has been created"
+puts "✅ #{Event.count} événements créés !"
+
 
 puts "Seed terminée ✅"
