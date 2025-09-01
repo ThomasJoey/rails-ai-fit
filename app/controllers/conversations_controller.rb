@@ -22,7 +22,7 @@ class ConversationsController < ApplicationController
 
   def search
     @users = User.all
-    
+
 
     return unless params[:query].present?
 
