@@ -1,0 +1,462 @@
+.onboarding-container {
+  overflow: hidden;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+
+  .progress-bar {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    .progress-step {
+      width: 60px;
+      height: 4px;
+      background: rgba(255, 255, 255, 1);
+      border-radius: 2px;
+
+      &.active {
+        background: linear-gradient(75deg, #166EFD, #A74FFF);
+      }
+    }
+  }
+
+  .skip-btn {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    background: transparent;
+    border: none;
+    color: #666;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+      color: #333;
+    }
+  }
+
+  .age-content {
+    background: white;
+    border-radius: 30px;
+    padding: 60px 40px 40px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    position: relative;
+
+    .cake-icon {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 95px;
+      height: 95px;
+      background: linear-gradient(75deg, #166EFD, #A74FFF);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 45px;
+    }
+
+    .age-title {
+      font-size: 28px;
+      font-weight: 600;
+      color: #333;
+      margin: 20px 0 20px;
+    }
+
+    .age-subtitle {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .age-description {
+      font-size: 14px;
+      color: #7b68ee;
+      margin-bottom: 20px;
+
+      em {
+        font-style: italic;
+      }
+    }
+
+    .age-selector {
+      margin-bottom: 25px;
+
+      .age-display {
+        margin-bottom: 30px;
+
+        .age-number {
+          font-size: 72px;
+          font-weight: 300;
+          color: #7b68ee;
+          display: block;
+          line-height: 1;
+        }
+
+        .age-label {
+          font-size: 18px;
+          color: #666;
+          margin-top: 10px;
+          display: block;
+        }
+      }
+
+      .slider-container {
+        margin: 30px 0;
+        position: relative;
+
+        .age-slider {
+          width: 100%;
+          height: 6px;
+          background: #e0e0e0;
+          border-radius: 3px;
+          outline: none;
+          -webkit-appearance: none;
+          margin: 20px 0;
+
+          &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(75deg, #166EFD, #A74FFF);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+          }
+
+          &::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(75deg, #166EFD, #A74FFF);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+          }
+        }
+
+        .slider-labels {
+          display: flex;
+          justify-content: space-between;
+          font-size: 14px;
+          color: #999;
+          margin-top: 10px;
+        }
+      }
+
+      .generation-labels {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        margin-top: 20px;
+
+        .generation-label {
+          background: #f0f0f0;
+          color: #666;
+          padding: 8px 16px;
+          border-radius: 20px;
+          font-size: 14px;
+          transition: all 0.3s ease;
+
+          &.active {
+            background: linear-gradient(75deg, #166EFD, #A74FFF);
+            color: white;
+          }
+        }
+      }
+    }
+
+    .continue-btn {
+      width: 100%;
+      background: linear-gradient(75deg, #166EFD, #A74FFF);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 16px 32px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(22, 110, 253, 0.3);
+      }
+    }
+  }
+
+  .buttons-container {
+    display: flex;
+    gap: 15px;
+  }
+
+  .btn-custom {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-back {
+    background: #f3f4f6;
+    color: #6b7280;
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    padding: 20px 15px;
+
+    .age-content {
+      padding: 50px 30px 30px;
+      margin-top: 60px;
+    }
+
+    .progress-bar {
+      top: 20px;
+    }
+
+    .skip-btn {
+      top: 20px;
+      right: 20px;
+    }
+  }
+}
+
+//
+
+.sports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.sport-item {
+  position: relative;
+}
+
+.sport-item input[type="checkbox"] {
+  display: none;
+}
+
+.sport-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  border: 2px solid #f0f0f0;
+  border-radius: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: white;
+  margin: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  min-height: 120px;
+}
+
+.sport-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.sport-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.sport-label:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  border-color: #667eea;
+}
+
+.sport-item input[type="checkbox"]:checked + .sport-label {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.selection-counter {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .sports-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .sport-label {
+    padding: 1rem 0.5rem;
+    font-size: 0.9rem;
+    min-height: 100px;
+  }
+
+  .sport-icon {
+    font-size: 2rem;
+  }
+
+  .sport-name {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .sports-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sport-label {
+    padding: 0.75rem 0.25rem;
+    min-height: 90px;
+  }
+
+  .sport-icon {
+    font-size: 1.8rem;
+  }
+
+  .sport-name {
+    font-size: 0.75rem;
+  }
+}
+
+//
+
+.form-label-custom {
+    color: #4b5563;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.bio-textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px;
+    border: 2px solid #f3f4f6;
+    border-radius: 15px;
+    font-size: 15px;
+    resize: none;
+    transition: all 0.3s ease;
+    background: #fafafa;
+    line-height: 1.6;
+}
+
+.bio-textarea:focus {
+    outline: none;
+    border-color: #a855f7;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.1);
+}
+
+.bio-textarea::placeholder {
+    color: #9ca3af;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.character-counter {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+.character-counter .count {
+    color: #a855f7;
+    font-weight: 600;
+}
+
+.inspiration-section {
+    background: #fef3c7;
+    border-radius: 15px;
+    padding: 15px;
+    margin: 25px 0;
+    border-left: 4px solid #fbbf24;
+}
+
+.inspiration-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #92400e;
+}
+
+.inspiration-example {
+    background: white;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #4b5563;
+    line-height: 1.5;
+}
+
+.pro-tip {
+    background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.pro-tip::before {
+    content: '✨';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 80px;
+    opacity: 0.1;
+}
+
+.pro-tip-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #92400e;
+}
+
+.pro-tip-content {
+    font-size: 14px;
+    color: #78350f;
+    line-height: 1.5;
+}
+
+.btn-back:hover {
+    background: #e5e7eb;
+    transform: translateY(-2px);
+}

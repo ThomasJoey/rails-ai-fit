@@ -19,11 +19,13 @@
   </head>
 
   <body class="<%= body_class_for_page %>">
-    <!-- Header (topbar ou home_header) -->
-    <%= content_for?(:header) ? yield(:header) : render("layouts/topbar_header") %>
+    <% unless controller_name == "onboarding" %>
+      <!-- Header (topbar ou home_header) -->
+      <%= content_for?(:header) ? yield(:header) : render("layouts/topbar_header") %>
+    <% end %>
 
     <!-- Navbar (hors Devise) -->
-    <% unless devise_controller? || (defined?(controller_name) && controller_name == 'conversations' && action_name == 'show') %>
+    <% unless devise_controller? || (defined?(controller_name) && controller_name == 'conversations' && action_name == 'show') || controller_name == "onboarding" %>
       <%= render "layouts/navbar" %>
     <% end %>
 

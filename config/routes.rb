@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: "users/registrations"
+  }
+
   root to: "posts#index"
+
+  resources :onboarding, only: [:show, :update]
   get "dashboard", to: "dashboards#index"
   get "dashboard/search", to: "dashboards#search", as: :dashboard_search
 
