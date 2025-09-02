@@ -1,0 +1,168 @@
+// SIGNUP PAGE STYLES
+body.devise-passwords-new, body.devise-passwords-create {
+  .login-container {
+    background: rgb(255, 255, 255);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.1),
+      0 0 50px rgba(47, 0, 255, 0.1);
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: slideIn 0.6s ease-out;
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  h2 {
+    color: rgb(47, 0, 255);
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+    background: linear-gradient(45deg, rgb(47, 0, 255), #00d4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+  }
+
+  .form-inputs {
+    margin-bottom: 30px;
+    text-align: left;
+
+    .input {
+      margin-bottom: 25px;
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 600;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 15px 20px;
+        border: 2px solid #e1e1e1;
+        border-radius: 12px;
+        font-size: 16px;
+        background: #fafafa;
+        transition: all 0.3s ease;
+        outline: none;
+
+        &:focus {
+          border-color: rgb(47, 0, 255);
+          background: white;
+          box-shadow: 0 0 0 3px rgba(47, 0, 255, 0.1);
+          transform: translateY(-2px);
+        }
+
+        &::placeholder {
+          color: #999;
+        }
+      }
+
+      &.boolean {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 25px;
+
+        input[type="checkbox"] {
+          width: 20px;
+          height: 20px;
+          accent-color: rgb(47, 0, 255);
+        }
+
+        label {
+          color: #666;
+          font-size: 14px;
+          margin: 0;
+          text-transform: none;
+          letter-spacing: normal;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+
+  .form-actions {
+    margin-bottom: 30px;
+
+    .btn,
+    input[type="submit"] {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(45deg, rgb(47, 0, 255), #00d4ff);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(47, 0, 255, 0.3);
+        background: linear-gradient(45deg, #3d00cc, #00a8cc);
+      }
+
+      &:active {
+        transform: translateY(-1px);
+      }
+    }
+  }
+
+  .shared-links {
+    text-align: center;
+
+    a {
+      color: rgb(47, 0, 255);
+      text-decoration: none;
+      font-size: 14px;
+      margin: 0 10px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: #00d4ff;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  // Responsive Design
+  @media (max-width: 480px) {
+    .devise-content {
+      padding: 20px 10px;
+    }
+
+    .login-container {
+      padding: 30px 25px;
+      margin: 10px 0;
+    }
+
+    h2 {
+      font-size: 2em;
+    }
+  }
+}
