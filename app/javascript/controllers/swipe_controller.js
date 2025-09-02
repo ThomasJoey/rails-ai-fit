@@ -35,12 +35,10 @@ export default class extends Controller {
       this.currentCard.style.transform = "translateX(150%) rotate(15deg)"
       this.currentCard.style.opacity = 0
       this.#handleMatch(offsetX, matchedUser)
-
     } else if (offsetX < -100) {
       this.currentCard.style.transform = "translateX(-150%) rotate(-15deg)"
       this.currentCard.style.opacity = 0
       this.#handleMatch(offsetX, matchedUser)
-
     } else {
       this.currentCard.style.transform = ""
     }
