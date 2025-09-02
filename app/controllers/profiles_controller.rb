@@ -14,11 +14,12 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    redirect_to profile_path(@user) if @user != current_user
-
+    @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to profile_path(@user), notice: "Profil mis à jour avec succès!"
+      redirect_to profile_path(@user), notice: "Profil mis à jour"
     else
+      # Force l’avatar précédent pour éviter les erreurs de preview sur les blobs temporaires
+      @user.avatar = @user.avatar.attachment&.blob
       render :edit, status: :unprocessable_entity
     end
   end

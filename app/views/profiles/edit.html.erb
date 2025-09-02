@@ -25,7 +25,7 @@
               <!-- Aperçu de l'avatar actuel avec overlay -->
               <div class="avatar-upload-container mb-3">
                 <%= render "layouts/avatar",
-                  image_url: (url_for(@user.avatar) if @user.avatar.attached?),
+                  image_url: (@user.avatar.attached? && @user.avatar.persisted? ? url_for(@user.avatar) : nil),
                   initials: user_initials(@user),
                   size: "xl",
                   extra_classes: "avatar-preview",
