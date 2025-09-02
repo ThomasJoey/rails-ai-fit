@@ -60,12 +60,15 @@
   <!-- Boutons -->
   <div class="profile-actions d-flex flex-column gap-2">
     <% if user != current_user && enableMessage %>
-      <%= link_to "Envoyer un message", (conversation ? conversation_path(conversation) : conversations_path(second_user_id: user.id)), class: "btn btn-white shadowed" %>
+      <%= link_to (conversation ? conversation_path(conversation) : conversations_path(second_user_id: user.id)),
+                  class: "btn btn-icon shadowed d-flex align-items-center justify-content-center" do %>
+        <i class="fa-solid fa-message"></i>
+      <% end %>
     <% end %>
-
   </div>
 
-  <h2>Mes événements</h2>
+
+  <div class ="title-events">Mes événements</div>
     <% if @events.present? %>
       <ul class="list-group" id="my_events_list">
         <% @events.each do |event| %>
@@ -79,7 +82,7 @@
         <% end %>
       </ul>
     <% else %>
-      <p class="text-muted">Tu ne participes encore à aucun événement.</p>
+      <p class="subtitle-events">Tu ne participes encore à aucun événement.</p>
       <ul class="list-group" id="my_events_list"></ul>
     <% end %>
 </div>

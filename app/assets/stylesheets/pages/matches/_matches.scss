@@ -18,19 +18,22 @@
   border-radius: 18px;
   background-size: cover;
   background-position: center;
-  box-shadow: 0 12px 25px rgba(0,0,0,0.3);
   overflow: hidden;
   transition: transform 0.3s ease, opacity 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  padding : 25px;
-  background-color : rgb(117, 134, 235);
+  padding: 30px;
+  border: solid 5px white;
+  background: rgb(78, 162, 190);
+  box-shadow: 0 4px 12px rgba(78, 162, 190, 0.1);
 }
+
 
 .profile-overlay {
   color: white;
+  width: 100%;
 }
 
 .profile-info {
@@ -54,7 +57,7 @@
   font-size: 0.9rem;
   opacity: 0.9;
   display: flex;
-  align-items: center;
+  align-items: left;
 }
 
 .profile-details p i {
@@ -63,7 +66,9 @@
 
 .sports {
   display: flex;
+  align-items: right;
   gap: 0.4rem;
+  margin-top: 8px;
 }
 
 .sport-tag {

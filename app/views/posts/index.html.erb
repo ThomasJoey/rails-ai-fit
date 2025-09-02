@@ -45,13 +45,13 @@
       </div>
 
       <!-- Body -->
-      <div class="card-body pt-2">
-        <p class="post-text"><%= post.content_text %></p>
-      </div>
 
       <% if post.photo.attached? %>
         <%= image_tag post.photo, class: "post-image", alt: "Image du post" %>
       <% end %>
+      <div class="card-body pt-2">
+        <p class="post-text"><%= post.content_text %></p>
+      </div>
       <!-- Actions -->
       <div class="card-footer bg-white border-0 d-flex align-items-center gap-3">
         <div class="action-bubble d-flex align-items-center">
