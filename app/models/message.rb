@@ -59,4 +59,19 @@ class Message < ApplicationRecord
     - Both arrays ("proposals" and "events") must describe the same one events.
     - The final response must include **only one JSON object** with exactly these two arrays: "proposals" and "events".
   PROMPT
+
+  def ready_for_event_generation?
+    return false unless role == "user"
+
+    content = self.content.to_s.downcase
+
+    sport_keywords = %w[
+      sport courir run course footing entraînement entrainement
+      séance session activité nager natation vélo muscu musculation
+      tennis badminton bad volley volleyball foot football basket basketball
+      escalade yoga rando randonnée padel boxe fitness
+    ]
+
+    sport_keywords.any? { |keyword| content.include?(keyword) }
+  end
 end
