@@ -37,46 +37,6 @@
   }
 }
 
-/* ------------------ 🏷️ Filtres ------------------ */
-.filters {
-  display: flex;
-  gap: 0.6rem;
-  margin-bottom: 1.2rem;
-  overflow-x: auto;
-  padding-bottom: 0.3rem;
-
-  .filter {
-    border: none;
-    background: #f3f4f6;
-    color: #374151;
-    font-size: 0.9rem;
-    padding: 0.4rem 0.9rem;
-    border-radius: 999px;
-    cursor: pointer;
-    white-space: nowrap;
-
-    &.active {
-      background: #000;
-      color: #fff;
-    }
-  }
-    // Animation subtile au survol
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, #0d6efd, #20c997);
-      transition: all 0.3s ease;
-    }
-
-  /* scrollbar invisible */
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
 
 
 /* ------------------ 🗂️ Cartes événements ------------------ */
@@ -183,5 +143,29 @@
       font-size: 0.85rem;
       cursor: pointer;
     }
+
+    .btn-join-inscrit {
+      margin-left: auto; // 👉 bouton collé à droite
+      background: green;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      border: none;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
   }
+}
+
+.title-events {
+    margin : 10px;
+    font-size: 0.875rem; // ≈ 14px
+    font-weight: 600;
+    color: #6b7280; // gris doux
+  }
+.subtitle-events {
+    margin : 10px;
+    font-size: 0.675rem; // ≈ 14px
+    font-weight: 600;
+    color: #6b7280; // gris doux
 }

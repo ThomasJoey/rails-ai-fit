@@ -60,7 +60,7 @@
             <%= button_to "Inscrit ✅",
                           event_participation_path(current_user.event_participations.find_by(event: event)),
                           method: :delete,
-                          class: "btn btn-success btn-join" %>
+                          class: "btn btn-success btn-join-inscrit" %>
           <% else %>
             <%= button_to "S'inscrire",
                           event_event_participations_path(event),
@@ -77,12 +77,19 @@
   <!-- 🌟 Popup global -->
   <div id="signup-popup" class="popup-overlay hidden" data-events-target="popup">
     <div class="popup">
-      <h3>✅ Inscription réussie</h3>
-      <p>Vous êtes bien inscrit…</p>
-      <button class="btn-close" data-action="click->events#closePopup">Fermer</button>
-
+      <div class="popup-header">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <div class="popup-body">
+        <h3>Inscription réussie 🎉</h3>
+        <p>Bienvenue parmi nous ! Vous êtes bien inscrit.</p>
+      </div>
+      <div class="popup-footer">
+        <button class="popup-btn" data-action="click->events#closePopup">
+          <i class="fa-solid fa-arrow-right"></i>
+          <span>Continuer</span>
+        </button>
+      </div>
     </div>
   </div>
-
-
 </div>

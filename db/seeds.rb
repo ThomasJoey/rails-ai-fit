@@ -46,15 +46,18 @@ NAMES = [
   "Sam",
   "Tina"
 ]
-
 def random_address
   url = "https://www.generatormix.com/random-address-in-paris?number=1"
   doc = Nokogiri::HTML(URI.open(url).read)
   selector = 'p.text-left strong:contains("Street:")'
-  doc.css(selector).map do |strong_tag|
-    strong_tag.parent.text.gsub(/Street:/, "").strip
-  end
+
+  strong_tag = doc.at_css(selector)
+  return nil unless strong_tag # sécurité si rien n'est trouvé
+
+  strong_tag.parent.text.gsub(/Street:/, "").strip
 end
+
+
 
 def email_for(name, domain = "example.com")
   normalized = name.downcase
