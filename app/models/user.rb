@@ -32,7 +32,7 @@ class User < ApplicationRecord
            class_name: "Match",
            foreign_key: :matched_id
 
-    has_many :matched_users, through: :matches_as_matcher, source: :matched
+  has_many :matched_users, through: :matches_as_matcher, source: :matched
 
   # Geocoding
   geocoded_by :location

@@ -1,4 +1,5 @@
 puts "Nettoyage de la base..."
+Match.destroy_all
 Conversation.destroy_all
 Event.destroy_all
 User.destroy_all
