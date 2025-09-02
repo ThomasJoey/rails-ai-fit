@@ -41,7 +41,8 @@ body.main-app {
 
   .main-content {
     margin-top: 90px;
-    min-height: calc(100vh - 60px);
+    overflow-x: hidden;
+    max-height: calc(100vh - 60px);
     padding-bottom: 100px; // espace pour la navbar mobile (65px hauteur + 20px offset + marge)
   }
 }
