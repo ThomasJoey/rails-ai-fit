@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  
+
   <div class="post-card">
     <%= render "layouts/new_post" %>
   </div>
@@ -49,8 +49,8 @@
         <p class="post-text"><%= post.content_text %></p>
       </div>
 
-      <% if post.image.attached? %>
-        <%= image_tag post.image, class: "post-image", alt: "Image du post" %>
+      <% if post.photo.attached? %>
+        <%= image_tag post.photo, class: "post-image", alt: "Image du post" %>
       <% end %>
       <!-- Actions -->
       <div class="card-footer bg-white border-0 d-flex align-items-center gap-3">
