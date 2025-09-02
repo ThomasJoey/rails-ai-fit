@@ -61,3 +61,213 @@ body.devise-controller {
     padding: 20px;
   }
 }
+
+
+/* Barre de retour */
+
+.back-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #6c63ff;
+  font-weight: 500;
+  margin-right: 20px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.back-link:hover {
+  background-color: rgba(108, 99, 255, 0.1);
+  text-decoration: none;
+  color: #5a52d5;
+}
+
+.back-link i {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.page-title {
+  margin: 0;
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* Ajustements pour mobile */
+@media (max-width: 768px) {
+  .back-bar {
+    padding: 10px 0;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .back-link span {
+    font-size: 14px;
+  }
+}
+
+/* ===== FORMULAIRE MOT DE PASSE OUBLIÉ ===== */
+
+/* Container principal */
+.forgot-password-container {
+  background: white;
+  border-radius: 24px;
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Logo FitBuddy */
+.logo {
+  margin-bottom: 50px;
+}
+
+.logo-text {
+  font-size: 48px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -2px;
+}
+
+/* Groupes de formulaire */
+.form-group {
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+/* Labels */
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Champs de saisie */
+.form-input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid #E5E7EB;
+  border-radius: 12px;
+  font-size: 16px;
+  background-color: #f8f9fa;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: #667eea;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-input::placeholder {
+  color: #9CA3AF;
+}
+
+/* Bouton de soumission */
+.submit-btn {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 32px 0;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  background: linear-gradient(135deg, #5a67d8 0%, #6b5b95 100%);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Liens du footer */
+.footer-links {
+  margin-top: 30px;
+}
+
+.footer-links a {
+  color: #667eea;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #5a67d8;
+  text-decoration: underline;
+}
+
+.footer-links .secondary-link {
+  margin-top: 12px;
+  display: block;
+}
+
+/* Messages d'erreur */
+.alert {
+  background-color: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #DC2626;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+/* Style pour Simple Form */
+.forgot-password-form .form-group .form-control {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid #E5E7EB;
+  border-radius: 12px;
+  font-size: 16px;
+  background-color: #f8f9fa;
+}
+
+/* Supprime les styles par défaut de Simple Form */
+.forgot-password-form .form-group {
+  margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .forgot-password-container {
+    padding: 32px 24px;
+    margin: 10px;
+  }
+
+  .logo-text {
+    font-size: 40px;
+  }
+
+  .form-input {
+    padding: 14px 16px;
+  }
+
+  .submit-btn {
+    padding: 16px;
+    font-size: 16px;
+  }
+}
