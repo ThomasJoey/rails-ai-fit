@@ -38,6 +38,9 @@ gem "devise"
 
 gem "cloudinary"
 
+gem "faker"
+
+
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
@@ -59,6 +62,8 @@ gem 'geocoder'
 gem 'neighbor'
 gem 'wicked'
 gem 'inline_svg'
+
+gem "open-uri"
 
 group :development, :test do
   gem "dotenv-rails"

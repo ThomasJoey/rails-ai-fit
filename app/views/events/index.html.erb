@@ -35,12 +35,24 @@
           <h3><%= event.title %></h3>
         </div>
       </div>
-
       <p class="event-desc"><%= event.description %></p>
-      <ul class="event-info">
-        <li>📅 <%= l(event.starts_at, format: :long) %></li>
-        <li>📍 <%= event.location %></li>
+      <ul class="event-info list-unstyled">
+        <li class="d-flex align-items-center">
+          📅 <span class="ms-2"><%= l(event.starts_at, format: :long) %></span>
+        </li>
+        <li class="d-flex align-items-center">
+          📍 <span class="ms-2"><%= event.location %></span>
+        </li>
+        <li class="d-flex align-items-center">
+          <i class="fa-solid fa-users me-2 text-secondary"></i>
+          <span>Participants : <%= ["3", "5", "8", "10"].sample %></span>
+        </li>
+        <li class="d-flex align-items-center">
+          <i class="fa-solid fa-signal me-2 text-secondary"></i>
+          <span>Niveau : <%= ["débutant", "intermédiaire", "avancé"].sample %></span>
+        </li>
       </ul>
+
 
       <div class="event-footer">
         <%= turbo_frame_tag dom_id(event, :participation_button) do %>

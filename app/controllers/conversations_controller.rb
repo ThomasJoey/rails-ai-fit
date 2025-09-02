@@ -18,17 +18,16 @@ class ConversationsController < ApplicationController
   end
 
   def new
-    @users = User.all
+    @users = current_user.matched_users
     @conversation = Conversation.new
   end
 
   def search
     @users = User.all
 
-
     return unless params[:query].present?
 
-    @users = User.where("first_name ILIKE :q OR last_name ILIKE :q", q: "%#{params[:query]}%")
+    @users = @users.where("first_name ILIKE :q OR last_name ILIKE :q", q: "%#{params[:query]}%")
 
     return unless turbo_frame_request?
 

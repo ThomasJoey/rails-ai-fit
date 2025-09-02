@@ -1,0 +1,24 @@
+<div class="its-a-match-popup" data-controller="match-popup" data-match-popup-auto-close-value="true">
+  <div class="popup-box">
+    <h3>It’s a match 🎉</h3>
+    <p>
+      Vous et
+      <strong>
+        <%= match.matcher.first_name %> <%= match.matcher.last_name %>
+      </strong>
+      vous êtes likés !
+    </p>
+    <div class="actions">
+      <button class="btn" data-action="click->match-popup#close">OK</button>
+      <%= link_to "Démarrer une conversation",
+                  new_conversation_path(user_id: match.matcher_id),
+                  class: "btn btn-primary",
+                  data: { action: "click->match-popup#close" } %>
+    </div>
+  </div>
+</div>
+
+<style>
+.its-a-match-popup {
+  position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+
