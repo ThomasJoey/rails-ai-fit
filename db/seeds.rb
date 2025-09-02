@@ -102,9 +102,9 @@ users = NAMES.map do |name|
     last_name: Faker::Name.last_name,
     city: "Paris",
     role: "",
-    sports: get_random_sports(number: 3), # ou un tableau fixe si tu veux
-    age_range: ["18-25", "26-35", "36-45", "46-55"].sample,
-    location: random_address
+    sports: ["vélo"] + (SPORTS - ["vélo"]).sample(2), # toujours vélo + 2 autres
+    age_range: "18-25",
+    location: "Paris"
   )
 end
 puts "✅ #{users.count} utilisateurs créés"
