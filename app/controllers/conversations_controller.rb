@@ -7,6 +7,8 @@ class ConversationsController < ApplicationController
 
   def show
     @conversations = Conversation.all.order(created_at: :desc)
+    @sport_will = user_intent
+
 
     if @conversation.ai_chat?
       @message = Message.new
@@ -97,6 +99,16 @@ class ConversationsController < ApplicationController
 
       redirect_to @conversation, alert: "⚠️ L'IA n'a pas renvoyé un JSON valide. Réponse affichée telle quelle."
     end
+  end
+
+  def event_button
+    @conversation = Conversation.find(params[:id])
+    @last_user_message = @conversation.messages.where(role: "user").order(:created_at).last
+
+    render partial: "conversations/event_button", locals: {
+      conversation: @conversation,
+      last_user_message: @last_user_message
+    }
   end
 
   private

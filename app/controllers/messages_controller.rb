@@ -6,6 +6,7 @@ class MessagesController < ApplicationController
     @message = @conversation.messages.new(message_params)
     @message.role = "user"
     @message.user = current_user
+    @sport_will = user_intent
 
     if @message.save
       # Génère un titre si c’est le premier message
@@ -73,7 +74,7 @@ class MessagesController < ApplicationController
   end
 
   private
-
+  
   def set_conversation
     @conversation = Conversation.find(params[:conversation_id])
     # conversation_message_path	GET	/conversations/:conversation_id/messages/:id(.:format)

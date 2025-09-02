@@ -1,7 +1,9 @@
 puts "Nettoyage de la base..."
 Conversation.destroy_all
 Event.destroy_all
+Match.destroy_all
 User.destroy_all
+
 
 puts "Création des utilisateurs..."
 # db/seeds.rb

@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     collection do
       get :search
     end
-    post :create_events, on: :member   # ✅ ton bouton "✨ Générer 3 événements" utilisera ça
+    post :create_events, on: :member  # ✅ ton bouton "✨ Générer 3 événements" utilisera ça
     resources :messages, only: [:create]
     resources :message_users, only: [:create]
   end
