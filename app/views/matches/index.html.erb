@@ -63,3 +63,7 @@
     </div>
   <% end %>
 </div>
+<%= turbo_stream_from "user_#{current_user.id}" %>
+
+<div id="match-flash-stream">
+</div> <!-- cible où on injecte les popups -->

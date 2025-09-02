@@ -1,3 +1,4 @@
+
 # db/seeds.rb
 require "faker"
 require "open-uri"

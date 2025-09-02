@@ -65,5 +65,4 @@ module ApplicationHelper
   #   index = sport.hash % styles.size
   #   styles[index]
   # end
-
 end
