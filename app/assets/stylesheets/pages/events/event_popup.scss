@@ -1,51 +1,111 @@
-/* Fond sombre transparent */
+/* Overlay */
 .popup-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 50;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
 }
 
-/* Contenu de la popup */
+/* Popup box */
 .popup {
-  background: #fff;
-  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
   padding: 2rem;
-  width: 90%;
   max-width: 400px;
+  width: 90%;
   text-align: center;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-  animation: popup-appear 0.3s ease-out;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  animation: popup-scale 0.3s ease;
+  position: relative;
 }
 
-/* Bouton de fermeture */
-.popup .btn-close {
+/* Header avec icône */
+.popup-header i {
+  font-size: 3rem;
+  color: #4CAF50; /* vert succès */
+  margin-bottom: 1rem;
+}
+
+/* Body */
+.popup-body h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  color: #222;
+}
+
+.popup-body p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Footer */
+.popup-footer {
   margin-top: 1.5rem;
-  padding: 0.6rem 1.2rem;
+}
+
+.btn-close {
+  background: linear-gradient(75deg, #166EFD, #A74FFF);
   border: none;
-  border-radius: 0.5rem;
-  background: #2563eb; /* bleu style Tailwind */
-  color: #fff;
-  font-weight: 600;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.popup .btn-close:hover {
-  background: #1d4ed8;
+.btn-close:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(22, 110, 253, 0.3);
 }
 
-/* Animation d'apparition */
-@keyframes popup-appear {
+/* Animation */
+@keyframes popup-scale {
   from {
+    transform: scale(0.8);
     opacity: 0;
-    transform: scale(0.9);
   }
   to {
-    opacity: 1;
     transform: scale(1);
+    opacity: 1;
   }
+}
+
+/* Masqué */
+.hidden {
+  display: none;
+}
+
+.popup-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(75deg, #166EFD, #A74FFF);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(22, 110, 253, 0.25);
+}
+
+.popup-btn i {
+  font-size: 1.2rem;
+}
+
+.popup-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(22, 110, 253, 0.35);
+}
+
+.popup-btn:active {
+  transform: scale(0.97);
 }
