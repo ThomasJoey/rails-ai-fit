@@ -159,3 +159,31 @@
   background: #1d4ed8;
   transform: scale(1.05);
 }
+
+.btn-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: white;
+  color: rgb(35, 34, 34); /* couleur de ton thème */
+  font-size: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(22, 110, 253, 0.3);
+}
+
+.title-events {
+    margin : 10px;
+    font-size: 0.875rem; // ≈ 14px
+    font-weight: 600;
+    color: #6b7280; // gris doux
+  }
+.subtitle-events {
+    margin : 10px;
+    font-size: 0.675rem; // ≈ 14px
+    font-weight: 600;
+    color: #6b7280; // gris doux
+}
