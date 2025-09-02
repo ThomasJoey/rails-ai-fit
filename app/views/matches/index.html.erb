@@ -26,7 +26,6 @@
               </p>
             <% end %>
           </div>
-        </div>
 
           <div class="sports">
             <% u.sports.each do |sport| %>
@@ -38,16 +37,19 @@
 
       <!-- Boutons Like / Dislike -->
       <div class="actions">
-        <button class="btn dislike-btn" data-action="click->popup#stop click->swipe#dislike"><i class="fa-solid fa-circle-xmark"></i></button>
-        <button class="btn like-btn" data-action="click->popup#stop click->swipe#like"><i class="fa-solid fa-circle-check"></i></button>
-
+        <button class="btn dislike-btn" data-action="click->popup#stop click->swipe#dislike">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+        <button class="btn like-btn" data-action="click->popup#stop click->swipe#like">
+          <i class="fa-solid fa-circle-check"></i>
+        </button>
       </div>
 
       <!-- Popup -->
       <turbo-frame id="profile_popup_<%= u.id %>"
-                  class="profil-popup hidden"
-                  data-popup-target="popup"
-                  data-action="click->popup#close">
+                   class="profil-popup hidden"
+                   data-popup-target="popup"
+                   data-action="click->popup#close">
 
         <div class="popup-content" data-action="click->popup#stop">
           <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-3"

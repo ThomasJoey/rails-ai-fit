@@ -29,18 +29,22 @@ export default class extends Controller {
     if (!this.currentCard) return
     const offsetX = this.getX(event) - this.startX
     this.currentCard.style.transition = "transform 0.3s ease, opacity 0.3s ease"
+    const matchedUser = this.currentCard.dataset.userId;
 
     if (offsetX > 100) {
       this.currentCard.style.transform = "translateX(150%) rotate(15deg)"
       this.currentCard.style.opacity = 0
+      this.#handleMatch(offsetX, matchedUser)
+
     } else if (offsetX < -100) {
       this.currentCard.style.transform = "translateX(-150%) rotate(-15deg)"
       this.currentCard.style.opacity = 0
+      this.#handleMatch(offsetX, matchedUser)
+
     } else {
       this.currentCard.style.transform = ""
     }
-    const matchedUser = this.currentCard.dataset.userId;
-    this.#handleMatch(offsetX, matchedUser)
+
     this.currentCard = null
   }
 

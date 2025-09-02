@@ -2,11 +2,12 @@
   position: relative;
   width: 100%;
   max-width: 400px;
-  height: 100vh;
+  height: calc(100vh - 250px);
   margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .profile-card {
