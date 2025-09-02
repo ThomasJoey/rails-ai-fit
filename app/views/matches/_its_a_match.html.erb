@@ -1,24 +1,28 @@
-<div class="its-a-match-popup" data-controller="match-popup" data-match-popup-auto-close-value="true">
-  <div class="popup-box">
-    <h3>It’s a match 🎉</h3>
-    <p>
-      Vous et
-      <strong>
-        <%= match.matcher.first_name %> <%= match.matcher.last_name %>
-      </strong>
-      vous êtes likés !
-    </p>
-    <div class="actions">
-      <button class="btn" data-action="click->match-popup#close">OK</button>
-      <%= link_to "Démarrer une conversation",
-                  new_conversation_path(user_id: match.matcher_id),
-                  class: "btn btn-primary",
-                  data: { action: "click->match-popup#close" } %>
+<div class="modal fade fit-modal" id="matchModal" tabindex="-1" aria-labelledby="matchModalLabel" aria-hidden="true" data-controller="auto-open">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content fit-card">
+
+      <!-- Illustration -->
+      <div class="modal-illustration">
+        <%= inline_svg_tag "illustrations/match_anim.svg", class: "svg-illustration" %>
+      </div>
+
+      <!-- Texte -->
+      <div class="fit-text">
+        <h2 class="fit-title">It's a match 🎉</h2>
+        <p class="fit-subtitle">
+          Vous et <strong><%= match.matcher.first_name %></strong> vous êtes likés !
+        </p>
+      </div>
+
+      <!-- Bouton -->
+      <div class="fit-button-container">
+        <%= link_to "Démarrer une conversation",
+                    new_conversation_path(user_id: match.matcher_id),
+                    class: "plus-button btn btn-primary",
+                    data: { turbo_frame: :_top } %>
+      </div>
+
     </div>
   </div>
 </div>
-
-<style>
-.its-a-match-popup {
-  position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
-

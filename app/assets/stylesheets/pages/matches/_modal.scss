@@ -25,64 +25,61 @@
 
 /* === Modale === */
 
-.fit-modal-wrapper {
+/* === Custom Bootstrap Modal (Match) === */
+.fit-modal .modal-content.fit-card {
+  border-radius: 1.5rem;
+  border: none;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.35s ease-out;
+}
+
+/* Illustration */
+.fit-modal .modal-illustration {
+  margin-bottom: 1.5rem;
+}
+
+.fit-modal .svg-illustration {
+  width: 220px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Texte */
+.fit-modal .fit-text .fit-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 0.5rem;
+}
+
+.fit-modal .fit-text .fit-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+/* Bouton */
+.fit-modal .fit-button-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  min-height: 100vh;
-  background: #f8f8f8;
-
-  // Option overlay si besoin
-  // position: fixed;
-  // top: 0; left: 0;
-  // width: 100%; height: 100vh;
-  // background: rgba(0, 0, 0, 0.3);
-  // z-index: 9999;
-
-  .fit-card {
-    background: white;
-    border-radius: 1.5rem;
-    padding: 2rem 1.5rem;
-    width: 100%;
-    max-width: 360px;
-    text-align: center;
-    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.08);
-    animation: fadeIn 0.5s ease-out;
-
-    .fit-illustration {
-      margin-bottom: 1.5rem;
-
-      .fit-svg {
-        width: 220px;
-        max-width: 100%;
-        height: auto;
-        display: block;
-        margin: 0 auto;
-      }
-    }
-
-    .fit-text {
-      .fit-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #111;
-        margin-bottom: 0.5rem;
-      }
-
-      .fit-subtitle {
-        font-size: 1rem;
-        color: #666;
-        margin-bottom: 2rem;
-      }
-    }
-
-    .fit-button-container {
-      display: flex;
-      justify-content: center;
-    }
-  }
 }
+
+.fit-modal .plus-button {
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+}
+
+/* Supprimer header/footer bootstrap inutiles */
+.fit-modal .modal-header,
+.fit-modal .modal-footer {
+  display: none;
+}
+
 
 
 /* === SVG ciblage === */
