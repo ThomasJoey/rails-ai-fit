@@ -32,7 +32,24 @@ class User < ApplicationRecord
            class_name: "Match",
            foreign_key: :matched_id
 
-  has_many :matched_users, through: :matches_as_matcher, source: :matched
+  has_many :matched_users_as_matcher, -> { where.not(status: ["declined", "accepted"]) }, through: :matches_as_matcher, source: :matched
+  has_many :matched_users_as_matched, -> { where.not(status: ["declined", "accepted"]) }, through: :matches_as_matched, source: :matcher
+
+   def users_with_a_declined_or_accepted_match
+    matched_ids = Match
+    .where("matcher_id = :id OR matched_id = :id", id: id)
+    .where(status: [:declined, :accepted])
+    .pluck(:matcher_id, :matched_id)
+    .flatten
+    .uniq - [id]
+
+    User.where(id: matched_ids)
+  end
+
+
+  def matched_users
+    (matched_users_as_matched + matched_users_as_matcher).uniq
+  end
 
   # Geocoding
   geocoded_by :location
