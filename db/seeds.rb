@@ -54,12 +54,12 @@ user5  = User.create!(
   location: "Paris, 5e arrondissement"
 )
 
-# ===== Groupe B : 26-35 (sport commun: Football) =====
+
 user6  = User.create!(
   email: "test@example6.com",  password: "password123",
   first_name: "Yanis", last_name: "Garcia",
   city: "Paris", role: "",
-  sports: ["Football", "Basketball", "Volleyball"],
+  sports: ["Vélo", "Basketball", "Volleyball"],
   age_range: "26-35",
   location: "Paris, 6e arrondissement"
 )
@@ -68,7 +68,7 @@ user7  = User.create!(
   email: "test@example7.com",  password: "password123",
   first_name: "Éva", last_name: "Lambert",
   city: "Paris", role: "",
-  sports: ["Football", "Handball", "Boxe"],
+  sports: ["Vélo", "Handball", "Boxe"],
   age_range: "26-35",
   location: "Paris, 7e arrondissement"
 )
@@ -77,7 +77,7 @@ user8  = User.create!(
   email: "test@example8.com",  password: "password123",
   first_name: "Sami", last_name: "Rousseau",
   city: "Paris", role: "",
-  sports: ["Football", "MMA", "Rugby"],
+  sports: ["Vélo", "MMA", "Rugby"],
   age_range: "26-35",
   location: "Paris, 8e arrondissement"
 )
@@ -86,7 +86,7 @@ user9  = User.create!(
   email: "test@example9.com",  password: "password123",
   first_name: "Inès", last_name: "Fournier",
   city: "Paris", role: "",
-  sports: ["Football", "Badminton", "Tennis"],
+  sports: ["Vélo", "Badminton", "Tennis"],
   age_range: "26-35",
   location: "Paris, 9e arrondissement"
 )
@@ -95,17 +95,16 @@ user10 = User.create!(
   email: "test@example10.com", password: "password123",
   first_name: "Léo", last_name: "Chevalier",
   city: "Paris", role: "",
-  sports: ["Football", "Squash", "Ping-pong"],
+  sports: ["Vélo", "Squash", "Ping-pong"],
   age_range: "26-35",
   location: "Paris, 10e arrondissement"
 )
 
-# ===== Groupe C : 36-45 (sport commun: Natation) =====
 user11 = User.create!(
   email: "test@example11.com", password: "password123",
   first_name: "Chloé", last_name: "Lopez",
   city: "Paris", role: "",
-  sports: ["Natation", "Aviron", "Triathlon"],
+  sports: ["Vélo", "Aviron", "Triathlon"],
   age_range: "36-45",
   location: "Paris, 11e arrondissement"
 )
@@ -114,7 +113,7 @@ user12 = User.create!(
   email: "test@example12.com", password: "password123",
   first_name: "Nolan", last_name: "Martins",
   city: "Paris", role: "",
-  sports: ["Natation", "Ski", "Snowboard"],
+  sports: ["Vélo", "Ski", "Snowboard"],
   age_range: "36-45",
   location: "Paris, 12e arrondissement"
 )
@@ -132,7 +131,7 @@ user14 = User.create!(
   email: "test@example14.com", password: "password123",
   first_name: "Hugo", last_name: "Morel",
   city: "Paris", role: "",
-  sports: ["Natation", "Voile", "Kayak"],
+  sports: ["Vélo", "Voile", "Kayak"],
   age_range: "36-45",
   location: "Paris, 14e arrondissement"
 )
@@ -141,7 +140,7 @@ user15 = User.create!(
   email: "test@example15.com", password: "password123",
   first_name: "Sarah", last_name: "Renard",
   city: "Paris", role: "",
-  sports: ["Natation", "Escrime", "Athlétisme"],
+  sports: ["Vélo", "Escrime", "Athlétisme"],
   age_range: "36-45",
   location: "Paris, 15e arrondissement"
 )
@@ -151,7 +150,7 @@ user16 = User.create!(
   email: "test@example16.com", password: "password123",
   first_name: "Karim", last_name: "Perrin",
   city: "Paris", role: "",
-  sports: ["Yoga", "Danse", "Pilates"],
+  sports: ["Vélo", "Danse", "Pilates"],
   age_range: "46-55",
   location: "Paris, 16e arrondissement"
 )
@@ -169,7 +168,7 @@ user18 = User.create!(
   email: "test@example18.com", password: "password123",
   first_name: "Arthur", last_name: "Leblanc",
   city: "Paris", role: "",
-  sports: ["Yoga", "Tennis", "Padel"],
+  sports: ["Vélo", "Tennis", "Padel"],
   age_range: "46-55",
   location: "Paris, 18e arrondissement"
 )
@@ -178,7 +177,7 @@ user19 = User.create!(
   email: "test@example19.com", password: "password123",
   first_name: "Nadia", last_name: "Gonzalez",
   city: "Paris", role: "",
-  sports: ["Yoga", "Haltérophilie", "Musculation"],
+  sports: ["Vélo", "Haltérophilie", "Musculation"],
   age_range: "46-55",
   location: "Paris, 19e arrondissement"
 )
@@ -187,7 +186,7 @@ user20 = User.create!(
   email: "test@example20.com", password: "password123",
   first_name: "Theo", last_name: "Faure",
   city: "Paris", role: "",
-  sports: ["Yoga", "Aviron", "Marathon"],
+  sports: ["Vélo", "Aviron", "Marathon"],
   age_range: "46-55",
   location: "Paris, 20e arrondissement"
 )
