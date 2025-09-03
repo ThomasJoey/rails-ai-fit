@@ -57,7 +57,18 @@
   .event-header {
     display: flex;
     align-items: flex-start;
+    width: 100%;
     justify-content: space-between;
+
+    .event-date-tag {
+      background-color: #F5ECFF;
+      color: #A74FFF;
+      font-weight: 600;
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
 
     .event-icon {
       width: 44px;
@@ -79,7 +90,7 @@
       align-items: center;
 
       h3 {
-        font-size: 1rem;
+        font-size: 17px;
         margin: 0;
         font-weight: 600;
       }
@@ -104,6 +115,7 @@
     list-style: none;
     padding: 0;
     margin: 0 0 0.8rem 0;
+    width: 100%;
 
     li {
       font-size: 0.85rem;
@@ -113,6 +125,17 @@
       align-items: flex-start;
       gap: 0.3rem;
     }
+  }
+
+  .level-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #d1d5db; // gris par défaut
+  }
+
+  .level-dot.active {
+    background-color: #3b82f6; // bleu par défaut, tu peux varier selon le niveau si tu veux
   }
 
   .event-footer {
