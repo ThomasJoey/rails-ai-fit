@@ -39,7 +39,6 @@ gem "devise"
 gem "cloudinary"
 
 gem "faker"
-gem "solid_cable"
 
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
@@ -65,6 +64,8 @@ gem 'wicked'
 gem 'inline_svg'
 
 gem "open-uri"
+gem "solid_cable"
+
 
 group :development, :test do
   gem "dotenv-rails"
