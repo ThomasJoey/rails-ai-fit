@@ -64,6 +64,8 @@ gem 'wicked'
 gem 'inline_svg'
 
 gem "open-uri"
+gem "solid_cable"
+
 
 group :development, :test do
   gem "dotenv-rails"
