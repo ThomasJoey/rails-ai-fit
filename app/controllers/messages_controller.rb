@@ -74,7 +74,7 @@ class MessagesController < ApplicationController
   end
 
   private
-  
+
   def set_conversation
     @conversation = Conversation.find(params[:conversation_id])
     # conversation_message_path	GET	/conversations/:conversation_id/messages/:id(.:format)

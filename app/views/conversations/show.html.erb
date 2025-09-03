@@ -32,8 +32,8 @@
         extra_classes: "me-2" %>
     <% else %>
       <%= render "layouts/avatar",
-        initials: @conversation.second_user&.first_name&.first&.upcase || "?",
-        image_url: (url_for(@conversation.second_user.avatar) if @conversation.second_user&.avatar&.attached?),
+        initials: @other_user&.first_name&.first&.upcase || "?",
+        image_url: (url_for(@other_user.avatar) if @other_user&.avatar&.attached?),
         gradient: "gradient-purple-pink",
         size: "md",
         extra_classes: "me-2" %>
