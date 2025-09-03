@@ -32,8 +32,8 @@ class User < ApplicationRecord
            class_name: "Match",
            foreign_key: :matched_id
 
-  has_many :matched_users_as_matcher, through: :matches_as_matcher, source: :matcher
-  has_many :matched_users_as_matched, through: :matches_as_matched, source: :matched
+  has_many :matched_users_as_matcher, through: :matches_as_matcher, source: :matched
+  has_many :matched_users_as_matched, through: :matches_as_matched, source: :matcher
 
   def users_with_a_declined_or_accepted_match
     matched_ids = Match
