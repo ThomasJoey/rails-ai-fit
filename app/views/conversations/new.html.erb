@@ -1,16 +1,17 @@
-<div class="row justify-content-center">
+<div class="row justify-content-center search-bar">
   <div class="col-sm-8 my-3">
     <%= form_with url: search_conversations_path, method: :get, class: "d-flex" do %>
       <%= text_field_tag :query,
             params[:query],
-            class: "form-control",
+            class: "form-control search-bar",
             placeholder: "Type a keyword"
         %>
       <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
-<div class="container">
+
+<div class="container search-bar">
   <div class="row justify-content-center">
     <div class="col-sm-8">
       <turbo-frame id="dashboard_search_results">
