@@ -34,8 +34,6 @@
 
 // Styles pour l'application principale (avec navbar)
 
-
-
 body.main-app {
   background-color: #f8f9fa;
 
@@ -47,6 +45,18 @@ body.main-app {
   }
 }
 
+// Styles pour la page de conversation (sans navbar)
+body.conversation-show {
+  background-color: #f8f9fa;
+
+  .main-content {
+    margin-top: 0;
+    padding-top: 20px; // padding-top ajusté pour la page de conversation
+    overflow-x: hidden;
+    max-height: 100vh;
+    padding-bottom: 0; // pas de padding-bottom car pas de navbar
+  }
+}
 
 // Styles pour les pages Devise (sans navbar)
 body.devise-controller {

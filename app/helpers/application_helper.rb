@@ -6,6 +6,11 @@ module ApplicationHelper
       classes << "devise-controller"
       classes << "devise-#{controller_name}"
       classes << "devise-#{controller_name}-#{action_name}"
+    elsif controller_name == "conversations" && action_name == "show"
+      # Page de conversation sans les styles main-app
+      classes << "conversation-show"
+      classes << "#{controller_name}"
+      classes << "#{controller_name}-#{action_name}"
     else
       classes << "main-app"
       classes << "#{controller_name}"

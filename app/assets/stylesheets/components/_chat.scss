@@ -1,7 +1,9 @@
 
 .chat-page {
   height: 100%;
-  overflow: hidden; /* only messages scroll */
+  overflow: auto;
+  padding-top: 160px;
+  padding-bottom: 120px;/* only messages scroll */
 }
 
 .chat-message {
@@ -24,6 +26,10 @@
     font-size: 15px;
     line-height: 1.4;
     word-break: break-word;
+
+    p {
+      margin-bottom: 0;
+    }
 
     &.outgoing {
       background: linear-gradient(to bottom right, #60A5FA, #A855F7);

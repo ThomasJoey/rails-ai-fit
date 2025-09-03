@@ -1,4 +1,4 @@
- <main class=" chat main-content d-flex flex-column h-100">
+ <main class="chat main-content d-flex flex-column h-100">
   <% content_for :page_title do %>
   <%= @conversation.human_chat? ? "#{@conversation.second_user&.first_name} #{@conversation.second_user&.last_name}" : "FitBuddy IA" %>
   <% end %>
