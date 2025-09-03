@@ -47,15 +47,6 @@ NAMES = [
   "Tina"
 ]
 
-def random_address
-  url = "https://www.generatormix.com/random-address-in-paris?number=1"
-  doc = Nokogiri::HTML(URI.open(url).read)
-  selector = 'p.text-left strong:contains("Street:")'
-  doc.css(selector).map do |strong_tag|
-    strong_tag.parent.text.gsub(/Street:/, "").strip
-  end
-end
-
 def email_for(name, domain = "example.com")
   normalized = name.downcase
   .gsub(/[^a-z]/, '') # keep only letters
@@ -146,7 +137,20 @@ puts "✅ #{Conversation.count} conversations créées"
 
 puts "🎉 Création des événements..."
 
-events = Array.new(10) do
+events = Array.new(10) do |index|
+  addresses = [
+    "12 Rue de Rivoli, 75001 Paris",
+    "45 Boulevard Saint-Germain, 75005 Paris",
+    "8 Avenue de l’Opéra, 75001 Paris",
+    "22 Rue des Martyrs, 75009 Paris",
+    "101 Rue de Rennes, 75006 Paris",
+    "64 Boulevard Haussmann, 75009 Paris",
+    "18 Rue de la Roquette, 75011 Paris",
+    "77 Avenue des Champs-Élysées, 75008 Paris",
+    "5 Rue Mouffetard, 75005 Paris",
+    "30 Rue de Belleville, 75020 Paris"
+  ]
+
   title = [
     "Sortie vélo entre amis 🚴",
     "Session running au parc 🏃‍♀️",
@@ -158,7 +162,7 @@ events = Array.new(10) do
   Event.create!(
     title: title ,
     description: generate_text(title),
-    location: random_address,
+    location: addresses[index],
     starts_at: Faker::Time.forward(days: 20, period: :day),
     user: users.sample
   )
