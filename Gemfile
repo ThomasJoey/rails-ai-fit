@@ -39,7 +39,6 @@ gem "devise"
 gem "cloudinary"
 
 gem "faker"
-gem "solid_cable"
 
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
