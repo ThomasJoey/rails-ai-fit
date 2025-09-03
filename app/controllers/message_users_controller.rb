@@ -10,7 +10,7 @@ class MessageUsersController < ApplicationController
 
     @message_user = @conversation.message_users.build(message_user_params)
     @message_user.sender = current_user
-
+    
     if @message_user.save
       redirect_to conversation_path(@conversation), notice: "Message envoyé."
     else

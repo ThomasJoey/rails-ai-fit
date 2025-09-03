@@ -48,7 +48,7 @@ class User < ApplicationRecord
 
 
   def matched_users
-    (matched_users_as_matched + matched_users_as_matcher).uniq
+    (matched_users_as_matcher + matched_users_as_matched).uniq
   end
 
   # Geocoding

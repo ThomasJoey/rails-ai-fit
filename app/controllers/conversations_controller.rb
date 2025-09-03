@@ -2,7 +2,8 @@ class ConversationsController < ApplicationController
   before_action :set_conversation, only: %i[show destroy create_events]
 
   def index
-    @conversations = Conversation.all.order(created_at: :desc)
+    @conversations = Conversation.where(user: current_user)
+                                 .or(Conversation.where(second_user: current_user))
   end
 
   def show

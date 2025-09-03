@@ -43,7 +43,7 @@
     <!-- Zone de messages -->
     <%= render partial: "conversations/event_button", locals: { conversation: @conversation, visible: @sport_will } %>
 
-   <div id="messages" class="px-3 pt-5">
+   <div id="messages" class="px-3">
       <% if @conversation.human_chat? %>
         <%= render "message_users/messages",
                   message_users: @conversation.message_users.includes(:sender).chronological %>
