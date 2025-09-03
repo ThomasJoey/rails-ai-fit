@@ -5,7 +5,7 @@
       <%= button_to "Inscrit ✅",
                     event_participation_path(current_user.event_participations.find_by(event: @event)),
                     method: :delete,
-                    class: "btn btn-success btn-join" %>
+                    class: "btn btn-success btn-join-inscrit" %>
     <% else %>
       <%= button_to "S'inscrire",
                     event_event_participations_path(@event),

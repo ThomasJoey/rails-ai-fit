@@ -52,29 +52,7 @@ class Conversation < ApplicationRecord
     end
   end
 
-  # Affiche le bouton "Générer l'événement" seulement si le dernier
-  # message utilisateur contient au moins une heure ET un jour/date.
-  def ready_for_event_generation?
-    last_user_msg = messages.where(role: "user").order(:created_at).last
-    return false if last_user_msg.nil?
 
-    content = last_user_msg.content.to_s.downcase
-
-    # Heures: "12h", "9h30", "14:00"
-    time_regex = /(\b\d{1,2}\s*h(?:\s*\d{2})?\b|\b\d{1,2}:\d{2}\b)/
-
-    # Jours français et formats de dates simples: "demain", "lundi", "12/09", "29 août"
-    day_words = %w[aujourd'hui demain lundi mardi mercredi jeudi vendredi samedi dimanche]
-    day_word_present = day_words.any? { |w| content.include?(w) }
-
-    numeric_date_regex = %r{\b\d{1,2}\s*/\s*\d{1,2}(?:\s*/\s*\d{2,4})?\b}
-    month_words_regex = /(janv|févr|fevr|mars|avr|mai|juin|juil|août|aout|sept|oct|nov|déc|dec)/
-
-    has_time = content.match?(time_regex)
-    has_day_or_date = day_word_present || content.match?(numeric_date_regex) || content.match?(month_words_regex)
-
-    has_time && has_day_or_date
-  end
 
   def self.between(user1, user2)
     where(

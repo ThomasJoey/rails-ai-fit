@@ -6,7 +6,7 @@
 <% if @events.present? && @events.any? %>
   <div class="events-list d-flex flex-column gap-3">
     <% @events.each do |event| %>
-      <div class="event-card d-flex justify-content-between align-items-center">
+      <div class="event-card d-flex justify-content-between align-items-left">
         <div>
           <div class="event-title"><%= event.title %></div>
           <div class="event-meta text-muted">

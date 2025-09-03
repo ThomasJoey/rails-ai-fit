@@ -1,0 +1,12 @@
+<div class="d-flex justify-content-center mb-3 pt-3">
+  <div
+    id="event-button-container"
+    data-controller="event-button"
+    data-event-button-target="container"
+    class="<%= "d-none" unless visible %>">
+    <%= button_to "Générer l'événement",
+                  create_events_conversation_path(conversation),
+                  method: :post,
+                  class: "btn floating-chat-button plus-button p-3" %>
+  </div>
+</div>

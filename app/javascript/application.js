@@ -5,14 +5,12 @@ import "@popperjs/core"
 import "bootstrap"
 
 // Auto-scroll chat to bottom on updates
-function scrollMessagesToBottom() {
-  const container = document.getElementById("messages")
-  if (container) {
-    container.scrollTo({ top: container.scrollHeight, behavior: "smooth" })
+document.addEventListener("turbo:load", function () {
+  const messagesContainer = document.getElementById("messages");
+  if (messagesContainer) {
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }
-}
-
-document.addEventListener("turbo:load", scrollMessagesToBottom)
+});
 
 document.addEventListener("turbo:frame-load", scrollMessagesToBottom)
 
@@ -27,8 +25,14 @@ document.addEventListener("turbo:before-stream-render", (event) => {
 // Ensure staying at bottom after submitting the message form
 document.addEventListener("submit", (e) => {
   const form = e.target
-  if (form && form.closest("#messages")) {
-    // If a form lives inside the messages container, keep bottom after submit
-    requestAnimationFrame(() => setTimeout(scrollMessagesToBottom, 0))
+  if (form.closest("#messages") || form.closest("#user_messages")) {
+    // Attends que le message soit ajouté au DOM
+    requestAnimationFrame(() => {
+      const controllerElement = document.querySelector("[data-controller='event-button']")
+      const controller = controllerElement?.__stimulusControllers?.[0]
+      if (controller) {
+        controller.checkIntentions()
+      }
+    })
   }
 })
