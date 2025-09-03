@@ -35,17 +35,16 @@ class User < ApplicationRecord
   has_many :matched_users_as_matcher, through: :matches_as_matcher, source: :matcher
   has_many :matched_users_as_matched, through: :matches_as_matched, source: :matched
 
-   def users_with_a_declined_or_accepted_match
+  def users_with_a_declined_or_accepted_match
     matched_ids = Match
-    .where("matcher_id = :id OR matched_id = :id", id: id)
-    .where(status: [:declined, :accepted])
-    .pluck(:matcher_id, :matched_id)
-    .flatten
-    .uniq - [id]
+                  .where("matcher_id = :id OR matched_id = :id", id: id)
+                  .where(status: %i[declined accepted])
+                  .pluck(:matcher_id, :matched_id)
+                  .flatten
+                  .uniq - [id]
 
     User.where(id: matched_ids)
   end
-
 
   def matched_users
     (matched_users_as_matcher + matched_users_as_matched).uniq

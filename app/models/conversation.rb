@@ -52,8 +52,6 @@ class Conversation < ApplicationRecord
     end
   end
 
-
-
   def self.between(user1, user2)
     where(
       "(second_user_id = :u1 AND user_id = :u2) OR (second_user_id = :u2 AND user_id = :u1)",
