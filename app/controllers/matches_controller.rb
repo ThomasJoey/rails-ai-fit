@@ -27,16 +27,15 @@ class MatchesController < ApplicationController
     @potential_matches = scope - current_user.users_with_a_declined_or_accepted_match
   end
 
-
-
   def create
-    user = current_user
+    current_user
     other = User.find(params[:matched_id])
     decision = params[:status]
 
-
     # 1) Enregistrer/mettre à jour MON vote A->B
-    match = Match.where(matcher_id: current_user.id, matched_id: other.id).or(Match.where(matcher_id: other.id, matched_id: current_user.id)).first
+    match = Match.where(matcher_id: current_user.id,
+                        matched_id: other.id).or(Match.where(matcher_id: other.id,
+                                                             matched_id: current_user.id)).first
     if match
       match.status == "pending" && decision == "pending" ? match.update(status: "accepted") : match.update(status: "declined")
     else
@@ -48,7 +47,6 @@ class MatchesController < ApplicationController
   end
 
   private
-
 
   def match_params
     params.require(:match).permit(:matched_id, :matcher_id, :status)

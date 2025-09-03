@@ -8,8 +8,7 @@ class ConversationsController < ApplicationController
   def show
     @conversations = Conversation.all.order(created_at: :desc)
     @sport_will = user_intent
-
-
+    @other_user = (@conversation.participants - [current_user]).first
     if @conversation.ai_chat?
       @message = Message.new
     else
@@ -23,11 +22,18 @@ class ConversationsController < ApplicationController
   end
 
   def search
-    @users = User.all
+    id = current_user.id
+
+    matched_ids  = Match.where(matcher_id: id).select(:matched_id) # ceux que j’ai matchés
+    matcher_ids  = Match.where(matched_id: id).select(:matcher_id) # ceux qui m’ont matché
 
     return unless params[:query].present?
 
-    @users = @users.where("first_name ILIKE :q OR last_name ILIKE :q", q: "%#{params[:query]}%")
+    @users = User.where(id: matched_ids)
+                 .or(User.where(id: matcher_ids)) # <- méthode AR, pas l’opérateur Ruby
+                 .where.not(id: id) # par sécurité, ne me renvoie pas moi-même
+                 .distinct
+                 .where("first_name ILIKE :q OR last_name ILIKE :q", q: "%#{params[:query]}%")
 
     return unless turbo_frame_request?
 
