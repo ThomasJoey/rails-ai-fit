@@ -9,8 +9,7 @@ class ConversationsController < ApplicationController
   def show
     @conversations = Conversation.all.order(created_at: :desc)
     @sport_will = user_intent
-
-
+    @other_user = (@conversation.participants - [current_user]).first
     if @conversation.ai_chat?
       @message = Message.new
     else
