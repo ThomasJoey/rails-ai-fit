@@ -11,6 +11,7 @@
 }
 
 .profile-card {
+  color: #fff;
   position: absolute;
   width: 90%;
   max-width: 360px;
@@ -26,14 +27,26 @@
   align-items: center;
   padding: 30px;
   border: solid 5px white;
-  background: rgb(78, 162, 190);
   box-shadow: 0 4px 12px rgba(78, 162, 190, 0.1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.02) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
 }
 
 
 .profile-overlay {
-  color: white;
   width: 100%;
+  position: relative;
+  z-index: 2;
 }
 
 .profile-info {
