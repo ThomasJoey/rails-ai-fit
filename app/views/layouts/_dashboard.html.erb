@@ -1,8 +1,13 @@
 <div class="offcanvas offcanvas-start dashboard-offcanvas" style="width: 90%;" tabindex="-1" id="dashboardMenu" aria-labelledby="dashboardMenuLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title dashboard-title" id="dashboardMenuLabel">Dashboard</h5>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
+    <%= link_to "#",
+          class: "text-reset position-absolute top-0 end-0 m-3",
+          data: { bs_dismiss: "offcanvas" },
+          aria: { label: "Close" } do %>
+      <i class="fa-solid fa-xmark fs-4"></i>
+    <% end %>
+</div>
 
   <div class="offcanvas-body dashboard-body">
   <%= render "dashboards/search" %>
@@ -30,7 +35,7 @@
       { title: "Session CrossFit", time: "18:00", place: "FitClub Central", participants: nil, joinable: false }
     ] %>
 
-    <%= render "dashboards/header" %>
+    <%# <%= render "dashboards/header" %>
     <%= render "dashboards/weather" %>
     <%= render "dashboards/users_nearby" %>
     <%= render "dashboards/recent_matches" %>
