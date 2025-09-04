@@ -50,6 +50,22 @@ class User < ApplicationRecord
     (matched_users_as_matcher + matched_users_as_matched).uniq
   end
 
+    # Tous les users avec lesquels le match est "accepted"
+  def accepted_matches
+    Match
+      .where(status: :accepted)
+      .where("matcher_id = :id OR matched_id = :id", id: id)
+  end
+
+  def accepted_users
+    ids = accepted_matches
+            .pluck(:matcher_id, :matched_id)
+            .flatten
+            .uniq - [id]
+
+    User.where(id: ids)
+  end
+
   # Geocoding
   geocoded_by :location
   after_validation :geocode, if: :will_save_change_to_location?

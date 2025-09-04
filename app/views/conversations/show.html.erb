@@ -1,7 +1,7 @@
  <main class="chat main-content d-flex flex-column h-100">
   <% content_for :page_title do %>
     <% if @conversation.human_chat? %>
-      <%= link_to "#{@other_user.first_name} #{@other_user.last_name}", profile_path(@other_user)  %>
+      <%= link_to "#{@other_user.first_name} #{@other_user.last_name}", profile_path(@other_user), class: "align-items-center text-decoration-none text-dark" %>
     <% else%>
       <%= "FitBuddy AI" %>
         <% end %>

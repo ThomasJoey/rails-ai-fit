@@ -18,12 +18,12 @@ class ConversationsController < ApplicationController
   end
 
   def new
-    @users = current_user.matched_users
+    @users = current_user.accepted_users
     @conversation = Conversation.new
   end
 
   def search
-    
+
     id = current_user.id
 
     matched_ids  = Match.where(matcher_id: id).select(:matched_id) # ceux que j’ai matchés
@@ -36,6 +36,8 @@ class ConversationsController < ApplicationController
                  .where.not(id: id) # par sécurité, ne me renvoie pas moi-même
                  .distinct
                  .where("first_name ILIKE :q OR last_name ILIKE :q", q: "%#{params[:query]}%")
+
+    @users = @users.empty? ? current_user.accepted_users : @users
 
     return unless turbo_frame_request?
 
@@ -58,7 +60,7 @@ class ConversationsController < ApplicationController
           role: "assistant"
         )
       end
-      redirect_to conversation_path(@conversation)
+      redirect_to conversation_path(conversation)
     else
       render :new, status: :unprocessable_entity
     end
@@ -116,6 +118,24 @@ class ConversationsController < ApplicationController
       conversation: @conversation,
       last_user_message: @last_user_message
     }
+  end
+
+
+  def create_with_user
+    other_user = User.find(params[:user_id])
+
+    conversation = Conversation.between(current_user, other_user).first
+
+    unless conversation
+      conversation = Conversation.create!(
+        user: current_user,
+        second_user: other_user,
+        title: "Nouvelle conversation",
+        context: ""
+      )
+    end
+
+    redirect_to conversation_path(conversation)
   end
 
   private

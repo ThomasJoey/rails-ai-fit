@@ -2,18 +2,20 @@
   <% if users.present? && users.any? %>
     <% users.each do |user| %>
       <div class="d-flex align-items-center mb-3">
+         <%= link_to create_with_user_conversations_path(user_id: user.id),
+              data: { turbo_method: :post, turbo_frame: "_top" },
+              class: "d-flex align-items-center text-decoration-none text-dark" do %>
+
         <%= image_tag user.avatar_url,
               alt: "#{user.first_name} #{user.last_name}",
               class: "rounded-8 me-3 shadow-sm",
               size: "48x48" %>
 
-        <%= link_to "#{user.first_name} #{user.last_name}",
-              profile_path(user),
-              class: "fw-semibold text-decoration-none text-dark",
-              data: { turbo_frame: "_top" } %>
+        <span class="fw-semibold"><%= "#{user.first_name} #{user.last_name}" %></span>
+      <% end %>
       </div>
     <% end %>
   <% else %>
-    <em class="text-muted">Sorry, no users found.</em>
+    <em class="text-muted">Aucun utilisateur trouvé</em>
   <% end %>
 </div>

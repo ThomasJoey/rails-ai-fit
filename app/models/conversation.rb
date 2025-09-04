@@ -9,13 +9,10 @@ class Conversation < ApplicationRecord
     Generate a short, descriptive, 3-to-6-word title that summarizes the user question for a chat conversation.
   PROMPT
 
-  scope :between, lambda { |u1, u2|
-    where(
-      "(user_id = :u1 AND second_user_id = :u2) OR (user_id = :u2 AND second_user_id = :u1)",
-      u1: u1.id,
-      u2: u2.id
-    )
-  }
+  scope :between, -> (user_a, user_b) do
+    where(user: user_a, second_user: user_b)
+      .or(where(user: user_b, second_user: user_a))
+  end
 
   def generate_title_from_first_message
     first_user_message = messages.where(role: "user").order(:created_at).first
@@ -29,7 +26,7 @@ class Conversation < ApplicationRecord
     [user, second_user].compact
   end
 
-  def participant?(u)
+  def participant?(u)d
     participants.include?(u)
   end
 
