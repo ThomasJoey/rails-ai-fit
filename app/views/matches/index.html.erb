@@ -1,55 +1,60 @@
-<div class="matches-container" data-controller="swipe" data-swipe-user-value="<%=current_user.id%>">
-  <% @potential_matches.each do |u| %>
-    <div class="profile-card"
-         data-controller="popup"
-         data-swipe-target="card"
-         data-user-id="<%= u.id %>"
-         data-action="
-           mousedown->swipe#startDrag
-           mousemove->swipe#drag
-           mouseup->swipe#endDrag
-           touchstart->swipe#startDrag
-           touchmove->swipe#drag
-           touchend->swipe#endDrag
-           click->popup#toggle"
-         style="background-image: url('<%= cl_image_path(u.avatar.key, crop: :fill, width: 600, height: 600) if u.avatar.attached? %>')">
+<div class="matches-container" data-controller="swipe popup" data-swipe-user-value="<%=current_user.id%>">
+  <% @potential_matches.each_with_index do |u, index| %>
+    <div class="profile-card-wrapper <%= 'top-card' if index == 0 %>"
+        data-swipe-target="card"
+        data-user-id="<%= u.id %>">
 
-      <!-- Overlay du bas -->
-      <div class="profile-overlay">
-        <div class="profile-info">
-          <div class="profile-details">
-            <h2><%= u.first_name %> <%= u.last_name %></h2>
-            <% if u.distance_from(@user).present? %>
-              <p>
-                <i class="fa fa-map-marker"></i>
-                <%= number_with_precision(u.distance_from(@user), precision: 1) %> km away
-              </p>
-            <% end %>
+      <div class="profile-card"
+          data-user-id="<%= u.id %>"
+          data-action="
+            mousedown->swipe#startDrag
+            mousemove->swipe#drag
+            mouseup->swipe#endDrag
+            touchstart->swipe#startDrag
+            touchmove->swipe#drag
+            touchend->swipe#endDrag
+            click->popup#toggle"
+          style="background-image: url('<%= cl_image_path(u.avatar.key, crop: :fill, width: 600, height: 600) if u.avatar.attached? %>'); clip-path: url(#profile-shape);">
+
+        <!-- Overlay du bas -->
+        <div class="profile-overlay">
+          <div class="profile-info">
+            <div class="profile-details">
+              <h2><%= u.first_name %> <%= u.last_name %></h2>
+              <% if u.distance_from(@user).present? %>
+                <p>
+                  <i class="fa fa-map-marker"></i>
+                  <%= number_with_precision(u.distance_from(@user), precision: 1) %> km away
+                </p>
+              <% end %>
+            </div>
+
           </div>
+            <div class="sports">
+              <% u.sports.each do |sport| %>
+                <span class="sport-tag"><%= sport %></span>
+              <% end %>
+            </div>
+
+
 
         </div>
-          <div class="sports">
-            <% u.sports.each do |sport| %>
-              <span class="sport-tag"><%= sport %></span>
-            <% end %>
-          </div>
-      </div>
 
-      <!-- Boutons Like / Dislike -->
-      <div class="actions">
-        <button class="btn dislike-btn" data-action="click->popup#stop click->swipe#dislike">
-          <i class="fa-solid fa-circle-xmark"></i>
-        </button>
-        <button class="btn like-btn" data-action="click->popup#stop click->swipe#like">
-          <i class="fa-solid fa-circle-check"></i>
-        </button>
       </div>
+        <!-- Boutons Like / Dislike -->
+        <div class="actions">
+          <button class="btn dislike-btn" data-action="click->popup#stop click->swipe#dislike">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </button>
+            <button class="btn like-btn" data-action="click->popup#stop click->swipe#like">
+              <i class="fa-solid fa-circle-check"></i>
+            </button>
+        </div>
 
-      <!-- Popup -->
-      <turbo-frame id="profile_popup_<%= u.id %>"
-                   class="profil-popup hidden"
-                   data-popup-target="popup"
-                   data-action="click->popup#close">
+        <div id="profile_popup_<%= u.id %>"
+                class="profil-popup hidden"
+                data-popup-target="popup"
+                data-action="click->popup#close">
 
         <div class="popup-content" data-action="click->popup#stop">
           <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-3"
@@ -61,11 +66,19 @@
                     enableMessage: true,
                     validPlace: false %>
         </div>
-      </turbo-frame>
+      </div>
     </div>
   <% end %>
 </div>
 <%= turbo_stream_from "user_#{current_user.id}" %>
+
+<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="profile-shape" clipPathUnits="userSpaceOnUse">
+      <path d="M0.090065 19.2973C0.0900398 8.63973 8.7802 0 19.5001 0H323.59C334.31 0 343 8.63969 343 19.2973V119C343 119 343 125.432 336.53 131.865C319.708 148.589 305.474 149.876 305.474 175.605C305.474 203.908 343 216.13 343 227.708C343 239.286 343 243.146 343 243.146V337.703C343 348.36 334.31 357 323.59 357H19.5001C8.7802 357 0.0900386 348.36 0.0900625 337.703L0.0903352 216.13C0.0903352 216.13 -0.112919 212.201 0.0903352 209.697C1.308 194.697 21.441 196.832 21.441 174.962C21.441 153.092 1.308 154.584 0.0903352 139.584C-0.112919 137.08 0.0903352 133.151 0.0903352 133.151L0.090065 19.2973Z" />
+    </clipPath>
+  </defs>
+</svg>
 
 <div id="match-flash-stream">
 </div> <!-- cible où on injecte les popups -->
