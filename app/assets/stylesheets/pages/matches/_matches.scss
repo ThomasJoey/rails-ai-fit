@@ -10,35 +10,63 @@
   overflow: hidden;
 }
 
-.profile-card {
-  color: #fff;
+
+.profile-card-wrapper {
+  /* base styles */
   position: absolute;
-  width: 90%;
-  max-width: 360px;
-  aspect-ratio: 1 / 1;
+  padding: 20px 15px;
   border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.3s ease;
+  z-index: 1;
+  background-color: white;
+}
+
+.profile-card-wrapper.top-card {
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15); /* ajustable */
+  z-index: 3;
+}
+
+.profile-card {
+  width: 343px; /* = largeur de la carte */
+  height: 357px;
+  aspect-ratio: 1 / 1;
   background-size: cover;
   background-position: center;
-  overflow: hidden;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  background-color: blue; /* fallback si pas d'image */
+
+  color: #fff;
+  padding: 30px;
+  z-index: 0;
+
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  padding: 30px;
-  border: solid 5px white;
-  box-shadow: 0 4px 12px rgba(78, 162, 190, 0.1);
+  position: relative;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.02) 0%, transparent 100%);
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 100%);
     pointer-events: none;
     z-index: 1;
+  }
+
+  &::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    pointer-events: none;
+    z-index: 2;
   }
 }
 
@@ -97,8 +125,9 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 0 1.5rem;
   transform: translateY(-50%);
+  z-index: 2;
+  padding-right: 9px;
 }
 
 .actions button {
@@ -122,6 +151,7 @@
   align-items: flex-start;
   padding: 40px 20px;
   z-index: 10000;
+  flex-direction: column;
 }
 
 .popup-content {
@@ -131,6 +161,7 @@
   width: 100%;
   padding: 20px;
   position: relative;
+
 }
 
 .hidden {

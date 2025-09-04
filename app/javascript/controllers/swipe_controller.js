@@ -14,7 +14,7 @@ export default class extends Controller {
     }
 
   startDrag(event) {
-    this.currentCard = event.currentTarget
+    this.currentCard = event.target.closest("[data-swipe-target='card']")
     this.startX = this.getX(event)
     this.currentCard.style.transition = "none"
   }
@@ -30,14 +30,17 @@ export default class extends Controller {
     const offsetX = this.getX(event) - this.startX
     this.currentCard.style.transition = "transform 0.3s ease, opacity 0.3s ease"
     const matchedUser = this.currentCard.dataset.userId;
+    const card = this.currentCard;
 
     if (offsetX > 100) {
-      this.currentCard.style.transform = "translateX(150%) rotate(15deg)"
-      this.currentCard.style.opacity = 0
+      card.style.transform = "translateX(150%) rotate(15deg)"
+      card.nextElementSibling.classList.add("top-card")
+      card.remove()
       this.#handleMatch(offsetX, matchedUser)
     } else if (offsetX < -100) {
-      this.currentCard.style.transform = "translateX(-150%) rotate(-15deg)"
-      this.currentCard.style.opacity = 0
+      card.style.transform = "translateX(-150%) rotate(-15deg)"
+      card.nextElementSibling.classList.add("top-card")
+      card.remove()
       this.#handleMatch(offsetX, matchedUser)
     } else {
       this.currentCard.style.transform = ""
@@ -62,7 +65,7 @@ export default class extends Controller {
     this.currentCard = event.target.offsetParent.offsetParent
     this.currentCard.style.transition = "transform 0.3s ease, opacity 0.3s ease"
     this.currentCard.style.transform = "translateX(150%) rotate(15deg)"
-    this.currentCard.style.opacity = 0
+    this.currentCard.remove()
     const matchedUser = this.currentCard.dataset.userId;
     this.currentCard = null
     const offsetX = 150
