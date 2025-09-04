@@ -8,8 +8,7 @@
 
         <%= image_tag user.avatar_url,
               alt: "#{user.first_name} #{user.last_name}",
-              class: "rounded-8 me-3 shadow-sm",
-              size: "48x48" %>
+              class: "avatar-wrapper me-3"%>
 
         <span class="fw-semibold"><%= "#{user.first_name} #{user.last_name}" %></span>
       <% end %>
