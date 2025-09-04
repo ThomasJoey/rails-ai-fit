@@ -7,11 +7,9 @@
       <% end %>
     <% end %>
   <div class="profile-header d-flex align-items-center gap-3 mb-3">
-    <%= render "layouts/avatar",
-      image_url: (@user.avatar.attached? && @user.avatar.persisted? ? url_for(@user.avatar) : nil),
-      initials: user_initials(user),
-      size: "lg",
-      extra_classes: "avatar-wrapper" %>
+     <%= image_tag user.avatar_url,
+        alt: "#{user.first_name} #{user.last_name}",
+        class: "avatar-wrapper me-3" %>
 
     <div>
       <div class="profile-name fw-bold fs-5">
