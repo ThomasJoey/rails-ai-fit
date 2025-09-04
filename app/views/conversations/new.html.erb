@@ -17,6 +17,8 @@
       <turbo-frame id="dashboard_search_results">
         <% if params[:query].present? %>
           <%= render partial: "pages/search_results", locals: { users: @users } %>
+        <% else %>
+          <%= render partial: "pages/search_results", locals: { users: @users } %>
         <% end %>
       </turbo-frame>
     </div>

@@ -5,18 +5,21 @@
       <%= text_field_tag :query,
             params[:query],
             class: "form-control",
-            placeholder: "Type a keyword"
+            placeholder: "Rechercher un buddy"
         %>
       <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
-<div class="container">
+
+<div class="container search-bar">
   <div class="row justify-content-center">
     <div class="col-sm-8">
       <turbo-frame id="dashboard_search_results">
         <% if params[:query].present? %>
-          <%= render partial: "conversations/search_results", locals: { users: @users } %>
+          <%= render partial: "pages/search_results", locals: { users: @users } %>
+        <% else %>
+          <%= render partial: "pages/search_results", locals: { users: @users } %>
         <% end %>
       </turbo-frame>
     </div>

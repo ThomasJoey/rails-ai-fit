@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   resources :conversations, only: [:index, :show, :create, :destroy, :new] do
     collection do
+      post :create_with_user
       get :search
     end
     post :create_events, on: :member  # ✅ ton bouton "✨ Générer 3 événements" utilisera ça
