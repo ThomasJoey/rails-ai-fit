@@ -60,7 +60,7 @@ class ConversationsController < ApplicationController
           role: "assistant"
         )
       end
-      redirect_to conversation_path(conversation)
+      redirect_to conversation_path(@conversation)
     else
       render :new, status: :unprocessable_entity
     end
