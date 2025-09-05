@@ -27,6 +27,10 @@
     height: 150px;
   }
 
+  &.search-avatar{
+    font-size: 7px;
+  }
+
   .avatar-img,
   .avatar-placeholder {
     width: 100%;
@@ -40,7 +44,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     color: white;
     text-transform: uppercase;
     background: linear-gradient(135deg, #a855f7, #ec4899); // par défaut
