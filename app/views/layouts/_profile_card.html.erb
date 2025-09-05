@@ -7,9 +7,11 @@
       <% end %>
     <% end %>
   <div class="profile-header d-flex align-items-center gap-3 mb-3">
+    <div class="avatar-wrapper lg">
      <%= image_tag user.avatar_url,
         alt: "#{user.first_name} #{user.last_name}",
-        class: "avatar-wrapper me-3" %>
+        class: "avatar-img me-3" %>
+    </div>
 
     <div>
       <div class="profile-name fw-bold fs-5">

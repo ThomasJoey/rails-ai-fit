@@ -4,14 +4,14 @@
       <%= text_field_tag :query,
             params[:query],
             class: "form-control search-bar",
-            placeholder: "Type a keyword"
+            placeholder: "Recherche un Buddy"
         %>
-      <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
+      <%= submit_tag "Rechercher", name: "", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
 
-<div class="container search-bar">
+<div class="container">
   <div class="row justify-content-center">
     <div class="col-sm-8">
       <turbo-frame id="dashboard_search_results">
