@@ -24,7 +24,7 @@ class MatchesController < ApplicationController
     end
 
     # 6) Limite finale
-    @potential_matches = scope - current_user.matched_users
+    @potential_matches = scope - current_user.users_with_a_declined_or_accepted_match
   end
 
   def create
