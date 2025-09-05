@@ -26,7 +26,7 @@ class Conversation < ApplicationRecord
     [user, second_user].compact
   end
 
-  def participant?(u)d
+  def participant?(u)
     participants.include?(u)
   end
 
